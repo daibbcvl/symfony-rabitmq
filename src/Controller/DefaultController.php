@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use OldSound\RabbitMqBundle\RabbitMq\ProducerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -15,5 +16,17 @@ class DefaultController extends AbstractController
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
+    }
+
+    /**
+     * @Route("/send", name="send")
+     * @param ProducerInterface $messageProducer
+     */
+    public function send(ProducerInterface $messageProducer)
+    {
+        $msg = array('user_id' => 1235, 'message' => 'Hello World');
+        $messageProducer->publish(serialize($msg));
+
+    	echo "send message". serialize($msg); die;
     }
 }
