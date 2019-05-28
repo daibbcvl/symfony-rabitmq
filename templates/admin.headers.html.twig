@@ -68,7 +68,7 @@
                             <li class="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light"
                                 m-dropdown-toggle="click">
                                 <a href="#" class="m-nav__link m-dropdown__toggle">
-                                    <span class="m-topbar__welcome">S.&nbsp;Rogers&nbsp;</span>
+                                    <span class="m-topbar__welcome">{{ app.user.email }}</span>
                                 </a>
                                 <div class="m-dropdown__wrapper">
                                     <span class="m-dropdown__arrow m-dropdown__arrow--right m-dropdown__arrow--adjust"></span>
@@ -79,12 +79,11 @@
                                                     {#<img src="assets/app/media/img/users/user4.jpg" class="m--img-rounded m--marginless" alt="" />#}
 
 
-                                                    <span class="m-type m-type--lg m--bg-danger"><span class="m--font-light">S</span></span>
+                                                    <span class="m-type m-type--lg m--bg-danger"><span class="m--font-light">{{ app.user.email | first | upper }}</span></span>
 
                                                 </div>
                                                 <div class="m-card-user__details">
-                                                    <span class="m-card-user__name m--font-weight-500">Steve Rogers</span>
-                                                    <a href="#" class="m-card-user__email m--font-weight-300 m-link">captain.america@avenger</a>
+                                                    <span class="m-card-user__name m--font-weight-500">{{ app.user.email }}</span>
                                                 </div>
                                             </div>
                                         </div>
