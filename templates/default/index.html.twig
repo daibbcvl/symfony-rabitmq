@@ -1,14 +1,14 @@
-{% extends 'admin.html.twig' %}
+{#{% extends 'base.html.twig' %}#}
 
 {% set breadcrumbs = [{url: '#', text: 'Deal'}, {text: 'Create'}] %}
 {% set quick_actions = [{icon: 'flaticon-list', url: '#', text: 'List'}, {icon: 'flaticon-add', text: 'Create'}] %}
 
-{% block title %}Hello DefaultController!{% endblock %}
-{% block subheader_title %}Dashboard{% endblock %}
+{% block title %}Home page{% endblock %}
+{% block subheader_title %}Home page{% endblock %}
 {% block content %}
     <div class="m-content">
         <div class="m-portlet m-portlet--full-height m-portlet--tabs  ">
-            <div class="h1 m--padding-10">This is content.</div>
+            <div class="h1 m--padding-10">This is home page.</div>
         </div>
     </div>
 {% endblock %}

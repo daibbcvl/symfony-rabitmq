@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\BackEnd;
 
 use OldSound\RabbitMqBundle\RabbitMq\ProducerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,6 +17,7 @@ class DashboardController extends AbstractController
      */
     public function index()
     {
+        //echo "aaaa"; die;
         return $this->render('admin/dashboard/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);

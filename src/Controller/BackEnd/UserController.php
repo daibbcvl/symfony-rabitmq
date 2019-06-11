@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\BackEnd;
 
 use App\Entity\User;
 use App\Form\Type\UserCreateType;

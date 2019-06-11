@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Controller\Admin;
+namespace App\Controller\BackEnd;
 
+use App\Form\Type\CategoryType;
 use App\Form\Type\ChangePasswordType;
 use App\Form\Type\ProfileEditType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -12,12 +13,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/profile")
+ * @Route("/categories")
  */
-class ProfileController extends AbstractController
+class CategoryController extends AbstractController
 {
     /**
-     * @Route("", name="profile", methods={"GET", "PUT"}))
+     * @Route("", name="category_index", methods={"GET", "PUT"}))
      *
      * @param Request                $request
      * @param EntityManagerInterface $em
@@ -39,30 +40,31 @@ class ProfileController extends AbstractController
     }
 
     /**
-     * @Route("/change-password", name="profile_change_password")
+     * @Route("/create", name="category_create", methods={"GET", "POST"})
      *
-     * @param Request                      $request
-     * @param EntityManagerInterface       $em
-     * @param UserPasswordEncoderInterface $encoder
+     * @param Request                $request
+     * @param EntityManagerInterface $entityManager
      *
      * @return Response
      */
-    public function changePassword(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder): Response
+    public function create(Request $request, EntityManagerInterface $entityManager): Response
     {
-        $form = $this->createForm(ChangePasswordType::class);
+        $form = $this->createForm(CategoryType::class);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $user = $this->getUser();
-            $user->setPassword($encoder->encodePassword($user, $data['password']));
-            $em->flush();
-            $this->addFlash('success', 'Change password successfully.');
+            $entityManager->persist($form->getData());
+            $entityManager->flush();
 
-            return $this->redirectToRoute('profile');
+            $this->addFlash('success', 'Create sector successfully.');
+            if ($url = $request->get('redirect_url')) {
+                return $this->redirect($url);
+            }
+
+            return $this->redirectToRoute('sector_create');
         }
 
-        return $this->render('profile/change_password.html.twig', [
+        return $this->render('backend/category/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }

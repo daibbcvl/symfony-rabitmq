@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\FrontEnd;
 
 use OldSound\RabbitMqBundle\RabbitMq\ProducerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -13,6 +13,8 @@ class DefaultController extends AbstractController
      */
     public function index()
     {
+
+        //var_dump('asdada'); die;
         return $this->render('default/index.html.twig', [
             'controller_name' => 'DefaultController',
         ]);
