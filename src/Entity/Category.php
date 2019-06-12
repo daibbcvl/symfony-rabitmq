@@ -9,8 +9,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
  */
-class Category
+class Category implements SoftDeletableInterface, TimestampableInterface
 {
+    use SoftDeletableTrait, TimestampableTrait;
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()

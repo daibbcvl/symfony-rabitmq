@@ -1,0 +1,35 @@
+{% extends 'admin.html.twig' %}
+
+{#{% form_theme form with 'bootstrap_4_layout.html.twig' only %}#}
+
+{#{% set breadcrumbs = [{text: 'Sector'}, {text: 'List all sectors'}] %}#}
+{#{% set quick_actions = [{icon: 'flaticon-list', text: 'List all sectors'}, {icon: 'flaticon-add', url: path('sector_create'), text: 'Create a sector'}] %}#}
+
+{% block title %}List Sector{% endblock %}
+{% block subheader_title %}List all sectors{% endblock %}
+{% block content %}
+    <div class="m-content">
+        <div class="m-portlet m-portlet--full-height m-portlet--tabs m--padding-30">
+            <div class="table-responsive-lg m-datatable m-datatable--default">
+                <table class="table table-bordered table-hover table-striped">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Name</th>
+
+                        <th scope="col">Created at</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in categories %}
+                        <tr class="row-clickable" data-href="{{ path('category_edit', {id: item.id}) }}" title="{{ path('category_edit', {id: item.id}) }}">
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.createdAt|date('Y-m-d h:i') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {#{% include 'pager.html.twig' with {pager: pager} %}#}
+            </div>
+        </div>
+    </div>
+{% endblock %}

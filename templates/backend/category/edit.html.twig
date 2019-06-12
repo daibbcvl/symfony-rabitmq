@@ -1,0 +1,33 @@
+{% extends 'admin.html.twig' %}
+
+{#{% set breadcrumbs = [{url: path('sector_index'), text: 'Sector'}, {text: 'Edit'}] %}#}
+{#{% set quick_actions = [{icon: 'flaticon-list', url: path('sector_index'), text: 'List all sectors'}, {icon: 'flaticon-add', url: path('sector_create'), text: 'Create'}] %}#}
+
+{% block title %}Edit Sector{% endblock %}
+{% block subheader_title %}Edit a sector{% endblock %}
+{% block content %}
+    <div class="m-content">
+        <div class="m-portlet m-portlet--full-height m-portlet--tabs m--padding-30">
+            <div class="row">
+                <div class="col-lg-10 col-xl-6">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <div class="form-group row">
+                        <div class="col-sm-9 offset-sm-3">
+                            <button class="btn btn-primary m-btn m-btn--icon" type="submit">
+                                <i class="la la-save"></i>
+                                Update
+                            </button>
+                            <button class="btn btn-outline-primary m-btn m-btn--icon" type="submit"
+                                    name="redirect_url" value="{{ path('category_index') }}">
+                                <i class="flaticon-list"></i>
+                                Update & back to list
+                            </button>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
