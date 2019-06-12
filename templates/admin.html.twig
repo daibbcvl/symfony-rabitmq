@@ -162,6 +162,15 @@
 
     <!-- end::Scroll Top -->
 {% endblock %}
+<!-- begin::Flash messages -->
+{% for label, messages in app.flashes(['success', 'error', 'warning']) %}
+    {% for message in messages %}
+        <div class="flash-message m--hide" data-flash-type="{{ label }}">
+            {{ message }}
+        </div>
+    {% endfor %}
+{% endfor %}
+<!-- end::Flash messages -->
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}

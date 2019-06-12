@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -47,6 +49,28 @@ class CategoryRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @param array $criteria
+     * @param array $sort
+     *
+     * @return Pagerfanta
+     */
+    public function search(array $criteria, array $sort): Pagerfanta
+    {
+        $queryBuilder = $this->createQueryBuilder('c');
+//        if (isset($criteria['email'])) {
+//            $queryBuilder = $queryBuilder
+//                ->where('u.email LIKE :email')->setParameter('email', "{$criteria['email']}%");
+//        }
+//        foreach ($sort as $field => $direction) {
+//            $queryBuilder = $queryBuilder->orderBy("u.$field", $direction);
+//        }
+        $adapter = new DoctrineORMAdapter($queryBuilder);
+
+        return new Pagerfanta($adapter);
+    }
+
 
 
 }

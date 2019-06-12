@@ -20,7 +20,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {% for item in categories %}
+                    {% for item in pager.currentPageResults %}
                         <tr class="row-clickable" data-href="{{ path('category_edit', {id: item.id}) }}" title="{{ path('category_edit', {id: item.id}) }}">
                             <td>{{ item.name }}</td>
                             <td>{{ item.createdAt|date('Y-m-d h:i') }}</td>
@@ -28,7 +28,7 @@
                     {% endfor %}
                     </tbody>
                 </table>
-                {#{% include 'pager.html.twig' with {pager: pager} %}#}
+                {% include 'pager.html.twig' with {pager: pager} %}
             </div>
         </div>
     </div>

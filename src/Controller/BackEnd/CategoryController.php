@@ -22,15 +22,20 @@ class CategoryController extends AbstractController
     /**
      * @Route("", name="category_index", methods={"GET"})
      *
+     * @param Request $request
      * @param CategoryRepository $categoryRepository
      * @return Response
      */
-    public function index(CategoryRepository $categoryRepository): Response
+    public function index(Request $request,CategoryRepository $categoryRepository): Response
     {
-        $categories = $categoryRepository->findAll();
+        $criteria = [];
+        $page = $request->get('page', 1);
+        $size = $request->get('size', 2);
+        $sort = $request->get('sort', ['name' => 'asc']);
+        $pager = $categoryRepository->search($criteria, $sort)->setMaxPerPage($size)->setCurrentPage($page);
 
         return $this->render('backend/category/index.html.twig', [
-            'categories' => $categories,
+            'pager' => $pager,
         ]);
     }
 
@@ -51,12 +56,12 @@ class CategoryController extends AbstractController
             $entityManager->persist($form->getData());
             $entityManager->flush();
 
-            $this->addFlash('success', 'Create sector successfully.');
+            $this->addFlash('success', 'Create category successfully.');
             if ($url = $request->get('redirect_url')) {
                 return $this->redirect($url);
             }
 
-            return $this->redirectToRoute('sector_create');
+            return $this->redirectToRoute('category_create');
         }
 
         return $this->render('backend/category/create.html.twig', [

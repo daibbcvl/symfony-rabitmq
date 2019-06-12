@@ -11,3 +11,5 @@ require('../css/style.bundle.css');
 require('../css/app.css');
 require('./vendors.bundle');
 require('./scripts.bundle');
+require('./layout');
+
