@@ -4,15 +4,12 @@ namespace App\Controller\BackEnd;
 
 use App\Entity\Category;
 use App\Form\Type\CategoryType;
-use App\Form\Type\ChangePasswordType;
-use App\Form\Type\ProfileEditType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * @Route("/categories")
@@ -97,4 +94,22 @@ class CategoryController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
+    /**
+     * @Route("/{id<\d+>}", name="category_delete", methods={"DELETE"})
+     *
+     * @param Category $category
+     * @param EntityManagerInterface $entityManager
+     *
+     * @return Response
+     */
+    public function delete(Category $category, EntityManagerInterface $entityManager): Response
+    {
+        $category->setDeleted(true);
+        $entityManager->flush();
+        $this->addFlash('success', 'Delete category successfully.');
+
+        return $this->redirectToRoute('category_index');
+    }
+
 }

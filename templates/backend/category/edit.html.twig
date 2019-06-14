@@ -1,10 +1,23 @@
 {% extends 'admin.html.twig' %}
 
-{#{% set breadcrumbs = [{url: path('sector_index'), text: 'Sector'}, {text: 'Edit'}] %}#}
-{#{% set quick_actions = [{icon: 'flaticon-list', url: path('sector_index'), text: 'List all sectors'}, {icon: 'flaticon-add', url: path('sector_create'), text: 'Create'}] %}#}
+{% set breadcrumbs = [{url: path('category_index'), text: 'Sector'}, {text: 'Edit'}] %}
+{% set quick_actions = [{icon: 'flaticon-list', url: path('category_index'), text: 'List all sectors'}, {icon: 'flaticon-add', url: path('category_create'), text: 'Create'}] %}
 
 {% block title %}Edit Sector{% endblock %}
 {% block subheader_title %}Edit a sector{% endblock %}
+{% block quick_actions_items %}
+    <li class="m-nav__separator m-nav__separator--fit"></li>
+    <li class="m-nav__item">
+        <form action="{{ path('category_delete', {id: app.request.get('id')}) }}" method="post" class="m-nav__item">
+            <input type="hidden" name="_method" value="DELETE">
+            <button class="btn btn-link m-btn m-btn--icon m-nav__link confirm-action" type="submit">
+                <i class="m-nav__link-icon flaticon-delete text-danger"></i>
+                <span class="m-nav__link-text text-danger text-left m--padding-left-15">Delete</span>
+            </button>
+        </form>
+    </li>
+{% endblock %}
+
 {% block content %}
     <div class="m-content">
         <div class="m-portlet m-portlet--full-height m-portlet--tabs m--padding-30">

@@ -11,3 +11,31 @@
 .m-datatable.m-datatable--default > .m-datatable__pager > .m-datatable__pager-nav > li > .m-datatable__pager-link.m-datatable__pager-link--disabled {
     cursor: not-allowed;
 }
+.table > tbody > tr.row-clickable, .clickable {
+    cursor: pointer;
+}
+
+#template_maps .border-dashed {
+    border: dashed 1px #ebedf2;
+    color: #ebedf2;
+}
+
+#template_maps .close {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+}
+
+#template_maps .m-accordion .m-accordion__item {
+    overflow: visible;
+}
+
+.progress-bar.indeterminate {
+    position: relative;
+    animation: progress-indeterminate 3s linear infinite;
+}
+
+@keyframes progress-indeterminate {
+    from { left: -25%; width: 25%; }
+    to { left: 100%; width: 25%;}
+}
