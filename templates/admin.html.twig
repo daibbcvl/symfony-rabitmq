@@ -41,56 +41,20 @@
                 <div id="m_ver_menu" class="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark "
                      m-menu-vertical="1" m-menu-scrollable="1" m-menu-dropdown-timeout="500"
                      style="position: relative;">
-                    {#<ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">#}
-                        {#<li class="m-menu__section ">#}
-                            {#<h4 class="m-menu__section-text">Components</h4>#}
-                            {#<i class="m-menu__section-icon flaticon-more-v2"></i>#}
-                        {#</li>#}
-                        {#<li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('company_index') }}"#}
-                                                                           {#class="m-menu__link"><i#}
-                                        {#class="m-menu__link-icon la la-building"></i><span class="m-menu__link-text">Buyer</span></a>#}
-                        {#</li>#}
-                        {#<li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('project_index') }}"#}
-                                                                           {#class="m-menu__link"><i#}
-                                        {#class="m-menu__link-icon la la-sticky-note"></i><span class="m-menu__link-text">Project</span></a>#}
-                        {#</li>#}
-                        {#<li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('transaction_index') }}"#}
-                                                                           {#class="m-menu__link"><i#}
-                                        {#class="m-menu__link-icon fa fa-handshake"></i><span class="m-menu__link-text">Transaction</span></a>#}
-                        {#</li>#}
-                        {#<li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('user_index') }}"#}
-                                                                           {#class="m-menu__link"><i#}
-                                        {#class="m-menu__link-icon flaticon-user"></i><span#}
-                                        {#class="m-menu__link-text">User</span></a>#}
-                        {#</li>#}
-                        {#<li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('country_index') }}"#}
-                                                                           {#class="m-menu__link"><i#}
-                                        {#class="m-menu__link-icon fa fa-globe"></i><span class="m-menu__link-text">Country</span></a>#}
-                        {#</li>#}
-                        {#<li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('region_index') }}" class="m-menu__link"><i#}
-                                        {#class="m-menu__link-icon fa fa-map-marker"></i><span class="m-menu__link-text">Region</span></a>#}
-                        {#</li>#}
-                        {#<li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('sector_index') }}" class="m-menu__link"><i#}
-                                        {#class="m-menu__link-icon fa fa-box"></i><span class="m-menu__link-text">Sector</span></a>#}
-                        {#</li>#}
-                        {#<li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('sub_sector_index') }}"#}
-                                                                           {#class="m-menu__link"><i#}
-                                        {#class="m-menu__link-icon fa fa-boxes"></i><span class="m-menu__link-text">Sub-Sector</span></a>#}
-                        {#</li>#}
-                        {#<li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('progress_create') }}"#}
-                                                                           {#class="m-menu__link"><i#}
-                                        {#class="m-menu__link-icon fa fa-file-import"></i><span class="m-menu__link-text">Import</span></a>#}
-                        {#</li>#}
-                        {#<li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('sector_map_index') }}"#}
-                                                                           {#class="m-menu__link"><i#}
-                                        {#class="m-menu__link-icon flaticon-map"></i><span class="m-menu__link-text">Mapping</span></a>#}
-                        {#</li>#}
-                        {#<li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('matching_setting_index') }}"#}
-                                                                           {#class="m-menu__link"><i#}
-                                        {#class="m-menu__link-icon la la-cog"></i><span#}
-                                        {#class="m-menu__link-text">Settings</span></a>#}
-                        {#</li>#}
-                    {#</ul>#}
+                    <ul class="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+                        <li class="m-menu__section ">
+                            <h4 class="m-menu__section-text">Components</h4>
+                            <i class="m-menu__section-icon flaticon-more-v2"></i>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('category_index') }}"
+                                                                           class="m-menu__link"><i
+                                        class="m-menu__link-icon la la-building"></i><span class="m-menu__link-text">Category</span></a>
+                        </li>
+                        <li class="m-menu__item  m-menu__item--submenu"><a href="{{ path('post_index') }}"
+                                                                           class="m-menu__link"><i
+                                        class="m-menu__link-icon la la-sticky-note"></i><span class="m-menu__link-text">Post</span></a>
+                        </li>
+                    </ul>
                 </div>
 
                 <!-- END: Aside Menu -->

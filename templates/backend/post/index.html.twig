@@ -2,11 +2,11 @@
 
 {#{% form_theme form with 'bootstrap_4_layout.html.twig' only %}#}
 
-{% set breadcrumbs = [{text: 'Category'}, {text: 'List all categories'}] %}
-{% set quick_actions = [{icon: 'flaticon-list', text: 'List all categories'}, {icon: 'flaticon-add', url: path('category_create'), text: 'Create a category'}] %}
+{% set breadcrumbs = [{text: 'Post'}, {text: 'List all posts'}] %}
+{% set quick_actions = [{icon: 'flaticon-list', text: 'List all post'}, {icon: 'flaticon-add', url: path('post_create'), text: 'Create a post'}] %}
 
-{% block title %}List Categories{% endblock %}
-{% block subheader_title %}List all categories{% endblock %}
+{% block title %}List Posts{% endblock %}
+{% block subheader_title %}List all posts{% endblock %}
 {% block content %}
     <div class="m-content">
         <div class="m-portlet m-portlet--full-height m-portlet--tabs m--padding-30">
@@ -14,15 +14,18 @@
                 <table class="table table-bordered table-hover table-striped">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Name</th>
-
+                        <th scope="col">Title</th>
+                        <th scope="col">Category</th>
+                        <th scope="col">Author</th>
                         <th scope="col">Created at</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for item in pager.currentPageResults %}
-                        <tr class="row-clickable" data-href="{{ path('category_edit', {id: item.id}) }}" title="{{ path('category_edit', {id: item.id}) }}">
-                            <td>{{ item.name }}</td>
+                        <tr class="row-clickable" data-href="{{ path('post_edit', {id: item.id}) }}" title="{{ path('post_edit', {id: item.id}) }}">
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.category }}</td>
+                            <td>{{ item.author }}</td>
                             <td>{{ item.createdAt|date('Y-m-d h:i') }}</td>
                         </tr>
                     {% endfor %}

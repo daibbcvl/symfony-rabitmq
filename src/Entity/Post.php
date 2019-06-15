@@ -7,8 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
  */
-class Post
+class Post implements SoftDeletableInterface, TimestampableInterface
 {
+    use SoftDeletableTrait, TimestampableTrait;
+
+    const DEFAULT_LANGUAGE = 'vi';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -34,12 +38,7 @@ class Post
     /**
      * @ORM\Column(type="boolean")
      */
-    private $allowComment;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $route;
+    private $allowComment = true;
 
     /**
      * @ORM\Column(type="string", length=2)
@@ -61,6 +60,24 @@ class Post
      * @ORM\Column(type="integer")
      */
     private $viewerCount;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Category")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
+    function __construct()
+    {
+        $this->viewerCount = 0;
+        $this->commentCount = 0;
+        $this->lang = self::DEFAULT_LANGUAGE;
+    }
 
     public function getId(): ?int
     {
@@ -171,6 +188,30 @@ class Post
     public function setViewerCount(int $viewerCount): self
     {
         $this->viewerCount = $viewerCount;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

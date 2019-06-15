@@ -284,4 +284,9 @@ class User implements UserInterface
     {
         return (!$this->firstName && !$this->lastName) ? $this->email : $this->getFullName();
     }
+
+    function __toString()
+    {
+        return $this->firstName;
+    }
 }

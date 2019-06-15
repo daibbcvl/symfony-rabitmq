@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Pagerfanta\Adapter\DoctrineORMAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
@@ -47,4 +49,18 @@ class PostRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @param array $criteria
+     * @param array $sort
+     *
+     * @return Pagerfanta
+     */
+    public function search(array $criteria, array $sort): Pagerfanta
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        $adapter = new DoctrineORMAdapter($queryBuilder);
+
+        return new Pagerfanta($adapter);
+    }
 }

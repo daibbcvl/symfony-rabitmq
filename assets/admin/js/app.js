@@ -12,4 +12,7 @@ require('../css/app.css');
 require('./vendors.bundle');
 require('./scripts.bundle');
 require('./layout');
+require('./slug');
+
+
 
