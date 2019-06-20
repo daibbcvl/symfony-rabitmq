@@ -36,7 +36,7 @@ class UserController extends AbstractController
         $size = $request->get('size', 10);
         $sort = $request->get('sort', ['id' => 'desc']);
 
-        return $this->render('admin/user/index.html.twig', [
+        return $this->render('backend/user/index.html.twig', [
             'form' => $form->createView(),
             'pager' => $userRepository->search($criteria, $sort)->setMaxPerPage($size)->setCurrentPage($page),
         ]);
@@ -71,7 +71,7 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_create');
         }
 
-        return $this->render('user/create.html.twig', [
+        return $this->render('backend/user/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -105,7 +105,7 @@ class UserController extends AbstractController
             $warning = 'This is your account.';
         }
 
-        return $this->render('user/edit.html.twig', [
+        return $this->render('backend/user/edit.html.twig', [
             'form' => $form->createView(),
             'warning' => $warning,
         ]);

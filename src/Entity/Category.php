@@ -39,6 +39,11 @@ class Category implements SoftDeletableInterface, TimestampableInterface
      */
     private $children;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
+
     public function __construct()
     {
         $this->children = new ArrayCollection();
@@ -133,5 +138,17 @@ class Category implements SoftDeletableInterface, TimestampableInterface
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
     }
 }

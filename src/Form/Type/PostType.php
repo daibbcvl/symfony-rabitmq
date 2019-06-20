@@ -41,6 +41,7 @@ class PostType extends AbstractType
                 'constraints' => new NotBlank(),
                 'attr' => ['class'=> 'slug-title']
             ])
+
 //            ->add('content', TextareaType::class, [
 //                'constraints' => new NotBlank(),
 //            ])
@@ -50,6 +51,14 @@ class PostType extends AbstractType
                     'entities_latin' => false
                     //...
                 )))
+
+
+            ->add('meta', TextType::class, [
+            ])
+            ->add('keyword', TextType::class, [
+            ])
+            ->add('tags', TextType::class, [
+            ])
 
             ->add('slug', TextType::class, [
                 'constraints' => new NotBlank(),
@@ -64,6 +73,15 @@ class PostType extends AbstractType
                 'data' => true,
                 'required' => false
             ])
+            ->add('showHomePage', CheckboxType::class, [
+                'data' => false,
+                'required' => false
+            ])
+            ->add('featuredArtitcle', CheckboxType::class, [
+                'data' => false,
+                'required' => false
+            ])
+
 
         ;
     }

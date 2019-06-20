@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Alex+Brush" rel="stylesheet">
+        <!--begin::Web font -->
+        <script src="https://ajax.googleapis.com/ajax/libs/webfont/1.6.16/webfont.js"></script>
+        <script>
+            WebFont.load({
+                google: {"families":["Poppins:300,400,500,600,700","Roboto:300,400,500,600,700"]},
+                active: function() {
+                    sessionStorage.fonts = true;
+                }
+            });
+        </script>
+
+        <link rel="stylesheet" href="css/open-iconic-bootstrap.min.css">
+        <link rel="stylesheet" href="css/animate.css">
+
+        <link rel="stylesheet" href="css/owl.carousel.min.css">
+        <link rel="stylesheet" href="css/owl.theme.default.min.css">
+        <link rel="stylesheet" href="css/magnific-popup.css">
+
+        <link rel="stylesheet" href="css/aos.css">
+
+        <link rel="stylesheet" href="css/ionicons.min.css">
+
+        <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+        <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+
+        <link rel="stylesheet" href="css/flaticon.css">
+        <link rel="stylesheet" href="css/icomoon.css">
+        <link rel="stylesheet" href="css/style.css">
+        <!--end::Web font -->
+        {% block stylesheets %}
+
+        {% endblock %}
+
+
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+
+        {% endblock %}
+    </body>
+</html>

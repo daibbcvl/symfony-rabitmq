@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -72,11 +74,47 @@ class Post implements SoftDeletableInterface, TimestampableInterface
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $titleSeo;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $meta;
+
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $keyword;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $thumbUrl;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Tag")
+     */
+    private $tags;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $showHomePage;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $featuredArtitcle;
+
     function __construct()
     {
         $this->viewerCount = 0;
         $this->commentCount = 0;
         $this->lang = self::DEFAULT_LANGUAGE;
+        $this->tags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -212,6 +250,104 @@ class Post implements SoftDeletableInterface, TimestampableInterface
     public function setSlug(string $slug): self
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getTitleSeo(): ?string
+    {
+        return $this->titleSeo;
+    }
+
+    public function setTitleSeo(string $titleSeo): self
+    {
+        $this->titleSeo = $titleSeo;
+
+        return $this;
+    }
+
+    public function getMeta(): ?string
+    {
+        return $this->meta;
+    }
+
+    public function setMeta(?string $meta): self
+    {
+        $this->meta = $meta;
+
+        return $this;
+    }
+
+    public function getKeyword(): ?string
+    {
+        return $this->keyword;
+    }
+
+    public function setKeyword(?string $keyword): self
+    {
+        $this->keyword = $keyword;
+
+        return $this;
+    }
+
+    public function getThumbUrl(): ?string
+    {
+        return $this->thumbUrl;
+    }
+
+    public function setThumbUrl(?string $thumbUrl): self
+    {
+        $this->thumbUrl = $thumbUrl;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Tag[]
+     */
+    public function getTags(): Collection
+    {
+        return $this->tags;
+    }
+
+    public function addTag(Tag $tag): self
+    {
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
+
+        return $this;
+    }
+
+    public function removeTag(Tag $tag): self
+    {
+        if ($this->tags->contains($tag)) {
+            $this->tags->removeElement($tag);
+        }
+
+        return $this;
+    }
+
+    public function getShowHomePage(): ?bool
+    {
+        return $this->showHomePage;
+    }
+
+    public function setShowHomePage(bool $showHomePage): self
+    {
+        $this->showHomePage = $showHomePage;
+
+        return $this;
+    }
+
+    public function getFeaturedArtitcle(): ?bool
+    {
+        return $this->featuredArtitcle;
+    }
+
+    public function setFeaturedArtitcle(bool $featuredArtitcle): self
+    {
+        $this->featuredArtitcle = $featuredArtitcle;
 
         return $this;
     }

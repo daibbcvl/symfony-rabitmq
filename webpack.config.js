@@ -1,12 +1,12 @@
 var Encore = require('@symfony/webpack-encore');
 
 Encore
-    .setOutputPath('public/build/')
-    .setPublicPath('/build')
+    .setOutputPath('public/build/admin_build')
+    .setPublicPath('/build/admin_build')
     .cleanupOutputBeforeBuild()
     .autoProvidejQuery()
     .enableVersioning()
-    .addEntry('app', './assets/admin/js/app.js')
+    .addEntry('admin', './assets/admin/js/admin.js')
     .enableSingleRuntimeChunk()
     .addRule({
         test: require.resolve('./assets/admin/js/vendors.bundle.js'),
@@ -26,33 +26,30 @@ Encore
 ;
 
 // build the admin configuration
-const admin = Encore.getWebpackConfig();
+const adminConfig = Encore.getWebpackConfig();
 
 // Set a unique name for the config (needed later!)
-admin.name = 'admin';
+adminConfig.name = 'adminConfig';
 
 // reset Encore to build the second config
-Encore.reset();
+// Encore.reset();
+//
+//
+// Encore
+//     .setOutputPath('public/build/app_build')
+//     .setPublicPath('/build/app_build')
+//     .addEntry('app', './assets/app/js/app.js')
+//     .enableSingleRuntimeChunk()
+//     .enableSourceMaps(!Encore.isProduction())
+//     .copyFiles([
+//         {from: './assets/app/', to: 'ckeditor/[path][name].[ext]', pattern: /\.(js|css)$/, includeSubdirectories: false},
+//     ])
+//
+// ;
+//
+// // build the second configuration
+// const appConfig = Encore.getWebpackConfig();
+//
+// appConfig.name = 'appConfig';
 
-/**
-Encore
-    .setOutputPath('public/build/')
-    .setPublicPath('/build')
-    .addEntry('mobile', './assets/js/mobile.js')
-    .addStyleEntry('mobile', './assets/css/mobile.less')
-    .enableLessLoader()
-    .enableSourceMaps(!Encore.isProduction())
-;
-
-// build the second configuration
-const secondConfig = Encore.getWebpackConfig();
-
-// Set a unique name for the config (needed later!)
-secondConfig.name = 'secondConfig';
-
- **/
-
-// export the final configuration as an array of multiple configurations
-module.exports = [admin];
-
-// Config for front end will implement later
+module.exports = [adminConfig];

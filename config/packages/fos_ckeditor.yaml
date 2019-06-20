@@ -6,5 +6,5 @@ twig:
 
 fos_ck_editor:
     # ...
-    base_path: "build/ckeditor"
-    js_path:   "build/ckeditor/ckeditor.js"
+    base_path: "build/admin_build/ckeditor"
+    js_path:   "build/admin_build/ckeditor/ckeditor.js"
