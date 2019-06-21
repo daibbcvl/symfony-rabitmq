@@ -9,7 +9,7 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -57,10 +57,14 @@ class PostType extends AbstractType
             ])
             ->add('keyword', TextType::class, [
             ])
-            ->add('tags', TextType::class, [
+            ->add('titleSeo', TextType::class, [
             ])
 
-            ->add('slug', TextType::class, [
+            ->add('thumbUrl', FileType::class, [
+                'data' => null
+            ])
+
+        ->add('slug', TextType::class, [
                 'constraints' => new NotBlank(),
                 'attr' => ['class'=> 'slug']
             ])
