@@ -33,40 +33,35 @@ class PostType extends AbstractType
         $builder
             ->add('category', EntityType::class, [
                 'required' => false,
-                //'widget' => 'select2',
                 'class' => Category::class,
-//                'placerequired' => false
             ])
             ->add('title', TextType::class, [
                 'constraints' => new NotBlank(),
-                'attr' => ['class'=> 'slug-title']
+                'attr' => ['class' => 'slug-title']
             ])
-
-//            ->add('content', TextareaType::class, [
-//                'constraints' => new NotBlank(),
-//            ])
+            ->add('summary', CKEditorType::class, array(
+                'config' => array(
+                    'uiColor' => '#22A7F0',
+                    'entities_latin' => false
+                )))
             ->add('content', CKEditorType::class, array(
                 'config' => array(
                     'uiColor' => '#ffffff',
                     'entities_latin' => false
-                    //...
                 )))
-
-
             ->add('meta', TextType::class, [
             ])
             ->add('keyword', TextType::class, [
             ])
             ->add('titleSeo', TextType::class, [
             ])
-
             ->add('thumbUrl', FileType::class, [
-                'data' => null
+                'data' => null,
+                'required' => false
             ])
-
-        ->add('slug', TextType::class, [
+            ->add('slug', TextType::class, [
                 'constraints' => new NotBlank(),
-                'attr' => ['class'=> 'slug']
+                'attr' => ['class' => 'slug']
             ])
             ->add('publish', CheckboxType::class, [
                 'label' => 'Publish',
@@ -81,13 +76,10 @@ class PostType extends AbstractType
                 'data' => false,
                 'required' => false
             ])
-            ->add('featuredArtitcle', CheckboxType::class, [
+            ->add('featuredArticle', CheckboxType::class, [
                 'data' => false,
                 'required' => false
-            ])
-
-
-        ;
+            ]);
     }
 
 }

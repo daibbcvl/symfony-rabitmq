@@ -50,6 +50,11 @@ class PostRepository extends ServiceEntityRepository
     }
     */
 
+    public function getHomePageArticles($limit = 2)
+    {
+        return $this->findBy(['showHomePage' => true], ['publishedAt' => 'ASC'], $limit);
+    }
+
     /**
      * @param array $criteria
      * @param array $sort

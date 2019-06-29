@@ -2,6 +2,7 @@
 
 namespace App\Controller\FrontEnd;
 
+use App\Repository\PostRepository;
 use OldSound\RabbitMqBundle\RabbitMq\ProducerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,13 +11,14 @@ class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="default")
+     * @param PostRepository $postRepository
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index()
+    public function index(PostRepository $postRepository)
     {
-
-        //var_dump('asdada'); die;
         return $this->render('front/default/index.html.twig', [
             'controller_name' => 'DefaultController',
+            'posts' => $postRepository->getHomePageArticles()
         ]);
     }
 

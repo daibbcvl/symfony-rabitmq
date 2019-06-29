@@ -33,6 +33,11 @@ class Post implements SoftDeletableInterface, TimestampableInterface
     private $content;
 
     /**
+     * @ORM\Column(type="text")
+     */
+    private $summary;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $publish;
@@ -107,7 +112,14 @@ class Post implements SoftDeletableInterface, TimestampableInterface
     /**
      * @ORM\Column(type="boolean")
      */
-    private $featuredArtitcle;
+    private $featuredArticle;
+
+    /**
+     * @var \DateTimeInterface
+     *
+     * @ORM\Column(name="published_at", type="datetime_immutable")
+     */
+    private $publishedAt;
 
     function __construct()
     {
@@ -146,6 +158,25 @@ class Post implements SoftDeletableInterface, TimestampableInterface
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getSummary()
+    {
+        return $this->summary;
+    }
+
+    /**
+     * @param mixed $summary
+     * @return Post
+     */
+    public function setSummary($summary)
+    {
+        $this->summary = $summary;
+
+        return $this;
+    }
+
     public function getPublish(): ?bool
     {
         return $this->publish;
@@ -166,18 +197,6 @@ class Post implements SoftDeletableInterface, TimestampableInterface
     public function setAllowComment(bool $allowComment): self
     {
         $this->allowComment = $allowComment;
-
-        return $this;
-    }
-
-    public function getRoute(): ?string
-    {
-        return $this->route;
-    }
-
-    public function setRoute(string $route): self
-    {
-        $this->route = $route;
 
         return $this;
     }
@@ -345,15 +364,35 @@ class Post implements SoftDeletableInterface, TimestampableInterface
         return $this;
     }
 
-    public function getFeaturedArtitcle(): ?bool
+    public function getFeaturedArticle(): ?bool
     {
-        return $this->featuredArtitcle;
+        return $this->featuredArticle;
     }
 
-    public function setFeaturedArtitcle(bool $featuredArtitcle): self
+    public function setFeaturedArticle(bool $featuredArticle): self
     {
-        $this->featuredArtitcle = $featuredArtitcle;
+        $this->featuredArticle = $featuredArticle;
 
         return $this;
     }
+
+    /**
+     * @return \DateTimeInterface
+     */
+    public function getPublishedAt(): \DateTimeInterface
+    {
+        return $this->publishedAt;
+    }
+
+    /**
+     * @param \DateTimeInterface $publishedAt
+     * @return Post
+     */
+    public function setPublishedAt(\DateTimeInterface $publishedAt): Post
+    {
+        $this->publishedAt = $publishedAt;
+        return $this;
+    }
+
+
 }
