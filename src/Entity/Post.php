@@ -310,6 +310,11 @@ class Post implements SoftDeletableInterface, TimestampableInterface
         return $this->tags;
     }
 
+    public function setTags($tags)
+    {
+        $this->tags = $tags;
+    }
+
     public function addTag(Tag $tag): self
     {
         if (!$this->tags->contains($tag)) {

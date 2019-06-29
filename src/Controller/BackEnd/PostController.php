@@ -16,7 +16,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 
 /**
- * @Route("/posts")
+ * @Route("/admin/posts")
  */
 class PostController extends AbstractController
 {
@@ -106,8 +106,9 @@ class PostController extends AbstractController
             if ($file) {
                 $fileName = $file->getClientOriginalName();
 
+
                 try {
-                    $file->move($this->getParameter('thumb_dir') . "/{$fileName}");
+                    $file->move($this->getParameter('thumb_dir') , $fileName);
                 } catch (FileException $e) {
                     $logger->error("UPLOAD_ERRORS:" . $e->getMessage());
                 }
@@ -124,6 +125,7 @@ class PostController extends AbstractController
 
         return $this->render('backend/post/edit.html.twig', [
             'form' => $form->createView(),
+            'post' => $post
         ]);
     }
 

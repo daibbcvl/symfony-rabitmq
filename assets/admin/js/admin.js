@@ -8,9 +8,11 @@
 // any CSS you require will output into a single css file (app.css in this case)
 require('../css/vendors.bundle.css');
 require('../css/style.bundle.css');
+require('../css/tagsinput.css');
 require('../css/app.css');
 require('./vendors.bundle');
 require('./scripts.bundle');
+require('./tagsinput');
 require('./layout');
 require('./slug');
 

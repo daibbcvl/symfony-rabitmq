@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/profile")
+ * @Route("/admin/profile")
  */
 class ProfileController extends AbstractController
 {

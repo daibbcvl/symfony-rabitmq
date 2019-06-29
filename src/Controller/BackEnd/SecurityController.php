@@ -20,7 +20,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils, UrlGeneratorInterface $urlGenerator): Response
     {
         if ($this->isGranted('ROLE_USER')) {
-            return new RedirectResponse($urlGenerator->generate('default'));
+            return new RedirectResponse($urlGenerator->generate('dashboard_index'));
         }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
