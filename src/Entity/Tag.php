@@ -56,4 +56,12 @@ class Tag implements SoftDeletableInterface, TimestampableInterface
 
         return $this;
     }
+
+    /**
+     * @return mixed
+     */
+    function __toString()
+    {
+        return $this->name;
+    }
 }

@@ -2,11 +2,11 @@
 
 {#{% form_theme form with 'bootstrap_4_layout.html.twig' only %}#}
 
-{% set breadcrumbs = [{text: 'Category'}, {text: 'List all categories'}] %}
-{% set quick_actions = [{icon: 'flaticon-list', text: 'List all categories'}, {icon: 'flaticon-add', url: path('category_create'), text: 'Create a category'}] %}
+{% set breadcrumbs = [{text: 'Tag'}, {text: 'List all tags'}] %}
+{% set quick_actions = [{icon: 'flaticon-list', text: 'List all categories'}, {icon: 'flaticon-add', url: path('tag_create'), text: 'Create a tag'}] %}
 
-{% block title %}List Categories{% endblock %}
-{% block subheader_title %}List all categories{% endblock %}
+{% block title %}List tags{% endblock %}
+{% block subheader_title %}List all tags{% endblock %}
 {% block content %}
     <div class="m-content">
         <div class="m-portlet m-portlet--full-height m-portlet--tabs m--padding-30">
@@ -14,7 +14,7 @@
                 <table class="table table-bordered table-hover table-striped">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Name</th>
+                        <th scope="col">Tag name</th>
 
                         <th scope="col">Slug</th>
                     </tr>

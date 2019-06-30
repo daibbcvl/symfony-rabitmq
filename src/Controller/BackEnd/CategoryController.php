@@ -27,7 +27,7 @@ class CategoryController extends AbstractController
     {
         $criteria = [];
         $page = $request->get('page', 1);
-        $size = $request->get('size', 2);
+        $size = $request->get('size', 20);
         $sort = $request->get('sort', ['name' => 'asc']);
         $pager = $categoryRepository->search($criteria, $sort)->setMaxPerPage($size)->setCurrentPage($page);
 

@@ -13,6 +13,7 @@ require('../css/app.css');
 require('./vendors.bundle');
 require('./scripts.bundle');
 require('./tagsinput');
+require('../../../node_modules/select2/dist/js/select2');
 require('./layout');
 require('./slug');
 

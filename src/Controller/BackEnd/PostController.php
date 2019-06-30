@@ -31,7 +31,7 @@ class PostController extends AbstractController
     {
         $criteria = [];
         $page = $request->get('page', 1);
-        $size = $request->get('size', 2);
+        $size = $request->get('size', 20);
         $sort = $request->get('sort', ['name' => 'asc']);
         $pager = $repository->search($criteria, $sort)->setMaxPerPage($size)->setCurrentPage($page);
 

@@ -379,7 +379,7 @@ class Post implements SoftDeletableInterface, TimestampableInterface
     /**
      * @return \DateTimeInterface
      */
-    public function getPublishedAt(): \DateTimeInterface
+    public function getPublishedAt(): ?\DateTimeInterface
     {
         return $this->publishedAt;
     }
@@ -388,7 +388,7 @@ class Post implements SoftDeletableInterface, TimestampableInterface
      * @param \DateTimeInterface $publishedAt
      * @return Post
      */
-    public function setPublishedAt(\DateTimeInterface $publishedAt): Post
+    public function setPublishedAt(?\DateTimeInterface $publishedAt): Post
     {
         $this->publishedAt = $publishedAt;
         return $this;

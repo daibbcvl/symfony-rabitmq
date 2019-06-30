@@ -30,7 +30,7 @@ class TagController extends AbstractController
     {
         $criteria = [];
         $page = $request->get('page', 1);
-        $size = $request->get('size', 2);
+        $size = $request->get('size', 20);
         $sort = $request->get('sort', ['name' => 'asc']);
         $pager = $repository->search($criteria, $sort)->setMaxPerPage($size)->setCurrentPage($page);
 
@@ -61,10 +61,10 @@ class TagController extends AbstractController
                 return $this->redirect($url);
             }
 
-            return $this->redirectToRoute('category_create');
+            return $this->redirectToRoute('tag_create');
         }
 
-        return $this->render('backend/category/create.html.twig', [
+        return $this->render('backend/tag/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
@@ -86,7 +86,7 @@ class TagController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
-            $this->addFlash('success', 'Edit category successfully.');
+            $this->addFlash('success', 'Edit tag successfully.');
 
             if ($url = $request->get('redirect_url')) {
                 return $this->redirect($url);
@@ -110,7 +110,7 @@ class TagController extends AbstractController
     {
         $tag->setDeleted(true);
         $entityManager->flush();
-        $this->addFlash('success', 'Delete category successfully.');
+        $this->addFlash('success', 'Delete tag successfully.');
 
         return $this->redirectToRoute('tag_index');
     }

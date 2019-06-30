@@ -1,10 +1,10 @@
 {% extends 'admin.html.twig' %}
 
-{% set breadcrumbs = [{url: path('category_index'), text: 'Sector'}, {text: 'Create'}] %}
-{% set quick_actions = [{icon: 'flaticon-list', url: path('category_index'), text: 'List all sectors'}, {icon: 'flaticon-add', text: 'Create new sector'}] %}
+{% set breadcrumbs = [{url: path('tag_index'), text: 'Tag'}, {text: 'Create'}] %}
+{% set quick_actions = [{icon: 'flaticon-list', url: path('tag_index'), text: 'List all tags'}, {icon: 'flaticon-add', text: 'Create new tag'}] %}
 
-{% block title %}Create new sector{% endblock %}
-{% block subheader_title %}Create new sector{% endblock %}
+{% block title %}Create new tag{% endblock %}
+{% block subheader_title %}Create new tag{% endblock %}
 {% block content %}
     <div class="m-content">
         <div class="m-portlet m-portlet--full-height m-portlet--tabs m--padding-30">
@@ -14,11 +14,11 @@
                     {{ form_widget(form) }}
                     <div class="form-group row">
                         <div class="offset-sm-3 col-sm-9">
-                            <button class="btn btn-primary m-btn m-btn--icon" type="submit" name="redirect_url" value="{{ path('category_create') }}">
+                            <button class="btn btn-primary m-btn m-btn--icon" type="submit" name="redirect_url" value="{{ path('tag_create') }}">
                                 <i class="la la-save"></i>
                                 Create
                             </button>
-                            <button class="btn btn-outline-primary m-btn m-btn--icon" type="submit" name="redirect_url" value="{{ path('category_index') }}">
+                            <button class="btn btn-outline-primary m-btn m-btn--icon" type="submit" name="redirect_url" value="{{ path('tag_index') }}">
                                 <i class="flaticon-list"></i>
                                 Create & back to list
                             </button>
