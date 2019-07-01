@@ -78,7 +78,6 @@ class PostType extends AbstractType
 
             ->add('publish', CheckboxType::class, [
                 'label' => 'Publish',
-                'data' => true,
                 'required' => false
             ])
             ->add('allowComment', CheckboxType::class, [
@@ -86,7 +85,6 @@ class PostType extends AbstractType
                 'required' => false
             ])
             ->add('showHomePage', CheckboxType::class, [
-                'data' => false,
                 'required' => false
             ])
             ->add('featuredArticle', CheckboxType::class, [

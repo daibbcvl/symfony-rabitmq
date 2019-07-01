@@ -9,18 +9,18 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends AbstractController
 {
-    /**
-     * @Route("/", name="default")
-     * @param PostRepository $postRepository
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function index(PostRepository $postRepository)
-    {
-        return $this->render('front/default/index.html.twig', [
-            'controller_name' => 'DefaultController',
-            'posts' => $postRepository->getHomePageArticles()
-        ]);
-    }
+//    /**
+//     * @Route("/", name="default")
+//     * @param PostRepository $postRepository
+//     * @return \Symfony\Component\HttpFoundation\Response
+//     */
+//    public function index(PostRepository $postRepository)
+//    {
+//        return $this->render('front/default/index.html.twig', [
+//            'controller_name' => 'DefaultController',
+//            'posts' => $postRepository->getHomePageArticles()
+//        ]);
+//    }
 
     /**
      * @Route("/send", name="send")
