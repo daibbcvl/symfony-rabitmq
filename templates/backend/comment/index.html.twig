@@ -1,0 +1,45 @@
+{% extends 'admin.html.twig' %}
+
+{#{% form_theme form with 'bootstrap_4_layout.html.twig' only %}#}
+
+{% set breadcrumbs = [{text: 'Comment'}, {text: 'List all comments'}] %}
+
+{% block title %}List Posts{% endblock %}
+{% block subheader_title %}List all comment{% endblock %}
+{% block content %}
+    <div class="m-content">
+        <div class="m-portlet m-portlet--full-height m-portlet--tabs m--padding-30">
+            <div class="table-responsive-lg m-datatable m-datatable--default">
+                <table class="table table-bordered table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Post title</th>
+                        <th scope="col">Comment Author</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Message</th>
+                        <th scope="col">Comment Date</th>
+                        <th scope="col">Approved</th>
+                        <th scope="col">Approved By</th>
+                        <th scope="col">Approved At</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for item in pager.currentPageResults %}
+                        <tr class="row-clickable" data-href="{{ path('comment_edit', {id: item.id}) }}" title="{{ path('post_edit', {id: item.id}) }}">
+                            <td>{{ item.post.title }}</td>
+                            <td>{{ item.name }}</td>
+                            <td>{{ item.email }}</td>
+                            <td>{{ item.content }}</td>
+                            <td>{{ item.createdAt|date('Y-m-d h:i') }}</td>
+                            <td>{{ item.approved }}</td>
+                            <td>{{ item.approver }}</td>
+                            <td>{{ item.approvedAt|date('Y-m-d H:i') }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                {% include 'pager.html.twig' with {pager: pager} %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

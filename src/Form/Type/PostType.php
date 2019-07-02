@@ -51,8 +51,7 @@ class PostType extends AbstractType
                     'uiColor' => '#ffffff',
                     'entities_latin' => false
                 )))
-            ->add('meta', TextType::class, [
-            ])
+            ->add('meta', TextType::class, [])
             ->add('keyword', TextType::class, [
             ])
             ->add('titleSeo', TextType::class, [

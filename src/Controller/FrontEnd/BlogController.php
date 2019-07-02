@@ -2,12 +2,15 @@
 
 namespace App\Controller\FrontEnd;
 
+use App\Entity\Comment;
 use App\Entity\Post;
 use App\Form\Site\CommentType;
 use App\Repository\CategoryRepository;
+use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 
 use App\Repository\TagRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,22 +42,35 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog/{slug}", name="blog_details")
-     * @param Request $request
-     * @param Post    $post
+     * @param Request                $request
+     * @param Post                   $post
      *
+     * @param EntityManagerInterface $manager
+     * @param CommentRepository      $commentRepository
      * @return \Symfony\Component\HttpFoundation\Response
-     *
      */
-    public function show(Request $request, Post $post)
+    public function show(Request $request, Post $post, EntityManagerInterface $manager, CommentRepository $commentRepository)
     {
-        $form = $this->createForm(CommentType::class);
+        $user = $this->getUser();
+        $comment  = new Comment();
+        $form = $this->createForm(CommentType::class, $comment, ['commentAuthor' => $user != null] );
         $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setPost($post);
+            $comment->setApproved(Comment::COMMENT_STATE_PENDING);
+            $manager->persist($form->getData());
+            $manager->flush();
+
+            return $this->redirect($request->getUri());
+        }
 
         return $this->render('front/blog/show.html.twig', [
             'post' => $post,
             'form' => $form->createView(),
             'categories' => $this->categories,
             'tags' => $this->tags,
+            'comments' => $commentRepository->getApprovedComments($post)
         ]);
     }
 }

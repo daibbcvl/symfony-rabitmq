@@ -9,8 +9,25 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CommentRepository")
  */
-class Comment
+class Comment implements TimestampableInterface
 {
+    use TimestampableTrait;
+
+    const COMMENT_STATE_PENDING = 'pending';
+    const COMMENT_STATE_APPROVED = 'approved';
+    const COMMENT_STATE_REJECTED = 'rejected';
+
+
+    public static function getAllStates()
+    {
+        return [
+            self::COMMENT_STATE_PENDING => self::COMMENT_STATE_PENDING,
+            self::COMMENT_STATE_APPROVED => self::COMMENT_STATE_APPROVED,
+            self::COMMENT_STATE_REJECTED => self::COMMENT_STATE_REJECTED
+        ];
+
+    }
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -50,12 +67,7 @@ class Comment
     private $approved;
 
     /**
-     * @ORM\Column(type="string", length=20)
-     */
-    private $string;
-
-    /**
-     * @ORM\Column(type="string", length=20)
+     * @ORM\Column(type="string", length=20, nullable=true)
      */
     private $type;
 
@@ -73,6 +85,11 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Entity\User")
      */
     private $approver;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $approvedAt;
 
     public function __construct()
     {
@@ -156,24 +173,12 @@ class Comment
         return $this;
     }
 
-    public function getString(): ?string
-    {
-        return $this->string;
-    }
-
-    public function setString(string $string): self
-    {
-        $this->string = $string;
-
-        return $this;
-    }
-
     public function getType(): ?string
     {
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(?string $type): self
     {
         $this->type = $type;
 
@@ -231,6 +236,18 @@ class Comment
     public function setApprover(?User $approver): self
     {
         $this->approver = $approver;
+
+        return $this;
+    }
+
+    public function getApprovedAt(): ?\DateTimeImmutable
+    {
+        return $this->approvedAt;
+    }
+
+    public function setApprovedAt(?\DateTimeImmutable $approvedAt): self
+    {
+        $this->approvedAt = $approvedAt;
 
         return $this;
     }
