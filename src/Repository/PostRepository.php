@@ -21,35 +21,6 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-    // /**
-    //  * @return Post[] Returns an array of Post objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Post
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-
     public function getHomePageArticles($limit = 2)
     {
         return $this->findBy(['showHomePage' => true], ['publishedAt' => 'ASC'], $limit);
@@ -64,7 +35,14 @@ class PostRepository extends ServiceEntityRepository
     public function search(array $criteria, array $sort): Pagerfanta
     {
         $queryBuilder = $this->createQueryBuilder('p');
+
+        foreach ($criteria as $field => $value) {
+            if (null !== $value) {
+                $queryBuilder->andWhere("p.$field = :$field")->setParameter($field, $value);
+            }
+        }
         $adapter = new DoctrineORMAdapter($queryBuilder);
+
 
         return new Pagerfanta($adapter);
     }

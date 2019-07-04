@@ -2,26 +2,29 @@
 
 namespace App\Controller\BackEnd;
 
+use App\Entity\Country;
 use App\Entity\Post;
+use App\Form\Type\CountryType;
+use App\Form\Type\DestinationType;
 use App\Form\Type\PostType;
+use App\Repository\CountryRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 
 /**
- * @Route("/admin/posts")
+ * @Route("/admin/destinations")
  */
-class PostController extends AbstractController
+class DestinationController  extends AbstractController
 {
     /**
-     * @Route("", name="post_index", methods={"GET"})
+     * @Route("", name="destination_index", methods={"GET"})
      *
      * @param Request        $request
      * @param PostRepository $repository
@@ -30,19 +33,19 @@ class PostController extends AbstractController
     public function index(Request $request, PostRepository $repository): Response
     {
         $criteria = [];
-        $criteria['type'] = 'post';
+        $criteria['type'] = 'destination';
         $page = $request->get('page', 1);
         $size = $request->get('size', 20);
         $sort = $request->get('sort', ['name' => 'asc']);
         $pager = $repository->search($criteria, $sort)->setMaxPerPage($size)->setCurrentPage($page);
 
-        return $this->render('backend/post/index.html.twig', [
+        return $this->render('backend/destination/index.html.twig', [
             'pager' => $pager,
         ]);
     }
 
     /**
-     * @Route("/create", name="post_create", methods={"GET", "POST"})
+     * @Route("/create", name="destination_create", methods={"GET", "POST"})
      *
      * @param Request                $request
      * @param EntityManagerInterface $entityManager
@@ -53,7 +56,7 @@ class PostController extends AbstractController
     public function create(Request $request, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
     {
         $post = new Post();
-        $form = $this->createForm(PostType::class, $post);
+        $form = $this->createForm(DestinationType::class, $post);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -69,7 +72,7 @@ class PostController extends AbstractController
                 }
                 $post->setThumbUrl($fileName);
             }
-            $post->setAuthor($this->getUser())->setType('post');
+            $post->setAuthor($this->getUser())->setType('destination');
             $entityManager->persist($post);
             $entityManager->flush();
 
@@ -78,26 +81,26 @@ class PostController extends AbstractController
                 return $this->redirect($url);
             }
 
-            return $this->redirectToRoute('post_create');
+            return $this->redirectToRoute('destination_create');
         }
 
-        return $this->render('backend/post/create.html.twig', [
+        return $this->render('backend/destination/create.html.twig', [
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id<\d+>}", name="post_edit", methods={"GET", "PUT"})
+     * @Route("/{id<\d+>}", name="destination_edit", methods={"GET", "PUT"})
      *
      * @param Request                $request
      * @param Post                   $post
      * @param EntityManagerInterface $entityManager
-     *
+     * @param LoggerInterface        $logger
      * @return Response
      */
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
     {
-        $form = $this->createForm(PostType::class, $post, ['method' => 'PUT']);
+        $form = $this->createForm(DestinationType::class, $post, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -106,8 +109,6 @@ class PostController extends AbstractController
 
             if ($file) {
                 $fileName = $file->getClientOriginalName();
-
-
                 try {
                     $file->move($this->getParameter('thumb_dir') , $fileName);
                 } catch (FileException $e) {
@@ -124,36 +125,9 @@ class PostController extends AbstractController
             }
         }
 
-        return $this->render('backend/post/edit.html.twig', [
+        return $this->render('backend/destination/edit.html.twig', [
             'form' => $form->createView(),
             'post' => $post
         ]);
-    }
-
-    /**
-     * @Route("/{id<\d+>}", name="post_delete", methods={"DELETE"})
-     *
-     * @param Post                   $post
-     * @param EntityManagerInterface $entityManager
-     *
-     * @return Response
-     */
-    public function delete(Post $post, EntityManagerInterface $entityManager): Response
-    {
-        $post->setDeleted(true);
-        $entityManager->flush();
-        $this->addFlash('success', 'Delete post successfully.');
-
-        return $this->redirectToRoute('post_index');
-    }
-
-    /**
-     * @return string
-     */
-    private function generateUniqueFileName()
-    {
-        // md5() reduces the similarity of the file names generated by
-        // uniqid(), which is based on timestamps
-        return md5(uniqid());
     }
 }

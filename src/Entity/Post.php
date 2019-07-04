@@ -14,6 +14,9 @@ class Post implements SoftDeletableInterface, TimestampableInterface
     use SoftDeletableTrait, TimestampableTrait;
 
     const DEFAULT_LANGUAGE = 'vi';
+    const POST_TYPE_POST = 'post';
+    const POST_TYPE_DESTINATION = 'destination';
+    const POST_TYPE_PAGE = 'page';
 
     /**
      * @ORM\Id()
@@ -70,7 +73,7 @@ class Post implements SoftDeletableInterface, TimestampableInterface
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Category")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $category;
 
@@ -105,19 +108,24 @@ class Post implements SoftDeletableInterface, TimestampableInterface
     private $tags;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true, options={"default" : false})
      */
     private $showHomePage;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="boolean", nullable=true, options={"default" : false})
      */
     private $featuredArticle;
 
     /**
+     * @ORM\Column(type="string", length=20, nullable=true, options={"default" : "post"})
+     */
+    private $type;
+
+    /**
      * @var \DateTimeInterface
      *
-     * @ORM\Column(name="published_at", type="datetime_immutable")
+     * @ORM\Column(name="published_at", type="datetime_immutable", nullable=true)
      */
     private $publishedAt;
 
@@ -125,6 +133,11 @@ class Post implements SoftDeletableInterface, TimestampableInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="post", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Country")
+     */
+    private $country;
 
     function __construct()
     {
@@ -382,6 +395,18 @@ class Post implements SoftDeletableInterface, TimestampableInterface
         return $this;
     }
 
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
     /**
      * @return \DateTimeInterface
      */
@@ -427,6 +452,18 @@ class Post implements SoftDeletableInterface, TimestampableInterface
                 $comment->setPost(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCountry(): ?Country
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?Country $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }
