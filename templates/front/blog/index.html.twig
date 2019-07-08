@@ -1,5 +1,35 @@
 {% extends 'base.html.twig' %}
 
+{% block meta %}
+
+    <meta name="dc.language" content="VN">
+    <meta name="dc.source" content="https://laptravels.com">
+    <meta name="dc.creator" content="LAPTravels" />
+    <meta name="distribution" content="Global" />
+    <meta name="revisit" content="1 days" />
+    <meta name="geo.placename" content="Vietnam" />
+    <meta name="geo.region" content="Ho Chi Minh" />
+    <meta name="generator" content="https://laptravels.com" />
+
+    <meta property="fb:pages" content="139409226071758">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="{{ meta }}"/>
+    <link rel="canonical" href="{{ pageURL }}" />
+    <link rel="publisher" href="https://laptravels.com"/>
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="{{ titleSeo }}" />
+    <meta property="og:description" content="{{ meta }}" />
+    <meta property="og:url" content="https://laptravels.com" />
+    <meta property="og:site_name" content="MarryBaby" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="{{ meta }}" />
+    <meta name="twitter:title" content="{{ titleSeo }}" />
+
+    <title>LAP Travels - {{ title }}</title>
+
+
+{% endblock %}
 {% block content %}
         {% for post in posts %}
             <h2 class="mb-3"><a href="{{ path('blog_details', {slug:post.slug}) }}">{{ post.title }}</a></h2>

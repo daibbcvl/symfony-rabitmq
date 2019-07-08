@@ -37,7 +37,7 @@ class CommentType extends AbstractType
             $builder
                 ->add('name', TextType::class, [
                     'constraints' => new NotBlank(),
-                    'label' => ''
+                    'label' => 'Tên'
                 ])
                 ->add('email', TextType::class, [
                     'constraints' => new NotBlank()

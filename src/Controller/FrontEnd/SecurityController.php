@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller\BackEnd;
+namespace App\Controller\FrontEnd;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -12,15 +12,15 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/admin/login", name="admin_login")
+     * @Route("/login", name="app_login")
      * @param AuthenticationUtils $authenticationUtils
      * @param UrlGeneratorInterface $urlGenerator
      * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils, UrlGeneratorInterface $urlGenerator): Response
     {
-        if ($this->isGranted('ROLE_ADMIN')) {
-            return new RedirectResponse($urlGenerator->generate('dashboard_index'));
+        if ($this->isGranted('ROLE_USER')) {
+            return new RedirectResponse($urlGenerator->generate('default'));
         }
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
@@ -31,7 +31,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/admin/logout", name="admin_logout")
+     * @Route("/logout", name="app_logout")
      * @throws \Exception
      */
     public function logout()

@@ -1,5 +1,44 @@
 {% extends 'base.html.twig' %}
 
+{% block meta %}
+
+    <meta name="dc.language" content="VN">
+    <meta name="dc.source" content="https://laptravels.com">
+    <meta name="dc.creator" content="LAPTravels" />
+    <meta name="distribution" content="Global" />
+    <meta name="revisit" content="1 days" />
+    <meta name="geo.placename" content="Vietnam" />
+    <meta name="geo.region" content="Ho Chi Minh" />
+    <meta name="generator" content="https://laptravels.com" />
+
+    <link rel="canonical" href="https://laptravels.com/{{post.slug}}" />
+    <link rel="publisher" href="https://laptravels.com"/>
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="{{ post.titleSeo }}" />
+    <meta property="og:description" content="{{ post.meta }}" />
+    <meta property="og:url" content="{{ pageURL }}" />
+    <meta property="og:site_name" content="LAPTravels" />
+    <meta property="article:publisher" content="{{ fbPage }}" />
+    <meta property="article:section" content="{{ post.category.name }}" />
+    <meta property="article:published_time" content="{{ post.publishedAt|date('Y-m-d H:s:i') }}" />
+    <meta property="article:modified_time" content="{{ post.publishedAt|date('Y-m-d H:s:i') }}" />
+    <meta property="og:updated_time" content="{{ post.publishedAt|date('Y-m-d H:s:i') }}" />
+    <meta property="og:image" content="{{ post.thumbUrl }}" />
+    <meta property="og:image:secure_url" content="{{ pageURL }}" />
+    <meta property="og:image:width" content="1430" />
+    <meta property="og:image:height" content="955" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:description" content="{{ post.meta }}" />
+    <meta name="twitter:title" content="{{ post.titleSeo }}" />
+    <meta name="twitter:image" content="{{ post.thumbUrl }}" />
+    <meta property="sailthru.tags" content="{{ post.tags|join(', ') }}"/>
+    <meta name="sailthru.image.full" content="{{ post.thumbUrl }}" />
+
+    <title>LAP Travels - {{ title }}</title>
+
+{% endblock %}
+
 {% block content %}
 
 
@@ -19,7 +58,7 @@
             </div>
             <div class="desc align-self-md-center">
                 <h3>LAP Travels</h3>
-                <p>Obsessed with exploring the world, meeting new people (+ goats) and getting as lost as possible with my camera. I was on the road for 1467 days between 2014 – 2018, taking a chance on changing my career from restaurants to capturing the world and somehow it all worked out</p>
+                <p>LAP Travels là website chia sẻ thông tin du lịch hàng đầu Việt Nam. Đến với LAP Travels, tận hưởng chuyến đi thú vị nhất với lịch trình cực cool ♫♫♫♥♥x`	</p>
             </div>
         </div>
 
@@ -41,7 +80,7 @@
             <!-- END comment-list -->
 
             <div class="comment-form-wrap pt-5" id="commentForm">
-                <h3 class="mb-5">Thêm nhận xét</h3>
+                <h3 class="mb-5">Thêm bình luận</h3>
                 {{ form_start(form, {'attr': { 'class': 'p-5 bg-light'}}) }}
 
                 {% if app.user is empty %}
@@ -63,7 +102,7 @@
                     {{ form_widget(form.content,{ 'attr': {'cols': 30, 'rows': 10 } }) }}
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                    <input type="submit" value="Đăng bình luận" class="btn py-3 px-4 btn-primary">
                 </div>
 
                 {{ form_end(form) }}

@@ -8653,7 +8653,7 @@ textarea.form-control {
     width: calc(100% - 80px);
     position: relative; }
     .block-17 form .fields .one-third {
-      width: 50%;
+      width: 100%;
       background: #fff; }
       .block-17 form .fields .one-third:last-child {
         border-right: none;

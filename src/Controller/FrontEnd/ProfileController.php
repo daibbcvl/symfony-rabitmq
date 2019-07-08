@@ -2,31 +2,25 @@
 
 namespace App\Controller\FrontEnd;
 
-use App\Form\Site\DestinationSearchType;
 use App\Repository\PostRepository;
+use OldSound\RabbitMqBundle\RabbitMq\ProducerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
-class DefaultController extends AbstractController
+class ProfileController extends AbstractController
 {
     /**
-     * @Route("/", name="default")
-     * @param Request        $request
+     * @Route("/profile", name="profile")
      * @param PostRepository $postRepository
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(Request $request, PostRepository $postRepository)
+    public function index(PostRepository $postRepository)
     {
-        $form = $this->createForm(DestinationSearchType::class);
-        $form->handleRequest($request);
+        //$posts = $postRepository->getHomePageArticles();
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            return $this->redirectToRoute('city_details', ['slug' => $form->getData()['city']->getSlug()]);
-        }
+        //var_dump(count($posts)); die;
 
         return $this->render('front/default/index.html.twig', [
-            'form' => $form->createView(),
             'posts' => $postRepository->getHomePageArticles(),
             'cities' => $postRepository->findBy(['type' => 'destination']),
             //'categories' => $this->categories,
@@ -37,7 +31,18 @@ class DefaultController extends AbstractController
             'keyword' => '',
             'pageURL' => '',
             'fbPage' => '',
-
         ]);
+    }
+
+    /**
+     * @Route("/send", name="send")
+     * @param ProducerInterface $messageProducer
+     */
+    public function send(ProducerInterface $messageProducer)
+    {
+        $msg = array('user_id' => 1235, 'message' => 'Hello World');
+        $messageProducer->publish(serialize($msg));
+
+    	echo "send message". serialize($msg); die;
     }
 }
