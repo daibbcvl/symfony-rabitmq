@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Post;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
@@ -41,18 +42,18 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param     Tag[] $tags
+     * @param     Tag $tag
      * @param int $limit
      * @return array
      */
-    public function getPostsByTags($tags, $limit = 20)
+    public function getPostsByTag(Tag $tag, $limit = 20)
     {
         $queryBuilder = $this->createQueryBuilder('p');
         $orX = $queryBuilder->expr()->orX();
         $orX->add(':tag MEMBER OF p.tags');
         $queryBuilder
             ->leftJoin('p.tags', 'tags')
-            ->andWhere($orX)->setParameter('tags', $tags);
+            ->andWhere($orX)->setParameter('tag', $tag);
 
         return $queryBuilder->getQuery()->setMaxResults($limit)->getArrayResult();
     }

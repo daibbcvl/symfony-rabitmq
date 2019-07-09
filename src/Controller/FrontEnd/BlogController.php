@@ -77,13 +77,12 @@ class BlogController extends AbstractController
     /**
      * @Route("/{categorySlug}", name="blog_category")
      *
-     * @param CategoryRepository $categoryRepository
      * @param Category           $category
      * @param PostRepository     $postRepository
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function category(CategoryRepository $categoryRepository,Category $category, PostRepository $postRepository)
+    public function category(Category $category, PostRepository $postRepository)
     {
         return $this->render('front/blog/index.html.twig', [
             'posts' => $postRepository->findBy(['category' => $category],['publishedAt' => 'ASC'], 10),
@@ -99,18 +98,17 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/{tagSlug}", name="blog_tag")
+     * @Route("/tag/{tagSlug}", name="blog_tag")
      *
-     * @param TagRepository  $tagRepository
      * @param Tag            $tag
      * @param PostRepository $postRepository
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function tag(TagRepository $tagRepository,Tag $tag, PostRepository $postRepository)
+    public function tag(Tag $tag, PostRepository $postRepository)
     {
         return $this->render('front/blog/index.html.twig', [
-            'posts' => $postRepository->getPostsByTags([$tag]),
+            'posts' => $postRepository->getPostsByTag($tag),
             'categories' => $this->categories,
             'tags' => $this->tags,
             'title' => '',
