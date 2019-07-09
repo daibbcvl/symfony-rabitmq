@@ -2,7 +2,6 @@
 
 namespace App\Form\Type;
 
-
 use App\Entity\Category;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -31,14 +30,14 @@ class CategoryType extends AbstractType
                 'required' => false,
 //                'widget' => 'select2',
                 'class' => Category::class,
-                'placeholder' => 'Select parent'
+                'placeholder' => 'Select parent',
 //                'placerequired' => false
             ])
             ->add('name', TextType::class, [
                 'constraints' => new NotBlank(),
             ])
             ->add('description', TextType::class, [
-                'required' => false
+                'required' => false,
             ])
 
             ->add('slug', TextType::class, [
@@ -47,5 +46,4 @@ class CategoryType extends AbstractType
 
         ;
     }
-
 }

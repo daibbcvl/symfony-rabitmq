@@ -8,14 +8,13 @@ use Psr\Log\LoggerInterface;
 
 class RecieveConsumer implements ConsumerInterface
 {
-
     /**
      * @var LoggerInterface
      */
     private $logger;
 
     /**
-     * @param LoggerInterface     $logger
+     * @param LoggerInterface $logger
      */
     public function __construct(LoggerInterface $logger)
     {
@@ -24,6 +23,6 @@ class RecieveConsumer implements ConsumerInterface
 
     public function execute(AMQPMessage $msg)
     {
-        $this->logger->info('Recieve  '. $msg->getBody());
+        $this->logger->info('Recieve  '.$msg->getBody());
     }
 }

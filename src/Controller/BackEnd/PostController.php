@@ -9,11 +9,10 @@ use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 
 /**
  * @Route("/admin/posts")
@@ -25,6 +24,7 @@ class PostController extends AbstractController
      *
      * @param Request        $request
      * @param PostRepository $repository
+     *
      * @return Response
      */
     public function index(Request $request, PostRepository $repository): Response
@@ -46,8 +46,8 @@ class PostController extends AbstractController
      *
      * @param Request                $request
      * @param EntityManagerInterface $entityManager
-     *
      * @param LoggerInterface        $logger
+     *
      * @return Response
      */
     public function create(Request $request, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
@@ -63,9 +63,9 @@ class PostController extends AbstractController
             if ($file) {
                 $fileName = $file->getClientOriginalName();
                 try {
-                    $file->move($this->getParameter('thumb_dir') , $fileName);
+                    $file->move($this->getParameter('thumb_dir'), $fileName);
                 } catch (FileException $e) {
-                    $logger->error("UPLOAD_ERRORS:" . $e->getMessage());
+                    $logger->error('UPLOAD_ERRORS:'.$e->getMessage());
                 }
                 $post->setThumbUrl($fileName);
             }
@@ -107,11 +107,10 @@ class PostController extends AbstractController
             if ($file) {
                 $fileName = $file->getClientOriginalName();
 
-
                 try {
-                    $file->move($this->getParameter('thumb_dir') , $fileName);
+                    $file->move($this->getParameter('thumb_dir'), $fileName);
                 } catch (FileException $e) {
-                    $logger->error("UPLOAD_ERRORS:" . $e->getMessage());
+                    $logger->error('UPLOAD_ERRORS:'.$e->getMessage());
                 }
                 $post->setThumbUrl($fileName);
             }
@@ -126,7 +125,7 @@ class PostController extends AbstractController
 
         return $this->render('backend/post/edit.html.twig', [
             'form' => $form->createView(),
-            'post' => $post
+            'post' => $post,
         ]);
     }
 

@@ -139,7 +139,7 @@ class Post implements SoftDeletableInterface, TimestampableInterface
      */
     private $country;
 
-    function __construct()
+    public function __construct()
     {
         $this->viewerCount = 0;
         $this->commentCount = 0;
@@ -187,6 +187,7 @@ class Post implements SoftDeletableInterface, TimestampableInterface
 
     /**
      * @param mixed $summary
+     *
      * @return Post
      */
     public function setSummary($summary)
@@ -417,11 +418,13 @@ class Post implements SoftDeletableInterface, TimestampableInterface
 
     /**
      * @param \DateTimeInterface $publishedAt
+     *
      * @return Post
      */
-    public function setPublishedAt(?\DateTimeInterface $publishedAt): Post
+    public function setPublishedAt(?\DateTimeInterface $publishedAt): self
     {
         $this->publishedAt = $publishedAt;
+
         return $this;
     }
 
@@ -467,6 +470,4 @@ class Post implements SoftDeletableInterface, TimestampableInterface
 
         return $this;
     }
-
-
 }

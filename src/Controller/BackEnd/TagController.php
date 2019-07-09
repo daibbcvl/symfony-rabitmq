@@ -2,11 +2,8 @@
 
 namespace App\Controller\BackEnd;
 
-use App\Entity\Category;
 use App\Entity\Tag;
-use App\Form\Type\CategoryType;
 use App\Form\Type\TagType;
-use App\Repository\CategoryRepository;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -22,11 +19,12 @@ class TagController extends AbstractController
     /**
      * @Route("", name="tag_index", methods={"GET"})
      *
-     * @param Request $request
+     * @param Request       $request
      * @param TagRepository $repository
+     *
      * @return Response
      */
-    public function index(Request $request,TagRepository $repository): Response
+    public function index(Request $request, TagRepository $repository): Response
     {
         $criteria = [];
         $page = $request->get('page', 1);
@@ -42,7 +40,7 @@ class TagController extends AbstractController
     /**
      * @Route("/create", name="tag_create", methods={"GET", "POST"})
      *
-     * @param Request $request
+     * @param Request                $request
      * @param EntityManagerInterface $entityManager
      *
      * @return Response
@@ -68,7 +66,6 @@ class TagController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
 
     /**
      * @Route("/{id<\d+>}", name="tag_edit", methods={"GET", "PUT"})
@@ -114,5 +111,4 @@ class TagController extends AbstractController
 
         return $this->redirectToRoute('tag_index');
     }
-
 }

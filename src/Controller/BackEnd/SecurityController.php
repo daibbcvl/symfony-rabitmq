@@ -13,8 +13,10 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/admin/login", name="admin_login")
-     * @param AuthenticationUtils $authenticationUtils
+     *
+     * @param AuthenticationUtils   $authenticationUtils
      * @param UrlGeneratorInterface $urlGenerator
+     *
      * @return Response
      */
     public function login(AuthenticationUtils $authenticationUtils, UrlGeneratorInterface $urlGenerator): Response
@@ -32,6 +34,7 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/admin/logout", name="admin_logout")
+     *
      * @throws \Exception
      */
     public function logout()

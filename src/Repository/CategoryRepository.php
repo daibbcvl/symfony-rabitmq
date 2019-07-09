@@ -70,7 +70,4 @@ class CategoryRepository extends ServiceEntityRepository
 
         return new Pagerfanta($adapter);
     }
-
-
-
 }

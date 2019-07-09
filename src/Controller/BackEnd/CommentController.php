@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 /**
  * @Route("/admin/comments")
  */
@@ -24,6 +23,7 @@ class CommentController extends AbstractController
      *
      * @param Request           $request
      * @param CommentRepository $repository
+     *
      * @return Response
      */
     public function index(Request $request, CommentRepository $repository): Response
@@ -39,17 +39,17 @@ class CommentController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/{id<\d+>}", name="comment_edit", methods={"GET", "PUT"})
      *
      * @param Request                $request
      * @param Comment                $comment
      * @param EntityManagerInterface $entityManager
-     *
      * @param LoggerInterface        $logger
-     * @return Response
+     *
      * @throws \Exception
+     *
+     * @return Response
      */
     public function edit(Request $request, Comment $comment, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
     {
@@ -57,11 +57,10 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $comment->setApprover($this->getUser());
             $comment->setApprovedAt(new \DateTimeImmutable());
             $entityManager->flush();
-            $this->addFlash('success', 'Comment status has been update to: '. $comment->getApproved());
+            $this->addFlash('success', 'Comment status has been update to: '.$comment->getApproved());
 
             if ($url = $request->get('redirect_url')) {
                 return $this->redirect($url);
@@ -70,7 +69,7 @@ class CommentController extends AbstractController
 
         return $this->render('backend/comment/edit.html.twig', [
             'form' => $form->createView(),
-            'comment' => $comment
+            'comment' => $comment,
         ]);
     }
 

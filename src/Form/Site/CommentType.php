@@ -2,7 +2,6 @@
 
 namespace App\Form\Site;
 
-
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -18,7 +17,7 @@ class CommentType extends AbstractType
         parent::configureOptions($resolver);
         $resolver->setDefaults([
             'data_class' => Comment::class,
-            'commentAuthor' => false
+            'commentAuthor' => false,
         ]);
     }
 
@@ -30,17 +29,17 @@ class CommentType extends AbstractType
         $builder
             ->add('content', TextareaType::class, [
                 'constraints' => new NotBlank(),
-                'label' => 'Nội dung bình luận'
+                'label' => 'Nội dung bình luận',
             ]);
 
         if (!$options['commentAuthor']) {
             $builder
                 ->add('name', TextType::class, [
                     'constraints' => new NotBlank(),
-                    'label' => 'Tên'
+                    'label' => 'Tên',
                 ])
                 ->add('email', TextType::class, [
-                    'constraints' => new NotBlank()
+                    'constraints' => new NotBlank(),
                 ]);
         }
     }

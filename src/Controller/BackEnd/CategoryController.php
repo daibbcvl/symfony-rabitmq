@@ -19,11 +19,12 @@ class CategoryController extends AbstractController
     /**
      * @Route("", name="category_index", methods={"GET"})
      *
-     * @param Request $request
+     * @param Request            $request
      * @param CategoryRepository $categoryRepository
+     *
      * @return Response
      */
-    public function index(Request $request,CategoryRepository $categoryRepository): Response
+    public function index(Request $request, CategoryRepository $categoryRepository): Response
     {
         $criteria = [];
         $page = $request->get('page', 1);
@@ -39,7 +40,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/create", name="category_create", methods={"GET", "POST"})
      *
-     * @param Request $request
+     * @param Request                $request
      * @param EntityManagerInterface $entityManager
      *
      * @return Response
@@ -66,12 +67,11 @@ class CategoryController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/{id<\d+>}", name="category_edit", methods={"GET", "PUT"})
      *
-     * @param Request $request
-     * @param Category $category
+     * @param Request                $request
+     * @param Category               $category
      * @param EntityManagerInterface $entityManager
      *
      * @return Response
@@ -98,7 +98,7 @@ class CategoryController extends AbstractController
     /**
      * @Route("/{id<\d+>}", name="category_delete", methods={"DELETE"})
      *
-     * @param Category $category
+     * @param Category               $category
      * @param EntityManagerInterface $entityManager
      *
      * @return Response
@@ -111,5 +111,4 @@ class CategoryController extends AbstractController
 
         return $this->redirectToRoute('category_index');
     }
-
 }

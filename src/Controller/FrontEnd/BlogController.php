@@ -9,7 +9,6 @@ use App\Form\Site\CommentType;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
-
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,7 +20,7 @@ class BlogController extends AbstractController
     private $categories;
     private $tags;
 
-    function __construct(CategoryRepository $categoryRepository, TagRepository $tagRepository)
+    public function __construct(CategoryRepository $categoryRepository, TagRepository $tagRepository)
     {
         $this->categories = $categoryRepository->findAll();
         $this->tags = $tagRepository->findAll();
@@ -29,7 +28,9 @@ class BlogController extends AbstractController
 
     /**
      * @Route("/blog", name="blog_index")
+     *
      * @param PostRepository $postRepository
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(PostRepository $postRepository)
@@ -44,17 +45,17 @@ class BlogController extends AbstractController
             'keyword' => '',
             'pageURL' => '',
             'fbPage' => '',
-
         ]);
     }
 
     /**
      * @Route("/blog/{slug}", name="blog_details")
+     *
      * @param Request                $request
      * @param Post                   $post
-     *
      * @param EntityManagerInterface $manager
      * @param CommentRepository      $commentRepository
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(Request $request, Post $post, EntityManagerInterface $manager, CommentRepository $commentRepository)
@@ -62,7 +63,7 @@ class BlogController extends AbstractController
         /** @var User $user */
         $user = $this->getUser();
         $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment, ['commentAuthor' => $user != null]);
+        $form = $this->createForm(CommentType::class, $comment, ['commentAuthor' => null !== $user]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

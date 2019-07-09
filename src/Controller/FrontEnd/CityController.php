@@ -8,8 +8,6 @@ use App\Entity\User;
 use App\Form\Site\CommentType;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
-use App\Repository\PostRepository;
-
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,34 +19,34 @@ class CityController extends AbstractController
     private $categories;
     private $tags;
 
-    function __construct(CategoryRepository $categoryRepository, TagRepository $tagRepository)
+    public function __construct(CategoryRepository $categoryRepository, TagRepository $tagRepository)
     {
-            $this->categories = $categoryRepository->findAll();
-            $this->tags = $tagRepository->findAll();
+        $this->categories = $categoryRepository->findAll();
+        $this->tags = $tagRepository->findAll();
     }
-
 
     /**
      * @Route("/city/{slug}", name="city_details")
+     *
      * @param Request                $request
      * @param Post                   $post
-     *
      * @param EntityManagerInterface $manager
      * @param CommentRepository      $commentRepository
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function show(Request $request, Post $post, EntityManagerInterface $manager, CommentRepository $commentRepository)
     {
         /** @var User $user */
         $user = $this->getUser();
-        $comment  = new Comment();
-        $form = $this->createForm(CommentType::class, $comment, ['commentAuthor' => $user != null] );
+        $comment = new Comment();
+        $form = $this->createForm(CommentType::class, $comment, ['commentAuthor' => null !== $user]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $comment->setPost($post);
             $comment->setApproved(Comment::COMMENT_STATE_PENDING);
-            if($user){
+            if ($user) {
                 $comment->setName($user->getFirstName())
                         ->setCommentAuthor($user)
                         ->setEmail($user->getEmail());
@@ -65,9 +63,9 @@ class CityController extends AbstractController
             'categories' => $this->categories,
             'tags' => $this->tags,
             'comments' => $commentRepository->getApprovedComments($post),
-            'title'  => '',
-            'titleSeo'  => '',
-            'meta'  => '',
+            'title' => '',
+            'titleSeo' => '',
+            'meta' => '',
             'keyword' => '',
             'pageURL' => '',
             'fbPage' => '',

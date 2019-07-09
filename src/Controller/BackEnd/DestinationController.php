@@ -2,12 +2,8 @@
 
 namespace App\Controller\BackEnd;
 
-use App\Entity\Country;
 use App\Entity\Post;
-use App\Form\Type\CountryType;
 use App\Form\Type\DestinationType;
-use App\Form\Type\PostType;
-use App\Repository\CountryRepository;
 use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
@@ -21,13 +17,14 @@ use Symfony\Component\Routing\Annotation\Route;
 /**
  * @Route("/admin/destinations")
  */
-class DestinationController  extends AbstractController
+class DestinationController extends AbstractController
 {
     /**
      * @Route("", name="destination_index", methods={"GET"})
      *
      * @param Request        $request
      * @param PostRepository $repository
+     *
      * @return Response
      */
     public function index(Request $request, PostRepository $repository): Response
@@ -49,8 +46,8 @@ class DestinationController  extends AbstractController
      *
      * @param Request                $request
      * @param EntityManagerInterface $entityManager
-     *
      * @param LoggerInterface        $logger
+     *
      * @return Response
      */
     public function create(Request $request, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
@@ -66,9 +63,9 @@ class DestinationController  extends AbstractController
             if ($file) {
                 $fileName = $file->getClientOriginalName();
                 try {
-                    $file->move($this->getParameter('thumb_dir') , $fileName);
+                    $file->move($this->getParameter('thumb_dir'), $fileName);
                 } catch (FileException $e) {
-                    $logger->error("UPLOAD_ERRORS:" . $e->getMessage());
+                    $logger->error('UPLOAD_ERRORS:'.$e->getMessage());
                 }
                 $post->setThumbUrl($fileName);
             }
@@ -96,6 +93,7 @@ class DestinationController  extends AbstractController
      * @param Post                   $post
      * @param EntityManagerInterface $entityManager
      * @param LoggerInterface        $logger
+     *
      * @return Response
      */
     public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
@@ -110,9 +108,9 @@ class DestinationController  extends AbstractController
             if ($file) {
                 $fileName = $file->getClientOriginalName();
                 try {
-                    $file->move($this->getParameter('thumb_dir') , $fileName);
+                    $file->move($this->getParameter('thumb_dir'), $fileName);
                 } catch (FileException $e) {
-                    $logger->error("UPLOAD_ERRORS:" . $e->getMessage());
+                    $logger->error('UPLOAD_ERRORS:'.$e->getMessage());
                 }
                 $post->setThumbUrl($fileName);
             }
@@ -127,7 +125,7 @@ class DestinationController  extends AbstractController
 
         return $this->render('backend/destination/edit.html.twig', [
             'form' => $form->createView(),
-            'post' => $post
+            'post' => $post,
         ]);
     }
 }

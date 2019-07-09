@@ -27,7 +27,6 @@ class TimestampableSubscriber implements EventSubscriber
      */
     public function prePersist(LifecycleEventArgs $args)
     {
-
         $entity = $args->getObject();
 
         if ($entity instanceof TimestampableInterface && !$entity->getCreatedAt()) {

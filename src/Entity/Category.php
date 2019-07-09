@@ -49,7 +49,6 @@ class Category implements SoftDeletableInterface, TimestampableInterface
         $this->children = new ArrayCollection();
     }
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -104,7 +103,7 @@ class Category implements SoftDeletableInterface, TimestampableInterface
      *
      * @return Category
      */
-    public function addChild(Category $child): self
+    public function addChild(self $child): self
     {
         if (!$this->children->contains($child)) {
             $this->children[] = $child;
@@ -119,7 +118,7 @@ class Category implements SoftDeletableInterface, TimestampableInterface
      *
      * @return Category
      */
-    public function removeChild(Category $child): self
+    public function removeChild(self $child): self
     {
         if ($this->children->contains($child)) {
             $this->children->removeElement($child);

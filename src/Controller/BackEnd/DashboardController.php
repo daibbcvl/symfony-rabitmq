@@ -6,7 +6,6 @@ use OldSound\RabbitMqBundle\RabbitMq\ProducerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
-
 /**
  * @Route("/admin/dashboards")
  */
@@ -24,13 +23,15 @@ class DashboardController extends AbstractController
 
     /**
      * @Route("/send", name="send")
+     *
      * @param ProducerInterface $messageProducer
      */
     public function send(ProducerInterface $messageProducer)
     {
-        $msg = array('user_id' => 1235, 'message' => 'Hello World');
+        $msg = ['user_id' => 1235, 'message' => 'Hello World'];
         $messageProducer->publish(serialize($msg));
 
-    	echo "send message". serialize($msg); die;
+        echo 'send message'.serialize($msg);
+        die;
     }
 }

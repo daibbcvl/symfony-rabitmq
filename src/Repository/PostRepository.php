@@ -43,7 +43,6 @@ class PostRepository extends ServiceEntityRepository
         }
         $adapter = new DoctrineORMAdapter($queryBuilder);
 
-
         return new Pagerfanta($adapter);
     }
 }

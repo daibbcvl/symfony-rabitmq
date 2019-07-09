@@ -12,8 +12,10 @@ class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="default")
+     *
      * @param Request        $request
      * @param PostRepository $postRepository
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(Request $request, PostRepository $postRepository)
@@ -31,13 +33,12 @@ class DefaultController extends AbstractController
             'cities' => $postRepository->findBy(['type' => 'destination']),
             //'categories' => $this->categories,
             //'tags' => $this->tags,
-            'title'  => '',
-            'titleSeo'  => '',
-            'meta'  => '',
+            'title' => '',
+            'titleSeo' => '',
+            'meta' => '',
             'keyword' => '',
             'pageURL' => '',
             'fbPage' => '',
-
         ]);
     }
 }

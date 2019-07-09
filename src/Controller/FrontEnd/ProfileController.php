@@ -11,7 +11,9 @@ class ProfileController extends AbstractController
 {
     /**
      * @Route("/profile", name="profile")
+     *
      * @param PostRepository $postRepository
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function index(PostRepository $postRepository)
@@ -25,9 +27,9 @@ class ProfileController extends AbstractController
             'cities' => $postRepository->findBy(['type' => 'destination']),
             //'categories' => $this->categories,
             //'tags' => $this->tags,
-            'title'  => '',
-            'titleSeo'  => '',
-            'meta'  => '',
+            'title' => '',
+            'titleSeo' => '',
+            'meta' => '',
             'keyword' => '',
             'pageURL' => '',
             'fbPage' => '',
@@ -36,13 +38,15 @@ class ProfileController extends AbstractController
 
     /**
      * @Route("/send", name="send")
+     *
      * @param ProducerInterface $messageProducer
      */
     public function send(ProducerInterface $messageProducer)
     {
-        $msg = array('user_id' => 1235, 'message' => 'Hello World');
+        $msg = ['user_id' => 1235, 'message' => 'Hello World'];
         $messageProducer->publish(serialize($msg));
 
-    	echo "send message". serialize($msg); die;
+        echo 'send message'.serialize($msg);
+        die;
     }
 }

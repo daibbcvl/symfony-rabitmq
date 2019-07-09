@@ -17,15 +17,13 @@ class Comment implements TimestampableInterface
     const COMMENT_STATE_APPROVED = 'approved';
     const COMMENT_STATE_REJECTED = 'rejected';
 
-
     public static function getAllStates()
     {
         return [
             self::COMMENT_STATE_PENDING => self::COMMENT_STATE_PENDING,
             self::COMMENT_STATE_APPROVED => self::COMMENT_STATE_APPROVED,
-            self::COMMENT_STATE_REJECTED => self::COMMENT_STATE_REJECTED
+            self::COMMENT_STATE_REJECTED => self::COMMENT_STATE_REJECTED,
         ];
-
     }
 
     /**

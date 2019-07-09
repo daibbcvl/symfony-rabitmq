@@ -2,7 +2,6 @@
 
 namespace App\Form\Type;
 
-
 use App\Entity\Category;
 use App\Entity\Post;
 use App\Entity\Tag;
@@ -10,11 +9,11 @@ use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PostType extends AbstractType
@@ -40,18 +39,18 @@ class PostType extends AbstractType
             ])
             ->add('title', TextType::class, [
                 'constraints' => new NotBlank(),
-                'attr' => ['class' => 'slug-title']
+                'attr' => ['class' => 'slug-title'],
             ])
-            ->add('summary', CKEditorType::class, array(
-                'config' => array(
+            ->add('summary', CKEditorType::class, [
+                'config' => [
                     'uiColor' => '#22A7F0',
-                    'entities_latin' => false
-                )))
-            ->add('content', CKEditorType::class, array(
-                'config' => array(
+                    'entities_latin' => false,
+                ], ])
+            ->add('content', CKEditorType::class, [
+                'config' => [
                     'uiColor' => '#ffffff',
-                    'entities_latin' => false
-                )))
+                    'entities_latin' => false,
+                ], ])
             ->add('meta', TextType::class, [])
             ->add('keyword', TextType::class, [
             ])
@@ -59,15 +58,15 @@ class PostType extends AbstractType
             ])
             ->add('thumbUrl', FileType::class, [
                 'data' => null,
-                'required' => false
+                'required' => false,
             ])
             ->add('slug', TextType::class, [
                 'constraints' => new NotBlank(),
-                'attr' => ['class' => 'slug']
+                'attr' => ['class' => 'slug'],
             ])
 
             ->add('publishedAt', DateType::class, [
-                'constraints' => new NotBlank()
+                'constraints' => new NotBlank(),
             ])
             ->add('tags', EntityType::class, [
                 'required' => false,
@@ -78,19 +77,18 @@ class PostType extends AbstractType
 
             ->add('publish', CheckboxType::class, [
                 'label' => 'Publish',
-                'required' => false
+                'required' => false,
             ])
             ->add('allowComment', CheckboxType::class, [
                 'data' => true,
-                'required' => false
+                'required' => false,
             ])
             ->add('showHomePage', CheckboxType::class, [
-                'required' => false
+                'required' => false,
             ])
             ->add('featuredArticle', CheckboxType::class, [
                 'data' => false,
-                'required' => false
+                'required' => false,
             ]);
     }
-
 }

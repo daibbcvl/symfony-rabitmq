@@ -2,7 +2,6 @@
 
 namespace App\Form\Type;
 
-
 use App\Entity\Country;
 use App\Entity\Post;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -40,18 +39,18 @@ class DestinationType extends AbstractType
             ->add('title', TextType::class, [
                 'constraints' => new NotBlank(),
                 'attr' => ['class' => 'slug-title'],
-                'label' => 'City'
+                'label' => 'City',
             ])
-            ->add('summary', CKEditorType::class, array(
-                'config' => array(
+            ->add('summary', CKEditorType::class, [
+                'config' => [
                     'uiColor' => '#22A7F0',
-                    'entities_latin' => false
-                )))
-            ->add('content', CKEditorType::class, array(
-                'config' => array(
+                    'entities_latin' => false,
+                ], ])
+            ->add('content', CKEditorType::class, [
+                'config' => [
                     'uiColor' => '#ffffff',
-                    'entities_latin' => false
-                )))
+                    'entities_latin' => false,
+                ], ])
             ->add('meta', TextType::class, [])
             ->add('keyword', TextType::class, [
             ])
@@ -59,21 +58,20 @@ class DestinationType extends AbstractType
             ])
             ->add('thumbUrl', FileType::class, [
                 'data' => null,
-                'required' => false
+                'required' => false,
             ])
             ->add('slug', TextType::class, [
                 'constraints' => new NotBlank(),
-                'attr' => ['class' => 'slug']
+                'attr' => ['class' => 'slug'],
             ])
 
 //            ->add('publishedAt', DateType::class, [
 //                'constraints' => new NotBlank()
 //            ])
 
-
             ->add('publish', CheckboxType::class, [
                 'label' => 'Publish',
-                'required' => false
+                'required' => false,
             ])
 //            ->add('allowComment', CheckboxType::class, [
 //                'data' => true,
@@ -82,5 +80,4 @@ class DestinationType extends AbstractType
 
         ;
     }
-
 }

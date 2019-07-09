@@ -19,8 +19,9 @@ class CountryController extends AbstractController
     /**
      * @Route("", name="country_index", methods={"GET"})
      *
-     * @param Request        $request
+     * @param Request           $request
      * @param CountryRepository $repository
+     *
      * @return Response
      */
     public function index(Request $request, CountryRepository $repository): Response
