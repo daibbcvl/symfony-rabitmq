@@ -2,8 +2,10 @@
 
 namespace App\Controller\FrontEnd;
 
+use App\Entity\Category;
 use App\Entity\Comment;
 use App\Entity\Post;
+use App\Entity\Tag;
 use App\Entity\User;
 use App\Form\Site\CommentType;
 use App\Repository\CategoryRepository;
@@ -47,6 +49,79 @@ class BlogController extends AbstractController
             'fbPage' => '',
         ]);
     }
+
+    /**
+     * @Route("/blog/{year}/{month}", name="blog_archive")
+     *
+     * @param PostRepository $postRepository
+     *
+     * @param int            $year
+     * @param int            $month
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function archive(PostRepository $postRepository,int $year, int $month)
+    {
+        return $this->render('front/blog/index.html.twig', [
+            'posts' => $postRepository->getArchiveArticles($year, $month, 10),
+            'categories' => $this->categories,
+            'tags' => $this->tags,
+            'title' => '',
+            'titleSeo' => '',
+            'meta' => '',
+            'keyword' => '',
+            'pageURL' => '',
+            'fbPage' => '',
+        ]);
+    }
+
+    /**
+     * @Route("/{categorySlug}", name="blog_category")
+     *
+     * @param CategoryRepository $categoryRepository
+     * @param Category           $category
+     * @param PostRepository     $postRepository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function category(CategoryRepository $categoryRepository,Category $category, PostRepository $postRepository)
+    {
+        return $this->render('front/blog/index.html.twig', [
+            'posts' => $postRepository->findBy(['category' => $category],['publishedAt' => 'ASC'], 10),
+            'categories' => $this->categories,
+            'tags' => $this->tags,
+            'title' => '',
+            'titleSeo' => '',
+            'meta' => '',
+            'keyword' => '',
+            'pageURL' => '',
+            'fbPage' => '',
+        ]);
+    }
+
+    /**
+     * @Route("/{tagSlug}", name="blog_tag")
+     *
+     * @param TagRepository  $tagRepository
+     * @param Tag            $tag
+     * @param PostRepository $postRepository
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function tag(TagRepository $tagRepository,Tag $tag, PostRepository $postRepository)
+    {
+        return $this->render('front/blog/index.html.twig', [
+            'posts' => $postRepository->getPostsByTags([$tag]),
+            'categories' => $this->categories,
+            'tags' => $this->tags,
+            'title' => '',
+            'titleSeo' => '',
+            'meta' => '',
+            'keyword' => '',
+            'pageURL' => '',
+            'fbPage' => '',
+        ]);
+    }
+
 
     /**
      * @Route("/blog/{slug}", name="blog_details")

@@ -15,7 +15,7 @@
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">Name</th>
-
+                        <th scope="col">Slug</th>
                         <th scope="col">Created at</th>
                     </tr>
                     </thead>
@@ -23,6 +23,7 @@
                     {% for item in pager.currentPageResults %}
                         <tr class="row-clickable" data-href="{{ path('category_edit', {id: item.id}) }}" title="{{ path('category_edit', {id: item.id}) }}">
                             <td>{{ item.name }}</td>
+                            <td>{{ item.categorySlug }}</td>
                             <td>{{ item.createdAt|date('Y-m-d h:i') }}</td>
                         </tr>
                     {% endfor %}

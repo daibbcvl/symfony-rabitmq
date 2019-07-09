@@ -21,9 +21,40 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-    public function getHomePageArticles($limit = 20)
+    public function getHomePageArticles($limit = 4)
     {
-        return $this->findBy(['showHomePage' => true], ['publishedAt' => 'ASC'], $limit);
+        return $this->findBy(['showHomePage' => true, 'type' => 'post'], ['publishedAt' => 'ASC'], $limit);
+    }
+
+    public function getArchiveArticles($year, $month, $limit = 20)
+    {
+
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        $queryBuilder->where('YEAR(p.publishedAt) = :year')
+                    ->andWhere('MONTH(p.publishedAt) =:month')
+                    ->setParameter('year', $year)
+                    ->setParameter('month', $month)
+                   ->orderBy('p.publishedAt', 'ASC');
+
+        return $queryBuilder->getQuery()->setMaxResults($limit)->getArrayResult();
+    }
+
+    /**
+     * @param     Tag[] $tags
+     * @param int $limit
+     * @return array
+     */
+    public function getPostsByTags($tags, $limit = 20)
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        $orX = $queryBuilder->expr()->orX();
+        $orX->add(':tag MEMBER OF p.tags');
+        $queryBuilder
+            ->leftJoin('p.tags', 'tags')
+            ->andWhere($orX)->setParameter('tags', $tags);
+
+        return $queryBuilder->getQuery()->setMaxResults($limit)->getArrayResult();
     }
 
     /**

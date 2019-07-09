@@ -29,7 +29,7 @@ class TagType extends AbstractType
                 'constraints' => new NotBlank(),
             ])
 
-            ->add('slug', TextType::class, [
+            ->add('tagSlug', TextType::class, [
                 'constraints' => new NotBlank(),
             ])
 

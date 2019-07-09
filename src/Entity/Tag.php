@@ -26,7 +26,7 @@ class Tag implements SoftDeletableInterface, TimestampableInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $slug;
+    private $tagSlug;
 
     public function getId(): ?int
     {
@@ -45,14 +45,14 @@ class Tag implements SoftDeletableInterface, TimestampableInterface
         return $this;
     }
 
-    public function getSlug(): ?string
+    public function getTagSlug(): ?string
     {
-        return $this->slug;
+        return $this->tagSlug;
     }
 
-    public function setSlug(string $slug): self
+    public function setTagSlug(string $slug): self
     {
-        $this->slug = $slug;
+        $this->tagSlug = $slug;
 
         return $this;
     }

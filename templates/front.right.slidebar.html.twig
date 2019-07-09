@@ -12,7 +12,7 @@
         <h3>Danh mục</h3>
         <div class="categories">
         {% for item in categories %}
-            <li><a href="#">{{ item.name }} <span>(12)</span></a></li>
+            <li><a href="{{ path('blog_category', {categorySlug:item.categorySlug}) }}">{{ item.name }} <span>({{ item.postCount }})</span></a></li>
         {% endfor %}
         </div>
     </div>
@@ -61,7 +61,7 @@
             <h3>Tags</h3>
             <div class="tagcloud">
                 {% for item in tags %}
-                    <a href="#" class="tag-cloud-link">{{ item.name }}</a>
+                    <a href="{{ path('blog_tag', {tagSlug: item.tagSlug}) }}" class="tag-cloud-link">{{ item.name }}</a>
                 {% endfor %}
             </div>
         </div>

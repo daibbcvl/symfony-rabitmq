@@ -23,7 +23,7 @@
                     {% for item in pager.currentPageResults %}
                         <tr class="row-clickable" data-href="{{ path('tag_edit', {id: item.id}) }}" title="{{ path('category_edit', {id: item.id}) }}">
                             <td>{{ item.name }}</td>
-                            <td>{{ item.slug }}</td>
+                            <td>{{ item.tagSlug }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

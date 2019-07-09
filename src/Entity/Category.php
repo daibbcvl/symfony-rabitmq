@@ -42,11 +42,18 @@ class Category implements SoftDeletableInterface, TimestampableInterface
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $slug;
+    private $categorySlug;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Post", mappedBy="category")
+     */
+    private $posts;
+
 
     public function __construct()
     {
         $this->children = new ArrayCollection();
+        $this->posts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -139,14 +146,38 @@ class Category implements SoftDeletableInterface, TimestampableInterface
         return $this->name;
     }
 
-    public function getSlug(): ?string
+    public function getCategorySlug(): ?string
     {
-        return $this->slug;
+        return $this->categorySlug;
     }
 
-    public function setSlug(string $slug): self
+    public function setCategorySlug(string $slug): self
     {
-        $this->slug = $slug;
+        $this->categorySlug = $slug;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    public function getPostCount()
+    {
+        return $this->posts->filter(function (Post $post){ return $post->getType() =='post'; })->count();
+    }
+
+    /**
+     * @param mixed $posts
+     * @return Category
+     */
+    public function setPosts($posts)
+    {
+        $this->posts = $posts;
 
         return $this;
     }

@@ -28,10 +28,9 @@ class CategoryType extends AbstractType
         $builder
             ->add('parent', EntityType::class, [
                 'required' => false,
-//                'widget' => 'select2',
+                'widget' => 'select2',
                 'class' => Category::class,
                 'placeholder' => 'Select parent',
-//                'placerequired' => false
             ])
             ->add('name', TextType::class, [
                 'constraints' => new NotBlank(),
@@ -40,7 +39,7 @@ class CategoryType extends AbstractType
                 'required' => false,
             ])
 
-            ->add('slug', TextType::class, [
+            ->add('categorySlug', TextType::class, [
                 'constraints' => new NotBlank(),
             ])
 

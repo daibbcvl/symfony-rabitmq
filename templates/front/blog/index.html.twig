@@ -36,9 +36,11 @@
             {{ post.summary | raw}}
             <div class="tag-widget post-tag-container mb-5 mt-5">
                 <div class="tagcloud">
+                    {% if(post.tags is defined)%}
                     {% for tag in post.tags %}
                     <a href="#" class="tag-cloud-link">{{ tag.name }}</a>
                     {% endfor %}
+                    {% endif %}
                 </div>
             </div>
         {% endfor %}
