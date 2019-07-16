@@ -75,7 +75,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/{categorySlug}", name="blog_category")
+     * @Route("/category/{categorySlug}", name="blog_category")
      *
      * @param Category           $category
      * @param PostRepository     $postRepository

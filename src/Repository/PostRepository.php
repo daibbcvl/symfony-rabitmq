@@ -33,17 +33,17 @@ class PostRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('p');
 
         $queryBuilder->where('YEAR(p.publishedAt) = :year')
-                    ->andWhere('MONTH(p.publishedAt) =:month')
-                    ->setParameter('year', $year)
-                    ->setParameter('month', $month)
-                   ->orderBy('p.publishedAt', 'ASC');
+            ->andWhere('MONTH(p.publishedAt) =:month')
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
+            ->orderBy('p.publishedAt', 'ASC');
 
         return $queryBuilder->getQuery()->setMaxResults($limit)->getArrayResult();
     }
 
     /**
      * @param     Tag $tag
-     * @param int $limit
+     * @param int     $limit
      * @return array
      */
     public function getPostsByTag(Tag $tag, $limit = 20)

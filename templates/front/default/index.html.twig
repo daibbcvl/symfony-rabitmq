@@ -131,7 +131,7 @@
                             <h3 class="heading mt-3"><a href="{{ path('blog_details', {slug:blog.slug})}}">{{ blog.title }}</a></h3>
                             <div class="meta mb-3">
                                 <div><a href="{{ path('blog_archive', {year : blog.publishedAt|date('Y'), month : blog.publishedAt|date('m')}) }}">August 12, 2018</a></div>
-                                <div><a href="#">{{ blog.author }}</a></div>
+                                <div><a href="#">{{ blog.author.firstName }}</a></div>
                                 {% if blog.commentCount %}
                                 <div><a href="#" class="meta-chat"><span class="icon-chat"></span> {{ blog.commentCount }}</a></div>
                                 {% endif %}

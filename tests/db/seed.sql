@@ -3,7 +3,11 @@ INSERT INTO `user` (`id`, `email`, `roles`, `password`, `enabled`, `first_name`,
 VALUES (1, 'admin@example.com', '["ROLE_ADMIN"]', '$2y$13$8OgMP1Afbls5rUYCyMl2nuqIDCHuc/4qapiwSdTuwBoRg1skcB5Oy', 1,
         'Super', 'Admin');
 
-INSERT INTO `tag` (`id`, `name`, `slug`, `deleted`, `created_at`, `updated_at`)
+INSERT INTO `user` (`id`, `email`, `roles`, `password`, `enabled`, `first_name`, `last_name`)
+VALUES (2, 'test@example.com', '["ROLE_USER"]', '$2y$13$8OgMP1Afbls5rUYCyMl2nuqIDCHuc/4qapiwSdTuwBoRg1skcB5Oy', 1,
+        'Super', 'Admin');
+
+INSERT INTO `tag` (`id`, `name`, `tag_slug`, `deleted`, `created_at`, `updated_at`)
 VALUES
 (1, 'Travel', 'travel', 0, '2019-06-29 14:32:37', '2019-06-30 03:40:19'),
 (2, 'Food', 'food', 0, '2019-06-29 14:50:25', NULL),
@@ -11,7 +15,7 @@ VALUES
 (4, 'Test', 'test', 0, '2019-06-30 03:36:52', NULL);
 
 
-INSERT INTO `category` (`id`, `parent_id`, `name`, `description`, `slug`, `deleted`, `created_at`, `updated_at`)
+INSERT INTO `category` (`id`, `parent_id`, `name`, `description`, `category_slug`, `deleted`, `created_at`, `updated_at`)
 VALUES ('1', NULL, 'Du lich', NULL, '', '0', '2019-06-29 00:00:00', NULL),
        ('2', NULL, 'Ẩm thực', 'Ẩm thực', 'am-thuc', '0', '2019-07-01 00:22:07', NULL),
        ('3', NULL, 'Lễ hội', 'Lễ hội', 'le-hoi', '0', '2019-07-01 00:22:20', NULL);

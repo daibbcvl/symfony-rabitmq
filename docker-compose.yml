@@ -9,20 +9,26 @@ services:
             - MYSQL_DATABASE=test_db
         ports:
             - 3306:3306
-    rabbitmq:
-        image: rabbitmq
+#    rabbitmq:
+#        image: rabbitmq
+#        ports:
+#            - 5672:5672
+    memcached:
+        image: memcached
         ports:
-            - 5672:5672        
+            - 11211:11211
     app:
         build:
             context: .
         links:
             - mysql
+            - memcached
         depends_on:
             - mysql
+            - memcached
         volumes:
             - .:/var/www/:cached
-            - /var/www/vendor/
+            - ./vendor/:/var/www/vendor/
             - /var/www/node_modules
         command: bin/console server:run 0.0.0.0:80
         ports:
