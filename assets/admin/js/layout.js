@@ -86,6 +86,28 @@ $('.select2').each(function () {
     $this.select2(options);
 });
 
+/**
+$(".tags-select").select2({
+    // enable tagging
+    tags: true,
+
+    // max tags is 3
+    maximumSelectionLength: 3,
+
+    // loading remote data
+    // see https://select2.github.io/options.html#ajax
+    ajax: {
+        url: "http://0.0.0.0/admin/tags.json",
+        processResults: function (data, page) {
+            return {
+                results: data
+            };
+        }
+    }
+});
+
+ **/
+
 $('.tags-input').each(function () {
     const $this = $(this), options = $this.data();
 

@@ -21,7 +21,7 @@ class SelectTypeExtension extends AbstractTypeExtension
             'widget' => 'selectpicker',
             'search-box' => true,
         ]);
-        $resolver->setAllowedValues('widget', ['select2', 'selectpicker']);
+        $resolver->setAllowedValues('widget', ['select2', 'selectpicker', 'tags-select']);
         $resolver->setAllowedTypes('search-box', 'bool');
     }
 
@@ -42,6 +42,14 @@ class SelectTypeExtension extends AbstractTypeExtension
                     'class' => 'selectpicker',
                     'data-live-search' => true,
                     'data-live-search-style' => 'startsWith',
+                ];
+                break;
+
+            case 'tags-select':
+                $attr = [
+                    'class' => 'tags-select',
+                    'data-dropdown-auto-width' => true,
+                    'data-width' => '100%',
                 ];
                 break;
         }

@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TagRepository")
  */
-class Tag implements SoftDeletableInterface, TimestampableInterface
+class Tag implements SoftDeletableInterface, TimestampableInterface, \JsonSerializable
 {
     use SoftDeletableTrait, TimestampableTrait;
 
@@ -63,5 +63,16 @@ class Tag implements SoftDeletableInterface, TimestampableInterface
     public function __toString()
     {
         return $this->name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return [
+            'id' => $this->id,
+            'name' => $this->name,
+        ];
     }
 }

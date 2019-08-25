@@ -17,14 +17,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class TagController extends AbstractController
 {
     /**
-     * @Route("", name="tag_index", methods={"GET"})
+     * @Route(".{_format}", name="tag_index", methods={"GET"}, defaults={"_format": "html"}, requirements={"_format": "html|json"})
      *
      * @param Request       $request
+     * @param string        $_format
      * @param TagRepository $repository
      *
      * @return Response
      */
-    public function index(Request $request, TagRepository $repository): Response
+    public function index(Request $request, string $_format, TagRepository $repository): Response
     {
         $criteria = [];
         $page = $request->get('page', 1);
@@ -32,9 +33,9 @@ class TagController extends AbstractController
         $sort = $request->get('sort', ['name' => 'asc']);
         $pager = $repository->search($criteria, $sort)->setMaxPerPage($size)->setCurrentPage($page);
 
-        return $this->render('backend/tag/index.html.twig', [
+        return 'html' === $_format ? $this->render('backend/tag/index.html.twig', [
             'pager' => $pager,
-        ]);
+        ]) : $this->json(($pager));
     }
 
     /**
