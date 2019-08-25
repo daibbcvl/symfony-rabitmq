@@ -2,6 +2,7 @@
 
 namespace App\Controller\FrontEnd;
 
+use App\Entity\City;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\User;
@@ -29,13 +30,13 @@ class CityController extends AbstractController
      * @Route("/city/{slug}", name="city_details")
      *
      * @param Request                $request
-     * @param Post                   $post
+     * @param City                   $city
      * @param EntityManagerInterface $manager
      * @param CommentRepository      $commentRepository
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(Request $request, Post $post, EntityManagerInterface $manager, CommentRepository $commentRepository)
+    public function show(Request $request, City $city, EntityManagerInterface $manager, CommentRepository $commentRepository)
     {
         /** @var User $user */
         $user = $this->getUser();
@@ -44,7 +45,7 @@ class CityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setPost($post);
+            $comment->setPost($city);
             $comment->setApproved(Comment::COMMENT_STATE_PENDING);
             if ($user) {
                 $comment->setName($user->getFirstName())
@@ -57,12 +58,11 @@ class CityController extends AbstractController
             return $this->redirect($request->getUri());
         }
 
-        return $this->render('front/blog/show.html.twig', [
-            'post' => $post,
+        return $this->render('front/city/show.html.twig', [
+            'post' => $city,
             'form' => $form->createView(),
             'categories' => $this->categories,
             'tags' => $this->tags,
-            'comments' => $commentRepository->getApprovedComments($post),
             'title' => '',
             'titleSeo' => '',
             'meta' => '',

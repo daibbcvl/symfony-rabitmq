@@ -1,10 +1,10 @@
 {% extends 'admin.html.twig' %}
 
-{% set breadcrumbs = [{url: path('destination_index'), text: 'Destination'}, {text: 'Create'}] %}
-{% set quick_actions = [{icon: 'flaticon-list', url: path('destination_index'), text: 'List all destination'}, {icon: 'flaticon-add', text: 'Create new destination'}] %}
+{% set breadcrumbs = [{url: path('page_index'), text: 'Post'}, {text: 'Create'}] %}
+{% set quick_actions = [{icon: 'flaticon-list', url: path('page_index'), text: 'List all pages'}, {icon: 'flaticon-add', text: 'Create new page'}] %}
 
-{% block title %}Create new City{% endblock %}
-{% block subheader_title %}Create new post{% endblock %}
+{% block title %}Create new page{% endblock %}
+{% block subheader_title %}Create new page{% endblock %}
 {% block content %}
     <div class="m-content">
         <div class="m-portlet m-portlet--full-height m-portlet--tabs m--padding-30">
@@ -14,11 +14,11 @@
                     {{ form_widget(form) }}
                     <div class="form-group row">
                         <div class="offset-sm-3 col-sm-9">
-                            <button class="btn btn-primary m-btn m-btn--icon" type="submit" name="redirect_url" value="{{ path('destination_create') }}">
+                            <button class="btn btn-primary m-btn m-btn--icon" type="submit" name="redirect_url" value="{{ path('page_create') }}">
                                 <i class="la la-save"></i>
                                 Create
                             </button>
-                            <button class="btn btn-outline-primary m-btn m-btn--icon" type="submit" name="redirect_url" value="{{ path('destination_index') }}">
+                            <button class="btn btn-outline-primary m-btn m-btn--icon" type="submit" name="redirect_url" value="{{ path('page_index') }}">
                                 <i class="flaticon-list"></i>
                                 Create & back to list
                             </button>

@@ -1,14 +1,14 @@
 {% extends 'admin.html.twig' %}
 
-{% set breadcrumbs = [{url: path('destination_index'), text: 'Destination'}, {text: 'Edit'}] %}
-{% set quick_actions = [{icon: 'flaticon-list', url: path('destination_index'), text: 'List all destinations'}, {icon: 'flaticon-add', url: path('destination_create'), text: 'Create'}] %}
+{% set breadcrumbs = [{url: path('page_index'), text: 'Post'}, {text: 'Edit'}] %}
+{% set quick_actions = [{icon: 'flaticon-list', url: path('page_index'), text: 'List all pages'}, {icon: 'flaticon-add', url: path('page_create'), text: 'Create'}] %}
 
-{% block title %}Edit Destination{% endblock %}
-{% block subheader_title %}Edit a destination{% endblock %}
+{% block title %}Edit page{% endblock %}
+{% block subheader_title %}Edit a page{% endblock %}
 {% block quick_actions_items %}
     <li class="m-nav__separator m-nav__separator--fit"></li>
     <li class="m-nav__item">
-        <form action="{{ path('destination_edit', {id: app.request.get('id')}) }}" method="post" class="m-nav__item">
+        <form action="{{ path('page_edit', {id: app.request.get('id')}) }}" method="post" class="m-nav__item">
             <input type="hidden" name="_method" value="DELETE">
             <button class="btn btn-link m-btn m-btn--icon m-nav__link confirm-action" type="submit">
                 <i class="m-nav__link-icon flaticon-delete text-danger"></i>
@@ -23,24 +23,7 @@
         <div class="m-portlet m-portlet--full-height m-portlet--tabs m--padding-30">
             <div class="row">
                 <div class="col-lg-10 col-xl-10">
-
                     {{ form_start(form) }}
-
-                    {{ form_row(form.country) }}
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.summary) }}
-                    {{ form_row(form.content) }}
-                    <div>
-                        {{ form_row(form.thumbUrl) }}
-                        <div class="form-group row">
-                            <div class="col-form-label col-sm-3"></div>
-                            <div class="col-sm-9">
-                                {% if post.thumbUrl is not empty %}
-                                    <a target="_blank" href="{{ asset('./uploads/thumbs/') ~ post.thumbUrl }}">{{ post.thumbUrl }}</a>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </div>
                     {{ form_widget(form) }}
                     <div class="form-group row">
                         <div class="col-sm-9 offset-sm-3">
@@ -49,7 +32,7 @@
                                 Update
                             </button>
                             <button class="btn btn-outline-primary m-btn m-btn--icon" type="submit"
-                                    name="redirect_url" value="{{ path('destination_index') }}">
+                                    name="redirect_url" value="{{ path('page_index') }}">
                                 <i class="flaticon-list"></i>
                                 Update & back to list
                             </button>

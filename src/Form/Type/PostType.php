@@ -64,7 +64,6 @@ class PostType extends AbstractType
                 'constraints' => new NotBlank(),
                 'attr' => ['class' => 'slug'],
             ])
-
             ->add('publishedAt', DateType::class, [
                 'constraints' => new NotBlank(),
             ])
@@ -74,7 +73,6 @@ class PostType extends AbstractType
                 'multiple' => true,
                 'widget' => 'select2',
             ])
-
             ->add('publish', CheckboxType::class, [
                 'label' => 'Publish',
                 'required' => false,

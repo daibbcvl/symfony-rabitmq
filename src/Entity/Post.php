@@ -8,6 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PostRepository")
+ * @ORM\Table(name="post", indexes={
+ *     @ORM\Index(name="post_title_idx", columns={"title"}, flags={"fulltext"})
+ * })
  */
 class Post implements SoftDeletableInterface, TimestampableInterface
 {
@@ -36,7 +39,7 @@ class Post implements SoftDeletableInterface, TimestampableInterface
     private $content;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
      */
     private $summary;
 

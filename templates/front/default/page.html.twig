@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="{{ asset('app/css/owl.carousel.min.css')}}">
     <link rel="stylesheet" href="{{ asset('app/css/owl.theme.default.min.css')}}">
-    <link rel="stylesheet" href="{{ asset('app/css/css/magnific-popup.css')}}">
+    <link rel="stylesheet" href="{{ asset('app/css/magnific-popup.css')}}">
 
     <link rel="stylesheet" href="{{ asset('app/css/aos.css')}}">
 
@@ -29,46 +29,45 @@
     <link rel="stylesheet" href="{{ asset('app/css/flaticon.css')}}">
     <link rel="stylesheet" href="{{ asset('app/css/icomoon.css')}}">
     <link rel="stylesheet" href="{{ asset('app/css/style.css')}}">
-    {% block stylesheets %}
-        {#{{ encore_entry_link_tags('app', null, 'appConfig') }}#}
-    {% endblock %}
+    {#<link rel="stylesheet" href="{{ asset('app/css/select2.min.css')}}">#}
+
 </head>
 <body class="m-page--fluid m--skin- m-content--skin-light2 m-header--fixed m-header--fixed-mobile m-aside-left--enabled m-aside-left--skin-dark m-aside-left--fixed m-aside-left--offcanvas m-footer--push m-aside--offcanvas-default {% block body_class %}{% endblock %}">
 {% block body %}
     {% include 'front.nav.html.twig' %}
     <!-- END nav -->
-    <div class="hero-wrap js-fullheight" style="background-image: url('{{ asset("app/images/bg_4.jpg")}}');" >
+    <div class="hero-wrap js-fullheight" style="background-image: url('{{ asset("app/images/bg_4.jpg")}}');">
         <div class="overlay"></div>
         <div class="container">
-            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true">
-                <div class="col-md-9 ftco-animate text-center" data-scrollax=" properties: { translateY: '70%' }">
-                    <p class="breadcrumbs" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><span class="mr-2"><a href="index.html">Home</a></span> <span>Blog</span></p>
-                    <h1 class="mb-3 bread" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Tips &amp; Articles</h1>
+            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-start" data-scrollax-parent="true">
+                <div class="col-md-9 ftco-animate" data-scrollax=" properties: { translateY: '70%' }">
+                    <h1 class="mb-4" data-scrollax="properties: { translateY: '30%', opacity: 1.6 }"><strong>Khám phá <br></strong> điểm đến tuyệt vời nhất</h1>
+                    <p data-scrollax="properties: { translateY: '30%', opacity: 1.6 }">Hành trình đặc sắc cùng LAP Travels</p>
+
                 </div>
             </div>
         </div>
     </div>
-    <section class="ftco-section ftco-degree-bg">
+
+
+    <section class="ftco-section">
         <div class="container">
-            <div class="row">
-                <!-- BEGIN: Main content -->
-                <div class="col-md-8 ftco-animate">
-                    {% block content %}{% endblock %}
+            <div class="row d-md-flex">
+                <h2 class="mb-4">{{ post.title }}</h2>
+                <div>
+
+                    {{ post.content|raw }}
                 </div>
-                <!-- END: Main content  -->
-                <!-- BEGIN: Right slide bar -->
-                {% include 'front.right.slidebar.html.twig' %}
-                <!-- END: Right slide bar  -->
             </div>
         </div>
-    </section> <!-- .section -->
+    </section>
 
     <footer class="ftco-footer ftco-bg-dark ftco-section">
         <div class="container">
             <div class="row mb-5">
                 <div class="col-md">
                     <div class="ftco-footer-widget mb-4">
-                        <h2 class="ftco-heading-2">LAP Travels</h2>
+                        <h2 class="ftco-heading-2">dirEngine</h2>
                         <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                         <ul class="ftco-footer-social list-unstyled float-md-left float-lft mt-5">
                             <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
@@ -125,6 +124,11 @@
             </div>
         </div>
     </footer>
+
+
+
+    <!-- loader -->
+    <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 {% endblock %}
 {% block javascripts %}
     {#{{ encore_entry_script_tags('app', null, 'appConfig') }}#}
@@ -140,9 +144,15 @@
     <script src="{{ asset('app/js/aos.js') }}"></script>
     <script src="{{ asset('app/js/jquery.animateNumber.min.js') }}"></script>
     <script src="{{ asset('app/js/bootstrap-datepicker.js') }}"></script>
-    <script src="{{ asset('app/js/jquery.timepicker.min.js') }}"></script>
+    {#<script src="{{ asset('app/js/jquery.timepicker.min.js') }}"></script>#}
     <script src="{{ asset('app/js/scrollax.min.js') }}"></script>
     <script src="{{ asset('app/js/main.js') }}"></script>
+    {#<script src="{{ asset('app/js/select2.min.js') }}"></script>#}
+
+    {#<script src="{{ asset('app/js/app.select2.js') }}"></script>#}
+
+
+
 {% endblock %}
 
 </body>

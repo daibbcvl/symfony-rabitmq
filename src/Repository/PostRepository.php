@@ -17,6 +17,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  */
 class PostRepository extends ServiceEntityRepository
 {
+    const MYSQL_SEARCH_SCORE = 0.09;
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Post::class);
@@ -56,6 +57,17 @@ class PostRepository extends ServiceEntityRepository
             ->andWhere($orX)->setParameter('tag', $tag);
 
         return $queryBuilder->getQuery()->setMaxResults($limit)->getArrayResult();
+    }
+
+    public function searchPostByTitleAndType(string $title)
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        $queryBuilder
+        ->andWhere('MATCH_AGAINST(p.title, :title) > :score')
+        ->setParameter('title', $title)
+        ->setParameter('score', self::MYSQL_SEARCH_SCORE);
+
+        return $queryBuilder->getQuery()->getArrayResult();
     }
 
     /**
