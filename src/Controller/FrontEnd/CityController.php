@@ -9,6 +9,7 @@ use App\Entity\User;
 use App\Form\Site\CommentType;
 use App\Repository\CategoryRepository;
 use App\Repository\CommentRepository;
+use App\Repository\PostRepository;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,31 +37,12 @@ class CityController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function show(Request $request, City $city, EntityManagerInterface $manager, CommentRepository $commentRepository)
+    public function show(Request $request, City $city, EntityManagerInterface $manager, PostRepository $postRepository)
     {
-        /** @var User $user */
-        $user = $this->getUser();
-        $comment = new Comment();
-        $form = $this->createForm(CommentType::class, $comment, ['commentAuthor' => null !== $user]);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setPost($city);
-            $comment->setApproved(Comment::COMMENT_STATE_PENDING);
-            if ($user) {
-                $comment->setName($user->getFirstName())
-                        ->setCommentAuthor($user)
-                        ->setEmail($user->getEmail());
-            }
-            $manager->persist($form->getData());
-            $manager->flush();
-
-            return $this->redirect($request->getUri());
-        }
 
         return $this->render('front/city/show.html.twig', [
-            'post' => $city,
-            'form' => $form->createView(),
+            'city' => $city,
+            'posts' => $postRepository->getPostByCity($city),
             'categories' => $this->categories,
             'tags' => $this->tags,
             'title' => '',

@@ -3,6 +3,7 @@
 namespace App\Form\Type;
 
 use App\Entity\Category;
+use App\Entity\City;
 use App\Entity\Post;
 use App\Entity\Tag;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -35,6 +36,11 @@ class PostType extends AbstractType
             ->add('category', EntityType::class, [
                 'required' => false,
                 'class' => Category::class,
+                'widget' => 'select2',
+            ])
+            ->add('city', EntityType::class, [
+                'required' => false,
+                'class' => City::class,
                 'widget' => 'select2',
             ])
             ->add('title', TextType::class, [

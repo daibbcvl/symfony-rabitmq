@@ -159,10 +159,7 @@ class BlogController extends AbstractController
             'categories' => $this->categories,
             'tags' => $this->tags,
             'comments' => $commentRepository->getApprovedComments($post),
-            'title' => '',
-            'titleSeo' => '',
-            'meta' => '',
-            'keyword' => '',
+            'title' => $post->getTitleSeo(),
             'pageURL' => '',
             'fbPage' => '',
         ]);

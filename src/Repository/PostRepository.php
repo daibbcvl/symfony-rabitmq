@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\City;
 use App\Entity\Post;
 use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -18,6 +19,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 class PostRepository extends ServiceEntityRepository
 {
     const MYSQL_SEARCH_SCORE = 0.09;
+
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Post::class);
@@ -34,17 +36,17 @@ class PostRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('p');
 
         $queryBuilder->where('YEAR(p.publishedAt) = :year')
-                    ->andWhere('MONTH(p.publishedAt) =:month')
-                    ->setParameter('year', $year)
-                    ->setParameter('month', $month)
-                   ->orderBy('p.publishedAt', 'ASC');
+            ->andWhere('MONTH(p.publishedAt) =:month')
+            ->setParameter('year', $year)
+            ->setParameter('month', $month)
+            ->orderBy('p.publishedAt', 'ASC');
 
         return $queryBuilder->getQuery()->setMaxResults($limit)->getArrayResult();
     }
 
     /**
      * @param     Tag $tag
-     * @param int $limit
+     * @param int     $limit
      * @return array
      */
     public function getPostsByTag(Tag $tag, $limit = 20)
@@ -63,9 +65,9 @@ class PostRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('p');
         $queryBuilder
-        ->andWhere('MATCH_AGAINST(p.title, :title) > :score')
-        ->setParameter('title', $title)
-        ->setParameter('score', self::MYSQL_SEARCH_SCORE);
+            ->andWhere('MATCH_AGAINST(p.title, :title) > :score')
+            ->setParameter('title', $title)
+            ->setParameter('score', self::MYSQL_SEARCH_SCORE);
 
         return $queryBuilder->getQuery()->getArrayResult();
     }
@@ -88,5 +90,18 @@ class PostRepository extends ServiceEntityRepository
         $adapter = new DoctrineORMAdapter($queryBuilder);
 
         return new Pagerfanta($adapter);
+    }
+
+    /**
+     * @param City $city
+     * @return mixed
+     */
+    public function getPostByCity($city)
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        $queryBuilder
+            ->leftJoin('p.city', 'city')
+            ->where('p.city  = :city')->setParameter('city', $city);
+        return $queryBuilder->getQuery()->getResult();
     }
 }

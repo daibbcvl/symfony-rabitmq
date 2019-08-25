@@ -138,9 +138,11 @@ class Post implements SoftDeletableInterface, TimestampableInterface
     private $comments;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Country")
+     * @ORM\ManyToOne(targetEntity="App\Entity\City")
      */
-    private $country;
+    private $city;
+
+    
 
     public function __construct()
     {
@@ -462,14 +464,14 @@ class Post implements SoftDeletableInterface, TimestampableInterface
         return $this;
     }
 
-    public function getCountry(): ?Country
+    public function getCity(): ?City
     {
-        return $this->country;
+        return $this->city;
     }
 
-    public function setCountry(?Country $country): self
+    public function setCity(?City $city): self
     {
-        $this->country = $country;
+        $this->city = $city;
 
         return $this;
     }
