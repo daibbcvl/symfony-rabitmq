@@ -123,11 +123,14 @@
                 {% block content %}{% endblock %}
             </div>
             <div id="right-sidebar">
-                <ul>
-                    <li><img src="{{ asset('theme/images/sapa.jpg') }}"></li>
-                    <li><img src="{{  asset('theme/images/halong.jpg') }}"></li>
-                    <li><img src="{{  asset('theme/images/da-nang.jpg') }}"></li>
-                </ul>
+                {% block photoGallery %}
+                    <ul>
+                        <li><img src="{{ asset('theme/images/sapa.jpg') }}"></li>
+                        <li><img src="{{  asset('theme/images/halong.jpg') }}"></li>
+                        <li><img src="{{  asset('theme/images/da-nang.jpg') }}"></li>
+                    </ul>
+                {% endblock %}
+                {% block recentBlog %} {% endblock %}
             </div>
             <div class="clear-fix"></div>
         </div>

@@ -10,7 +10,7 @@
         <div class="intro-box">
             <div class="box-left"><img src="{{ asset('uploads/thumbs/'~post.thumbUrl) }}"></div>
             <div class="box-right">
-                <h3><a href="#">{{ post.title }}</a></h3>
+                <h3><a href="{{ path('blog_details', {slug:post.slug}) }}">{{ post.title }}</a></h3>
                 <p>{{ post.summary }}</p>
             </div>
             <div class="clear-fix"></div>

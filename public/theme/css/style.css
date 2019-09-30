@@ -5,6 +5,14 @@ body{
     font-weight: 400;
     color: #1d1d1d;
     font-size: 1em;
+    line-height: 1.7em;
+}
+a{
+    color:#0065b8;
+    text-decoration: none;
+}
+a:hover{
+    color: #e11e25;
 }
 div {
     display: block;
@@ -468,3 +476,97 @@ div.divider
 }
 
 /*** /End Footer ***/
+
+/******** Blog details */
+img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+.tagcloud a {
+    text-transform: uppercase;
+    display: inline-block;
+    padding: 4px 10px;
+    margin-bottom: 7px;
+    margin-right: 4px;
+    border-radius: 4px;
+    color: #000000;
+    border: 1px solid #ccc;
+    font-size: 11px;
+}
+
+.bg-light {
+    background: #f8faff !important;
+}
+.mr-5, .mx-5 {
+    margin-right: 3rem !important;
+}
+.mb-4, .my-4 {
+    margin-bottom: 1.5rem !important;
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: auto;
+}
+
+.align-self-md-center {
+    align-self: center !important;
+}
+
+.about-author .desc h3 {
+    font-size: 24px;
+}
+
+.bg-light {
+    background: #f8faff !important;
+}
+.p-5 {
+    padding: 3rem !important;
+}
+.d-flex {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+}
+.mb-5, .my-5 {
+    margin-bottom: 3rem !important;
+}
+.mt-5, .my-5 {
+    margin-top: 3rem !important;
+}
+
+.comment-list {
+    padding: 0;
+    margin: 0;
+}
+.comment-list li {
+    padding: 0;
+    margin: 0 0 30px 0;
+    float: left;
+    width: 100%;
+    clear: both;
+    list-style: none;
+}
+.comment-list li .vcard {
+    width: 80px;
+    float: left;
+}
+.comment-list li .comment-body {
+    float: right;
+    width: calc(100% - 80px);
+}
+.comment-list li .comment-body h3 {
+    font-size: 14px;
+}
+.comment-list li .comment-body .meta {
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: .1em;
+    color: #ccc;
+}
+
+.comment-list li p
+{
+    font-size: 13px;
+}
