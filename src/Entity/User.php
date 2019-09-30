@@ -289,4 +289,9 @@ class User implements UserInterface
     {
         return $this->firstName;
     }
+
+    public function getEnabled(): ?bool
+    {
+        return $this->enabled;
+    }
 }

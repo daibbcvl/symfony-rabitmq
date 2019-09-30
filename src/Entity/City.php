@@ -31,6 +31,11 @@ class City implements SoftDeletableInterface
     private $name;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $area;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $content;
@@ -239,6 +244,18 @@ class City implements SoftDeletableInterface
     public function setShowHomePage($showHomePage)
     {
         $this->showHomePage = $showHomePage;
+        return $this;
+    }
+
+    public function getArea(): ?string
+    {
+        return $this->area;
+    }
+
+    public function setArea(string $area): self
+    {
+        $this->area = $area;
+
         return $this;
     }
 }

@@ -150,6 +150,8 @@ class BlogController extends AbstractController
             $manager->persist($form->getData());
             $manager->flush();
 
+            $this->addFlash('success', 'Nội dung bình luận đã được gửi đi.');
+
             return $this->redirect($request->getUri());
         }
 
@@ -163,5 +165,27 @@ class BlogController extends AbstractController
             'pageURL' => '',
             'fbPage' => '',
         ]);
+    }
+
+    /**
+     * @Route("/di-trong-nuoc", name="domestic_tour")
+     *
+     * @param PostRepository $postRepository
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function domesticTour(PostRepository $postRepository)
+    {
+        return $this->render('front/blog/domestic.html.twig', [
+            'posts' => $postRepository->findAll(),
+            'categories' => $this->categories,
+            'tags' => $this->tags,
+            'title' => '',
+            'titleSeo' => '',
+            'meta' => '',
+            'keyword' => '',
+            'pageURL' => '',
+            'fbPage' => '',
+        ]);
+
     }
 }

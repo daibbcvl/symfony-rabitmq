@@ -25,7 +25,7 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
     }
 
-    public function getHomePageArticles($limit = 4)
+    public function getHomePageArticles($limit = 5)
     {
         return $this->findBy(['showHomePage' => true, 'type' => 'post'], ['publishedAt' => 'ASC'], $limit);
     }

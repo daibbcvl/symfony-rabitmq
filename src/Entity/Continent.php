@@ -4,12 +4,12 @@ namespace App\Entity;
 
 class Continent
 {
-    const AFRICA = 'Africa';
-    const AMERICAS = 'Americas';
-    const ASIA = 'Asia';
-    const EUROPE = 'Europe';
-    const OCEANIA = 'Oceania';
-    const POLAR = 'Polar';
+    const AFRICA = 'Châu Phi';
+    const AMERICAS = 'Châu Mỹ';
+    const ASIA = 'Châu Á';
+    const EUROPE = 'Châu Âu';
+    const OCEANIA = 'Châu Úc';
+    const POLAR = 'Nam Cực';
 
     /**
      * @return array

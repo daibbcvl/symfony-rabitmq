@@ -14,27 +14,15 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="default")
      *
-     * @param Request        $request
      * @param PostRepository $postRepository
      *
      * @param CityRepository $cityRepository
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function index(Request $request, PostRepository $postRepository, CityRepository $cityRepository)
+    public function index(PostRepository $postRepository, CityRepository $cityRepository)
     {
-        $form = $this->createForm(DestinationSearchType::class, null, [
-            'action' => $this->generateUrl('front_search'),
-            'method' => 'GET']);
-        $form->handleRequest($request);
-
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            return $this->redirectToRoute('city_details', ['slug' => $form->getData()['city']->getSlug()]);
-//        }
-
         return $this->render('front/default/index.html.twig', [
-            'form' => $form->createView(),
             'posts' => $postRepository->getHomePageArticles(),
-            'cities' => $cityRepository->getHomePageDestinations(4),
             'title' => '',
             'titleSeo' => '',
             'meta' => '',
@@ -59,7 +47,6 @@ class DefaultController extends AbstractController
             'action' => $this->generateUrl('front_search'),
             'method' => 'GET']);
         $form->handleRequest($request);
-
 
         $posts = [];
         $cities = [];
