@@ -2,8 +2,8 @@
 
 {#{% form_theme form with 'bootstrap_4_layout.html.twig' only %}#}
 
-{% set breadcrumbs = [{text: 'Pages'}, {text: 'List all pages'}] %}
-{% set quick_actions = [{icon: 'flaticon-list', text: 'List all pages'}, {icon: 'flaticon-add', url: path('page_create'), text: 'Create a page'}] %}
+{% set breadcrumbs = [{text: 'Documents'}, {text: 'List all documents'}] %}
+{% set quick_actions = [{icon: 'flaticon-list', text: 'List all documents'}, {icon: 'flaticon-add', url: path('document_create'), text: 'Create a document'}] %}
 
 {% block title %}List all destinations{% endblock %}
 {% block subheader_title %}List all destinations{% endblock %}
@@ -14,19 +14,17 @@
                 <table class="table table-bordered table-hover table-striped">
                     <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Category</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Created at</th>
+                        <th scope="col">title</th>
+                        <th scope="col">description</th>
+                        <th scope="col">url</th>
                     </tr>
                     </thead>
                     <tbody>
                     {% for item in pager.currentPageResults %}
-                        <tr class="row-clickable" data-href="{{ path('page_edit', {id: item.id}) }}" title="{{ path('page_edit', {id: item.id}) }}">
+                        <tr class="row-clickable" data-href="{{ path('destination_edit', {id: item.id}) }}" title="{{ path('destination_edit', {id: item.id}) }}">
                             <td>{{ item.title }}</td>
-                            <td>{{ item.category }}</td>
-                            <td>{{ item.author }}</td>
-                            <td>{{ item.createdAt|date('Y-m-d h:i') }}</td>
+                            <td>{{ item.description }}</td>
+                            <td>{{ item.url }}</td>
                         </tr>
                     {% endfor %}
                     </tbody>

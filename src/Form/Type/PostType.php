@@ -97,6 +97,10 @@ class PostType extends AbstractType
             ->add('featuredArticle', CheckboxType::class, [
                 'data' => false,
                 'required' => false,
+            ])
+            ->add('popularArticle', CheckboxType::class, [
+                'data' => false,
+                'required' => false,
             ]);
     }
 }

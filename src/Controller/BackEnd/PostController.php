@@ -46,11 +46,12 @@ class PostController extends AbstractController
      *
      * @param Request                $request
      * @param EntityManagerInterface $entityManager
+     * @param PostRepository         $postRepository
      * @param LoggerInterface        $logger
      *
      * @return Response
      */
-    public function create(Request $request, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
+    public function create(Request $request, EntityManagerInterface $entityManager, PostRepository $postRepository, LoggerInterface $logger): Response
     {
         $post = new Post();
         $form = $this->createForm(PostType::class, $post);
@@ -72,6 +73,9 @@ class PostController extends AbstractController
             $post->setAuthor($this->getUser())->setType('post');
             $entityManager->persist($post);
             $entityManager->flush();
+            if ($post->getPopularArticle()) {
+                $postRepository->resetPopularArticles($post->getId());
+            }
 
             $this->addFlash('success', 'Create category successfully.');
             if ($url = $request->get('redirect_url')) {
@@ -93,9 +97,11 @@ class PostController extends AbstractController
      * @param Post                   $post
      * @param EntityManagerInterface $entityManager
      *
+     * @param PostRepository         $postRepository
+     * @param LoggerInterface        $logger
      * @return Response
      */
-    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, LoggerInterface $logger): Response
+    public function edit(Request $request, Post $post, EntityManagerInterface $entityManager, PostRepository $postRepository, LoggerInterface $logger): Response
     {
         $form = $this->createForm(PostType::class, $post, ['method' => 'PUT']);
         $form->handleRequest($request);
@@ -114,7 +120,11 @@ class PostController extends AbstractController
             }
             $post->setThumbUrl($fileName);
             $post->setAuthor($this->getUser());
+            //dump($post); die;
             $entityManager->flush();
+            if ($post->getPopularArticle()) {
+                $postRepository->resetPopularArticles($post->getId());
+            }
             $this->addFlash('success', 'Edit post successfully.');
 
             if ($url = $request->get('redirect_url')) {

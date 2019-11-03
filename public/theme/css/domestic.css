@@ -1,6 +1,6 @@
 .product-widget-wrap[_ngcontent-jkt-c41] {
     margin: 0 auto;
-    width: 90%;
+    width: 98%;
     max-width: 75rem;
 }
 .product-widget-wrap[_ngcontent-jkt-c41] a.product-content-link[_ngcontent-jkt-c41] {
@@ -22,7 +22,7 @@
 }
 
 
-.product-widget-wrap[_ngcontent-jkt-c41] .product-widget-content[_ngcontent-jkt-c41] .product-widget-title[_ngcontent-jkt-c41] h2[_ngcontent-jkt-c41] {
+#main-content .product-widget-wrap[_ngcontent-jkt-c41] .product-widget-content[_ngcontent-jkt-c41] .product-widget-title[_ngcontent-jkt-c41] h2[_ngcontent-jkt-c41] {
     font-weight: 500;
     font-size: 1.5rem;
     color: #1d1d1d;
@@ -74,4 +74,8 @@
 
 .slide-three .slick-slide {
     margin: 0px 10px;
+}
+
+#main-content .slider {
+    width: 98%;
 }

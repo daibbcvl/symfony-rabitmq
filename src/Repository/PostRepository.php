@@ -104,4 +104,21 @@ class PostRepository extends ServiceEntityRepository
             ->where('p.city  = :city')->setParameter('city', $city);
         return $queryBuilder->getQuery()->getResult();
     }
+
+    /**
+     * @param int $id
+     * @return mixed
+     */
+    public function resetPopularArticles(int $id)
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        $query = $queryBuilder->update()
+            ->set('p.popularArticle', '?1')
+            ->where('p.id != ?2')
+            ->setParameter(1, false)
+            ->setParameter(2, $id)
+            ->getQuery();
+
+        return $query->execute();
+    }
 }

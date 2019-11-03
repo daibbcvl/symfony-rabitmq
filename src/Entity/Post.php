@@ -121,6 +121,11 @@ class Post implements SoftDeletableInterface, TimestampableInterface
     private $featuredArticle;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default" : false})
+     */
+    private $popularArticle;
+
+    /**
      * @ORM\Column(type="string", length=20, nullable=true, options={"default" : "post"})
      */
     private $type;
@@ -472,6 +477,18 @@ class Post implements SoftDeletableInterface, TimestampableInterface
     public function setCity(?City $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getPopularArticle(): ?bool
+    {
+        return $this->popularArticle;
+    }
+
+    public function setPopularArticle(?bool $popularArticle): self
+    {
+        $this->popularArticle = $popularArticle;
 
         return $this;
     }
