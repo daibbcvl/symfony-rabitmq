@@ -27,7 +27,12 @@ class PostRepository extends ServiceEntityRepository
 
     public function getHomePageArticles($limit = 5)
     {
-        return $this->findBy(['showHomePage' => true, 'type' => 'post'], ['publishedAt' => 'ASC'], $limit);
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        $queryBuilder->select(['p.id', 'p.title', 'p.summary', 'p.thumbUrl', 'p.slug', 'p.createdAt', 'p.publishedAt'])
+            ->where('p.showHomePage = true')
+            ->andWhere("p.type = 'post'");
+        return $queryBuilder->getQuery()->setMaxResults($limit)->getResult();
     }
 
     public function getArchiveArticles($year, $month, $limit = 20)
@@ -120,5 +125,14 @@ class PostRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $query->execute();
+    }
+
+    public function getPopularArticle()
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        $queryBuilder->select(['p.id', 'p.title', 'p.summary', 'p.thumbUrl'])
+            ->where('p.popularArticle = true');
+        return $queryBuilder->getQuery()->getSingleResult();
     }
 }
