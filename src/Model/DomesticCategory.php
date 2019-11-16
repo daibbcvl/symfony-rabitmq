@@ -14,6 +14,27 @@ class DomesticCategory
     /** @var string */
     private $name;
 
+    /** @var string */
+    private $slug;
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return DomesticCategory
+     */
+    public function setSlug(string $slug): DomesticCategory
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
     /**
      * @return string
      */
@@ -52,10 +73,12 @@ class DomesticCategory
     /**
      * DomesticCategory constructor.
      * @param string $name
+     * @param string $slug
      */
-    public function __construct(string $name)
+    public function __construct(string $name, string $slug)
     {
         $this->name = $name;
+        $this->slug = $slug;
     }
 
     /**

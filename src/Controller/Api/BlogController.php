@@ -110,7 +110,7 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/api/post/related-aticle/{id}", name="api_relayed_article")
+     * @Route("/api/post/related-aticle/{id}", name="api_related_article")
      *
      * @param Post           $post
      * @param PostRepository $postRepository

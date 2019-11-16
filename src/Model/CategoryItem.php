@@ -16,6 +16,27 @@ class CategoryItem
     /** @var string */
     private $name;
 
+    /** @var string */
+    private $slug;
+
+    /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return CategoryItem
+     */
+    public function setSlug(string $slug): CategoryItem
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
     /**
      * @return string
      */

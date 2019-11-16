@@ -37,19 +37,23 @@ class CategoryController extends AbstractController
         $middleCategory = $categoryRepository->findOneByCategorySlug('mien-trung');
         $southCategory = $categoryRepository->findOneByCategorySlug('mien-nam');
 
-        $domesticCategoryResult = new DomesticCategory($domesticCategory->getName());
+        $domesticCategoryResult = new DomesticCategory($domesticCategory->getName(), $domesticCategory->getCategorySlug());
         $north = new CategoryItem($northCategory->getName());
+        $north->setSlug($northCategory->getCategorySlug());
         $north->setPosts($postRepository->getPostByCategory($northCategory, 3));
 
         $middle = new CategoryItem($middleCategory->getName());
         $middle->setPosts($postRepository->getPostByCategory($middleCategory, 3));
+        $middle->setSlug($middleCategory->getCategorySlug());
 
         $south = new CategoryItem($southCategory->getName());
         $south->setPosts($postRepository->getPostByCategory($southCategory, 3));
+        $south->setSlug($southCategory->getCategorySlug());
 
         $domesticCategoryResult->addItem($north);
         $domesticCategoryResult->addItem($middle);
         $domesticCategoryResult->addItem($south);
+
 
         $response = $this->json($this->toJsonSerializable($domesticCategoryResult));
         $response->headers->set('Content-Type', 'application/json');
