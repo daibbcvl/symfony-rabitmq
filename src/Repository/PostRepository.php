@@ -144,11 +144,11 @@ class PostRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->setMaxResults($limit)->getResult();
     }
 
-    public function getArticleDetailsBySlug(string $slug)
+    public function getArticleDetailsById(Post $post)
     {
         $queryBuilder = $this->createQueryBuilder('p');
         $queryBuilder->select(['p.id', 'p.title', 'p.summary', 'p.thumbUrl', 'p.content', 'p.lang', 'p.allowComment', 'p.commentCount', 'p.viewerCount', 'p.titleSeo', 'p.meta', 'p.keyword', 'p.publishedAt'])
-            ->where('p.slug = :slug')->setParameter('slug', $slug);
+            ->where('p.id = :id')->setParameter('id', $post);
         return $queryBuilder->getQuery()->getSingleResult();
     }
 
@@ -171,7 +171,7 @@ class PostRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->setMaxResults($limit)->getResult();
     }
 
-    public function getLatestArticles($limit = 4)
+    public function getLatestArticles($limit = 5)
     {
         $queryBuilder = $this->createQueryBuilder('p');
 

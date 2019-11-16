@@ -91,18 +91,18 @@ class BlogController extends AbstractController
 
         return $response;
     }
-    
+
     /**
-     * @Route("/api/post/article/{slug}", name="api_article_details")
+     * @Route("/api/post/article/{id}", name="api_article_details")
      *
-     * @param string         $slug
+     * @param Post           $post
      * @param PostRepository $postRepository
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function details(string $slug, PostRepository $postRepository)
+    public function details(Post $post, PostRepository $postRepository)
     {
-        $response = $this->json($this->toJsonSerializable($postRepository->getArticleDetailsBySlug($slug)));
+        $response = $this->json($this->toJsonSerializable($postRepository->getArticleDetailsById($post)));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
