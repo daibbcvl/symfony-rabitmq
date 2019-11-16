@@ -37,7 +37,11 @@ class BlogController extends AbstractController
      */
     public function featured(PostRepository $postRepository)
     {
-        return $this->json($this->toJsonSerializable($postRepository->getFeaturedArticle()));
+        $response = $this->json($this->toJsonSerializable($postRepository->getFeaturedArticle()));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
@@ -49,7 +53,11 @@ class BlogController extends AbstractController
      */
     public function popular(PostRepository $postRepository)
     {
-        return $this->json($this->toJsonSerializable($postRepository->getPopularArticles()));
+        $response = $this->json($this->toJsonSerializable($postRepository->getPopularArticles()));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
@@ -61,7 +69,11 @@ class BlogController extends AbstractController
      */
     public function homePage(PostRepository $postRepository)
     {
-        return $this->json($this->toJsonSerializable($postRepository->getHomePageArticles()));
+        $response = $this->json($this->toJsonSerializable($postRepository->getHomePageArticles()));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
@@ -73,11 +85,15 @@ class BlogController extends AbstractController
      */
     public function latest(PostRepository $postRepository)
     {
-        return $this->json($this->toJsonSerializable($postRepository->getLatestArticles()));
+        $response =  $this->json($this->toJsonSerializable($postRepository->getLatestArticles()));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
     
     /**
-     * @Route("/api/post/{slug}", name="api_article_details")
+     * @Route("/api/post/article/{slug}", name="api_article_details")
      *
      * @param string         $slug
      * @param PostRepository $postRepository
@@ -86,7 +102,11 @@ class BlogController extends AbstractController
      */
     public function details(string $slug, PostRepository $postRepository)
     {
-        return $this->json($this->toJsonSerializable($postRepository->getArticleDetailsBySlug($slug)));
+        $response = $this->json($this->toJsonSerializable($postRepository->getArticleDetailsBySlug($slug)));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
@@ -95,12 +115,17 @@ class BlogController extends AbstractController
      * @param Post           $post
      * @param PostRepository $postRepository
      *
+     * @param Request        $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
     public function related(Post $post, PostRepository $postRepository, Request $request)
     {
         $limit = $request->get('limit', 10);
-        return $this->json($this->toJsonSerializable($postRepository->getRelatedArticles($post, $limit)));
+        $response =  $this->json($this->toJsonSerializable($postRepository->getRelatedArticles($post, $limit)));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
 }

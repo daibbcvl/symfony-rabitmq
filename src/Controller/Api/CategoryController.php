@@ -51,7 +51,11 @@ class CategoryController extends AbstractController
         $domesticCategoryResult->addItem($middle);
         $domesticCategoryResult->addItem($south);
 
-        return $this->json($this->toJsonSerializable($domesticCategoryResult));
+        $response = $this->json($this->toJsonSerializable($domesticCategoryResult));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
     /**
@@ -69,7 +73,11 @@ class CategoryController extends AbstractController
         $abroad = new CategoryItem($abroadCategory->getName());
         $abroad->setPosts($postRepository->getPostByCategory($abroadCategory, 3));
 
-        return $this->json($this->toJsonSerializable($abroad));
+        $response = $this->json($this->toJsonSerializable($abroad));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
     }
 
 
