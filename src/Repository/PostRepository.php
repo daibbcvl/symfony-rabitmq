@@ -131,7 +131,8 @@ class PostRepository extends ServiceEntityRepository
         $queryBuilder = $this->createQueryBuilder('p');
         $queryBuilder->select(['p.id', 'p.title', 'p.summary', 'p.thumbUrl'])
             ->where('p.featuredArticle = true');
-        return $queryBuilder->getQuery()->getSingleResult();
+
+        return \count($queryBuilder->getQuery()->getResult()) ? $queryBuilder->getQuery()->getSingleResult() : null;
     }
 
     public function getPostByCategory($category, $limit)
