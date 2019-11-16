@@ -73,8 +73,8 @@ class PostController extends AbstractController
             $post->setAuthor($this->getUser())->setType('post');
             $entityManager->persist($post);
             $entityManager->flush();
-            if ($post->getPopularArticle()) {
-                $postRepository->resetPopularArticles($post->getId());
+            if ($post->getFeaturedArticle()) {
+                $postRepository->resetFeaturedArticles($post->getId());
             }
 
             $this->addFlash('success', 'Create category successfully.');
@@ -120,10 +120,9 @@ class PostController extends AbstractController
             }
             $post->setThumbUrl($fileName);
             $post->setAuthor($this->getUser());
-            //dump($post); die;
             $entityManager->flush();
-            if ($post->getPopularArticle()) {
-                $postRepository->resetPopularArticles($post->getId());
+            if ($post->getFeaturedArticle()) {
+                $postRepository->resetFeaturedArticles($post->getId());
             }
             $this->addFlash('success', 'Edit post successfully.');
 

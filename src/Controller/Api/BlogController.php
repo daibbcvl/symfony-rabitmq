@@ -29,15 +29,27 @@ class BlogController extends AbstractController
     }
 
     /**
-     * @Route("/api/post/poppular-article", name="api_poppular_article")
+     * @Route("/api/post/featured-article", name="api_featured_article")
      *
      * @param PostRepository $postRepository
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function index(PostRepository $postRepository)
+    public function featured(PostRepository $postRepository)
     {
-        return $this->json($this->toJsonSerializable($postRepository->getPopularArticle()));
+        return $this->json($this->toJsonSerializable($postRepository->getFeaturedArticle()));
+    }
+
+    /**
+     * @Route("/api/post/popular-articles", name="api_popular_articles")
+     *
+     * @param PostRepository $postRepository
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function popular(PostRepository $postRepository)
+    {
+        return $this->json($this->toJsonSerializable($postRepository->getPopularArticles()));
     }
 
     /**
@@ -50,6 +62,45 @@ class BlogController extends AbstractController
     public function homePage(PostRepository $postRepository)
     {
         return $this->json($this->toJsonSerializable($postRepository->getHomePageArticles()));
+    }
+
+    /**
+     * @Route("/api/post/latest-aticles", name="api_latest_articles")
+     *
+     * @param PostRepository $postRepository
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function latest(PostRepository $postRepository)
+    {
+        return $this->json($this->toJsonSerializable($postRepository->getLatestArticles()));
+    }
+    
+    /**
+     * @Route("/api/post/{slug}", name="api_article_details")
+     *
+     * @param string         $slug
+     * @param PostRepository $postRepository
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function details(string $slug, PostRepository $postRepository)
+    {
+        return $this->json($this->toJsonSerializable($postRepository->getArticleDetailsBySlug($slug)));
+    }
+
+    /**
+     * @Route("/api/post/related-aticle/{id}", name="api_relayed_article")
+     *
+     * @param Post           $post
+     * @param PostRepository $postRepository
+     *
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function related(Post $post, PostRepository $postRepository, Request $request)
+    {
+        $limit = $request->get('limit', 10);
+        return $this->json($this->toJsonSerializable($postRepository->getRelatedArticles($post, $limit)));
     }
 
 }
