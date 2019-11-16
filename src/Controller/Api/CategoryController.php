@@ -75,6 +75,7 @@ class CategoryController extends AbstractController
         $abroadCategory = $categoryRepository->findOneByCategorySlug('di-nuoc-ngoai');
 
         $abroad = new CategoryItem($abroadCategory->getName());
+        $abroad->setSlug($abroadCategory->getCategorySlug());
         $abroad->setPosts($postRepository->getPostByCategory($abroadCategory, 3));
 
         $response = $this->json($this->toJsonSerializable($abroad));
