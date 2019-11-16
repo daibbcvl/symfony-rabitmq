@@ -63,7 +63,6 @@ class DocumentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $file */
             $file = $form->get('url')->getData();
-
             if ($file) {
                 $fileName = $file->getClientOriginalName();
                 try {
@@ -73,6 +72,19 @@ class DocumentController extends AbstractController
                 }
                 $document->setUrl($fileName);
             }
+
+            /** @var UploadedFile $file */
+            $coverImage = $form->get('coverImage')->getData();
+            if ($coverImage) {
+                $fileName = $coverImage->getClientOriginalName();
+                try {
+                    $coverImage->move($this->getParameter('document_dir'), $fileName);
+                } catch (FileException $e) {
+                    $logger->error('UPLOAD_ERRORS:'.$e->getMessage());
+                }
+                $document->setCoverImage($fileName);
+            }
+
             $entityManager->persist($document);
             $entityManager->flush();
 
@@ -117,6 +129,20 @@ class DocumentController extends AbstractController
                 }
             };
             $document->setUrl($fileName);
+
+            /** @var UploadedFile $coverFile */
+            $coverFile = $form->get('coverImage')->getData();
+            $coverImageName = $entityManager->getUnitOfWork()->getOriginalEntityData($document)['coverImage'];
+            if ($coverFile) {
+                $coverImageName = $coverFile->getClientOriginalName();
+                try {
+                    $coverFile->move($this->getParameter('document_dir'), $coverImageName);
+                } catch (FileException $e) {
+                    $logger->error('UPLOAD_ERRORS:'.$e->getMessage());
+                }
+            };
+            $document->setCoverImage($coverImageName);
+
             $entityManager->flush();
             $this->addFlash('success', 'Edit document successfully.');
 

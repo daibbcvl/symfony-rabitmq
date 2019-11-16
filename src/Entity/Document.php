@@ -31,6 +31,16 @@ class Document
      */
     private $url;
 
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $coverImage;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true, options={"default" : false})
+     */
+    private $showHomePage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,6 +78,30 @@ class Document
     public function setUrl(?string $url): self
     {
         $this->url = $url;
+
+        return $this;
+    }
+
+    public function getCoverImage(): ?string
+    {
+        return $this->coverImage;
+    }
+
+    public function setCoverImage(?string $coverImage): self
+    {
+        $this->coverImage = $coverImage;
+
+        return $this;
+    }
+
+    public function getShowHomePage(): ?bool
+    {
+        return $this->showHomePage;
+    }
+
+    public function setShowHomePage(?bool $showHomePage): self
+    {
+        $this->showHomePage = $showHomePage;
 
         return $this;
     }

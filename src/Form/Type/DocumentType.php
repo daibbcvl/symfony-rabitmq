@@ -3,7 +3,9 @@
 namespace App\Form\Type;
 
 use App\Entity\Document;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -30,18 +32,24 @@ class DocumentType extends AbstractType
             ->add('title', TextType::class, [
                 'constraints' => new NotBlank(),
             ])
-
-            ->add('description', TextareaType::class, [
-                'constraints' => new NotBlank(),
-            ])
-
+            ->add('description', CKEditorType::class, [
+                'config' => [
+                    'uiColor' => '#ffffff',
+                    'entities_latin' => false,
+                ],])
             ->add('url', FileType::class, [
                 'label' => 'Document',
                 'attr' => ['accept' => '.pdf,.doc,.docx'],
                 'data' => null,
                 'required' => false,
             ])
-
+            ->add('coverImage', FileType::class, [
+                'data' => null,
+                'required' => false,
+            ])
+            ->add('showHomePage', CheckboxType::class, [
+                'required' => false,
+            ])
         ;
     }
 }

@@ -60,7 +60,6 @@ class PostController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UploadedFile $file */
             $file = $form->get('thumbUrl')->getData();
-
             if ($file) {
                 $fileName = $file->getClientOriginalName();
                 try {

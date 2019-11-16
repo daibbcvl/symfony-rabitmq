@@ -39,6 +39,17 @@
                             </div>
                         </div>
                     </div>
+                    <div>
+                        {{ form_row(form.coverImage) }}
+                        <div class="form-group row">
+                            <div class="col-form-label col-sm-3"></div>
+                            <div class="col-sm-9">
+                                {% if post.coverImage is not empty %}
+                                    <a target="_blank" href="{{ asset('./uploads/document/') ~ post.coverImage }}">{{ post.coverImage }}</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                     {{ form_widget(form) }}
                     <div class="form-group row">
                         <div class="col-sm-9 offset-sm-3">
