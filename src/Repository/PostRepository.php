@@ -6,6 +6,7 @@ use App\Entity\City;
 use App\Entity\Post;
 use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use function foo\func;
 use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Pagerfanta;
 use Symfony\Bridge\Doctrine\RegistryInterface;
@@ -143,7 +144,7 @@ class PostRepository extends ServiceEntityRepository
         return \count($queryBuilder->getQuery()->getResult()) ? $queryBuilder->getQuery()->getSingleResult() : null;
     }
 
-    public function     getPostByCategory($category, $limit)
+    public function getPostByCategory($category, $limit)
     {
         $queryBuilder = $this->createQueryBuilder('p');
         $queryBuilder->select(['p.id', 'p.title', 'p.summary', 'p.thumbUrl', 'p.slug', 'p.createdAt', 'p.publishedAt'])
@@ -160,12 +161,58 @@ class PostRepository extends ServiceEntityRepository
         return $queryBuilder->getQuery()->getSingleResult();
     }
 
+    /**
+     * GET article same tag
+     * @param Post $post
+     * @param      $limit
+     * @return array|mixed
+     * @throws \Doctrine\DBAL\DBALException
+     */
     public function getRelatedArticles(Post $post, $limit)
+    {
+        $conn = $this->getEntityManager()->getConnection();
+        $sql = "
+        SELECT post_id FROM post_tag 
+        WHERE tag_id IN (:tags) AND post_id != :id 
+        ORDER BY post_id ASC LIMIT $limit";
+        $stmt = $conn->prepare($sql);
+        $tags = [];
+        foreach ($post->getTags() as $tag) {
+            $tags [] = $tag->getId();
+        }
+        $stmt->execute([
+            'tags' => implode(',', $tags),
+            'id' => $post->getId()
+        ]);
+
+        $ids = $stmt->fetchAll();
+        if (!\count($ids)) {
+            return [];
+        }
+        $postIds = [];
+        foreach ($ids as $id) {
+            $postIds[] = $id['post_id'];
+        }
+
+        $queryBuilder = $this->createQueryBuilder('p');
+        $queryBuilder->select(['p.id', 'p.title', 'p.slug', 'p.createdAt', 'p.publishedAt'])
+            ->where('p.id IN (:ids)')->setParameter('ids', $postIds);
+        return $queryBuilder->getQuery()->setMaxResults($limit)->getResult();
+    }
+
+    /**
+     * GET list article same category
+     * @param Post $post
+     * @param      $limit
+     * @return array|mixed
+     */
+    public function getArticlesInSameCategory(Post $post, $limit)
     {
         $queryBuilder = $this->createQueryBuilder('p');
         $queryBuilder->select(['p.id', 'p.title', 'p.slug', 'p.createdAt', 'p.publishedAt'])
-            ->where('p.category = :category')->setParameter('category', $post->getCategory())
-            ->andWhere('p.id != :id')->setParameter('id', $post->getId());
+            ->where('p.id != :id')->setParameter('id', $post->getId())
+            ->andWhere('p.category = :category')->setParameter('category', $post->getCategory());
+
         return $queryBuilder->getQuery()->setMaxResults($limit)->getResult();
     }
 

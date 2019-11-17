@@ -129,4 +129,23 @@ class BlogController extends AbstractController
         return $response;
     }
 
+    /**
+     * @Route("/api/post/aticle-same-category/{id}", name="api_article_same_category")
+     *
+     * @param Post           $post
+     * @param PostRepository $postRepository
+     *
+     * @param Request        $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function articleSameCategory(Post $post, PostRepository $postRepository, Request $request)
+    {
+        $limit = $request->get('limit', 10);
+        $response =  $this->json($this->toJsonSerializable($postRepository->getArticlesInSameCategory($post, $limit)));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }
+
 }
