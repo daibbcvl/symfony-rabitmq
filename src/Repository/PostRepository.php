@@ -86,11 +86,19 @@ class PostRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('p');
 
+        if (isset($criteria['categorySlug'])) {
+            $queryBuilder->join('p.category', 'category')
+                ->andWhere('category.categorySlug = :slug')
+                ->setParameter('slug', $criteria['categorySlug']);
+            unset($criteria['categorySlug']);
+        }
+
         foreach ($criteria as $field => $value) {
             if (null !== $value) {
                 $queryBuilder->andWhere("p.$field = :$field")->setParameter($field, $value);
             }
         }
+
         $adapter = new DoctrineORMAdapter($queryBuilder);
 
         return new Pagerfanta($adapter);
@@ -135,7 +143,7 @@ class PostRepository extends ServiceEntityRepository
         return \count($queryBuilder->getQuery()->getResult()) ? $queryBuilder->getQuery()->getSingleResult() : null;
     }
 
-    public function getPostByCategory($category, $limit)
+    public function     getPostByCategory($category, $limit)
     {
         $queryBuilder = $this->createQueryBuilder('p');
         $queryBuilder->select(['p.id', 'p.title', 'p.summary', 'p.thumbUrl', 'p.slug', 'p.createdAt', 'p.publishedAt'])
@@ -179,5 +187,22 @@ class PostRepository extends ServiceEntityRepository
             ->andWhere("p.type = 'post'")
             ->orderBy('p.publishedAt', 'DESC');
         return $queryBuilder->getQuery()->setMaxResults($limit)->getResult();
+    }
+
+    /**
+     * @param array $criteria
+     * @param array $sort
+     *
+     * @return Pagerfanta
+     */
+    public function searchABC(array $criteria, array $sort): Pagerfanta
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+        //$queryBuilder->select(['p.id', 'p.title', 'p.summary', 'p.thumbUrl', 'p.slug', 'p.createdAt', 'p.publishedAt']);
+
+
+        $adapter = new DoctrineORMAdapter($queryBuilder);
+
+        return new Pagerfanta($adapter);
     }
 }

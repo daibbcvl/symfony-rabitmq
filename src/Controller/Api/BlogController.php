@@ -8,6 +8,7 @@ use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
 use App\Form\Site\CommentType;
+use App\Model\Article;
 use App\Repository\CategoryRepository;
 use App\Repository\CityRepository;
 use App\Repository\CommentRepository;
@@ -96,13 +97,13 @@ class BlogController extends AbstractController
      * @Route("/api/post/article/{id}", name="api_article_details")
      *
      * @param Post           $post
-     * @param PostRepository $postRepository
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function details(Post $post, PostRepository $postRepository)
+    public function details(Post $post)
     {
-        $response = $this->json($this->toJsonSerializable($postRepository->getArticleDetailsById($post)));
+        $article = new Article($post);
+        $response = $this->json($this->toJsonSerializable($article));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
