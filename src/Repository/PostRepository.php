@@ -93,6 +93,14 @@ class PostRepository extends ServiceEntityRepository
                 ->setParameter('slug', $criteria['categorySlug']);
             unset($criteria['categorySlug']);
         }
+        if (isset($criteria['tag'])) {
+            $orX = $queryBuilder->expr()->orX();
+            $orX->add(':tag MEMBER OF p.tags');
+            $queryBuilder
+                ->leftJoin('p.tags', 'tags')
+                ->andWhere($orX)->setParameter('tag', $criteria['tag']);
+            unset($criteria['tag']);
+        }
 
         foreach ($criteria as $field => $value) {
             if (null !== $value) {

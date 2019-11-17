@@ -118,6 +118,7 @@ class BlogController extends AbstractController
      *
      * @param Request        $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
+     * @throws \Doctrine\DBAL\DBALException
      */
     public function related(Post $post, PostRepository $postRepository, Request $request)
     {

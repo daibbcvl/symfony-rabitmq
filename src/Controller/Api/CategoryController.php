@@ -63,72 +63,17 @@ class CategoryController extends AbstractController
     }
 
     /**
-     * @Route("/api/categories/abroad", name="api_category_abroad")
+     * @Route("/api/categories/{categorySlug}", name="api_category_abroad")
      *
+     * @param Category       $category
      * @param PostRepository $postRepository
      *
      * @param Request        $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function abroad(PostRepository $postRepository, Request $request)
+    public function abroad(Category $category, PostRepository $postRepository, Request $request)
     {
-        $result = $this->getArea('di-nuoc-ngoai', $request, $postRepository);
-        $response = $this->json($this->toJsonSerializable($result));
-        $response->headers->set('Content-Type', 'application/json');
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-
-        return $response;
-    }
-
-    /**
-     * @Route("/api/categories/mien-bac", name="api_category_north")
-     *
-     * @param PostRepository $postRepository
-     *
-     * @param Request        $request
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function north(PostRepository $postRepository, Request $request)
-    {
-        $result = $this->getArea('mien-bac', $request, $postRepository);
-        $response = $this->json($this->toJsonSerializable($result));
-        $response->headers->set('Content-Type', 'application/json');
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-
-        return $response;
-    }
-
-    /**
-     * @Route("/api/categories/mien-trung", name="api_category_middle")
-     *
-     * @param PostRepository $postRepository
-     *
-     * @param Request        $request
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function middle(PostRepository $postRepository, Request $request)
-    {
-        $result = $this->getArea('mien-trung', $request, $postRepository);
-
-        $response = $this->json($this->toJsonSerializable($result));
-        $response->headers->set('Content-Type', 'application/json');
-        $response->headers->set('Access-Control-Allow-Origin', '*');
-
-        return $response;
-    }
-
-    /**
-     * @Route("/api/categories/mien-nam", name="api_category_south")
-     *
-     * @param PostRepository $postRepository
-     *
-     * @param Request        $request
-     * @return \Symfony\Component\HttpFoundation\JsonResponse
-     */
-    public function south(PostRepository $postRepository, Request $request)
-    {
-        $result = $this->getArea('mien-nam', $request, $postRepository);
-
+        $result = $this->getArea($category->getCategorySlug(), $request, $postRepository);
         $response = $this->json($this->toJsonSerializable($result));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
