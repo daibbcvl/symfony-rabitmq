@@ -91,19 +91,13 @@ class Article
     /** @var Tag[] */
     private $tags;
 
-
-    /***
-     * @var Post
-     */
-    private $post;
-
     /**
      * Article constructor.
      * @param Post $post
      */
     public function __construct(Post $post)
     {
-        $this->post = $post;
+        $this->id = $post->getId();
         $this->title = $post->getTitle();
         $this->summary = $post->getSummary();
         $this->thumbUrl = $post->getThumbUrl();
