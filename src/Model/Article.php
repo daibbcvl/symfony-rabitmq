@@ -121,7 +121,7 @@ class Article
         $this->category = new CategoryItem($post->getCategory()->getName());
         $this->category->setSlug($post->getCategory()->getCategorySlug());
 
-        foreach ($post->getTags() as $tag){
+        foreach ($post->getTags() as $tag) {
             $tagItem = new Tag();
             $tagItem->setName($tag->getName())->setSlug($tag->getTagSlug());
             $this->tags[] = $tagItem;
@@ -131,6 +131,10 @@ class Article
     public function minimizeAttributes()
     {
         $this->content = null;
+        $this->summary = null;
+        $this->meta = null;
+        $this->keyword = null;
+        $this->titleSeo = null;
     }
 
     /**
@@ -170,9 +174,9 @@ class Article
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSummary(): string
+    public function getSummary(): ?string
     {
         return $this->summary;
     }
@@ -181,7 +185,7 @@ class Article
      * @param string $summary
      * @return Article
      */
-    public function setSummary(string $summary): Article
+    public function setSummary(?string $summary): Article
     {
         $this->summary = $summary;
         return $this;
@@ -296,9 +300,9 @@ class Article
     }
 
     /**
-     * @return string
+     * @return string|null;
      */
-    public function getTitleSeo(): string
+    public function getTitleSeo(): ?string
     {
         return $this->titleSeo;
     }
@@ -307,16 +311,17 @@ class Article
      * @param string $titleSeo
      * @return Article
      */
-    public function setTitleSeo(string $titleSeo): Article
+    public function setTitleSeo(?string $titleSeo): Article
     {
         $this->titleSeo = $titleSeo;
+
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMeta(): string
+    public function getMeta(): ?string
     {
         return $this->meta;
     }
@@ -325,16 +330,16 @@ class Article
      * @param string $meta
      * @return Article
      */
-    public function setMeta(string $meta): Article
+    public function setMeta(?string $meta): Article
     {
         $this->meta = $meta;
         return $this;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getKeyword(): string
+    public function getKeyword(): ?string
     {
         return $this->keyword;
     }
@@ -343,7 +348,7 @@ class Article
      * @param string $keyword
      * @return Article
      */
-    public function setKeyword(string $keyword): Article
+    public function setKeyword(?string $keyword): Article
     {
         $this->keyword = $keyword;
         return $this;

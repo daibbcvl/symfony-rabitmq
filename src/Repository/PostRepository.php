@@ -203,7 +203,7 @@ class PostRepository extends ServiceEntityRepository
         }
 
         $queryBuilder = $this->createQueryBuilder('p');
-        $queryBuilder->select(['p.id', 'p.title', 'p.slug', 'p.createdAt', 'p.publishedAt'])
+        $queryBuilder->select(['p.id', 'p.title', 'p.slug','p.thumbUrl', 'p.createdAt', 'p.publishedAt'])
             ->where('p.id IN (:ids)')->setParameter('ids', $postIds);
         return $queryBuilder->getQuery()->setMaxResults($limit)->getResult();
     }
@@ -217,7 +217,7 @@ class PostRepository extends ServiceEntityRepository
     public function getArticlesInSameCategory(Post $post, $limit)
     {
         $queryBuilder = $this->createQueryBuilder('p');
-        $queryBuilder->select(['p.id', 'p.title', 'p.slug', 'p.createdAt', 'p.publishedAt'])
+        $queryBuilder->select(['p.id', 'p.title', 'p.slug','p.thumbUrl', 'p.createdAt', 'p.publishedAt'])
             ->where('p.id != :id')->setParameter('id', $post->getId())
             ->andWhere('p.category = :category')->setParameter('category', $post->getCategory());
 

@@ -86,7 +86,14 @@ class BlogController extends AbstractController
      */
     public function latest(PostRepository $postRepository)
     {
-        $response =  $this->json($this->toJsonSerializable($postRepository->getLatestArticles()));
+        $results = [];
+        $posts = $postRepository->findBy(['type' => 'post'], ['publishedAt' => 'DESC'], 5);
+        foreach ($posts as $post) {
+            $article = new Article($post);
+            $article->minimizeAttributes();
+            $results[] = $article;
+        }
+        $response = $this->json($this->toJsonSerializable($results));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
@@ -96,7 +103,7 @@ class BlogController extends AbstractController
     /**
      * @Route("/api/post/article/{id}", name="api_article_details")
      *
-     * @param Post           $post
+     * @param Post $post
      *
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
@@ -123,7 +130,7 @@ class BlogController extends AbstractController
     public function related(Post $post, PostRepository $postRepository, Request $request)
     {
         $limit = $request->get('limit', 10);
-        $response =  $this->json($this->toJsonSerializable($postRepository->getRelatedArticles($post, $limit)));
+        $response = $this->json($this->toJsonSerializable($postRepository->getRelatedArticles($post, $limit)));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
@@ -142,7 +149,7 @@ class BlogController extends AbstractController
     public function articleSameCategory(Post $post, PostRepository $postRepository, Request $request)
     {
         $limit = $request->get('limit', 10);
-        $response =  $this->json($this->toJsonSerializable($postRepository->getArticlesInSameCategory($post, $limit)));
+        $response = $this->json($this->toJsonSerializable($postRepository->getArticlesInSameCategory($post, $limit)));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
