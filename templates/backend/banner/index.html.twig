@@ -1,0 +1,55 @@
+{% extends 'admin.html.twig' %}
+
+{#{% form_theme form with 'bootstrap_4_layout.html.twig' only %}#}
+
+{% set breadcrumbs = [{text: 'Banner'}, {text: 'List all banners'}] %}
+{% set quick_actions = [{icon: 'flaticon-list', text: 'List all banners'}, {icon: 'flaticon-add', url: path('document_create'), text: 'Create a document'}] %}
+
+{% block title %}List all banners{% endblock %}
+{% block subheader_title %}List all banners{% endblock %}
+{% block content %}
+
+
+    <div class="m-content">
+        <div class="m-portlet m-portlet--full-height m-portlet--tabs m--padding-30">
+            <div class="row">
+                <div class="col-lg-10 col-xl-10">
+                    {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <button class="btn btn-outline-primary m-btn m-btn--icon" type="submit"
+                            name="redirect_url" value="{{ path('document_index') }}">
+                        <i class="flaticon-list"></i>
+                        Upload
+                    </button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        <div class="m-portlet m-portlet--full-height m-portlet--tabs m--padding-30">
+            <div class="table-responsive-lg m-datatable m-datatable--default">
+                <table>
+                    {% for item in  files %}
+                        <tr>
+                            <td>{{ item }}</td>
+                            <td>
+                                <form action="{{ path('banner_delete', {fileName: item} ) }}" method="post"
+                                      class="m-nav__item">
+                                    <input type="hidden" name="_method" value="DELETE">
+                                    <button class="btn btn-link m-btn m-btn--icon m-nav__link confirm-action"
+                                            type="submit">
+                                        <i class="m-nav__link-icon flaticon-delete text-danger"></i>
+                                        <span class="m-nav__link-text text-danger text-left m--padding-left-15">Delete</span>
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% endfor %}
+
+                </table>
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

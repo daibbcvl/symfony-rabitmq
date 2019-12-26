@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Event\PostEvent;
 use App\Form\Site\CommentType;
 use App\Model\Article;
 use App\Repository\CategoryRepository;
@@ -15,6 +16,11 @@ use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcher;
+//use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -22,11 +28,14 @@ class BlogController extends AbstractController
 {
     private $categories;
     private $tags;
+    private $eventDispatcher;
 
-    public function __construct(CategoryRepository $categoryRepository, TagRepository $tagRepository)
+
+    public function __construct(CategoryRepository $categoryRepository, TagRepository $tagRepository, EventDispatcherInterface $eventDispatcher)
     {
         $this->categories = $categoryRepository->findAll();
         $this->tags = $tagRepository->findAll();
+        $this->eventDispatcher = $eventDispatcher;
     }
 
     /**
@@ -103,12 +112,22 @@ class BlogController extends AbstractController
     /**
      * @Route("/api/post/article/{id}", name="api_article_details")
      *
-     * @param Post $post
+     * @param Post    $post
      *
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function details(Post $post)
+    public function details(Post $post, Request $request)
     {
+        $ip = getenv('HTTP_CLIENT_IP') ?:
+            getenv('HTTP_X_FORWARDED_FOR') ?:
+                getenv('HTTP_X_FORWARDED') ?:
+                    getenv('HTTP_FORWARDED_FOR') ?:
+                        getenv('HTTP_FORWARDED') ?:
+                            getenv('REMOTE_ADDR');
+        $event = new PostEvent($post, $ip);
+        $this->eventDispatcher->dispatch(PostEvent::VIEW, $event);
+
         $article = new Article($post);
         $response = $this->json($this->toJsonSerializable($article));
         $response->headers->set('Content-Type', 'application/json');

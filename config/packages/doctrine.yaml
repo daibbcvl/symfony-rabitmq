@@ -36,4 +36,5 @@ doctrine:
                 JSON_CONTAINS: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonContains
                 MONTH: DoctrineExtensions\Query\Mysql\Month
                 YEAR: DoctrineExtensions\Query\Mysql\Year
+                TIMESTAMPDIFF: DoctrineExtensions\Query\Mysql\TimestampDiff
                 MATCH_AGAINST: App\Doctrine\Extension\MatchAgainst

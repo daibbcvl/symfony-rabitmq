@@ -7,6 +7,7 @@ parameters:
     locale: 'en'
     thumb_dir: '%kernel.project_dir%/public/uploads/thumbs'
     document_dir: '%kernel.project_dir%/public/uploads/document'
+    banner_dir: '%kernel.project_dir%/public/uploads/banner'
 
 services:
     # default configuration for services in *this* file
