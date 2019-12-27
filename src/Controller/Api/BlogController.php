@@ -175,4 +175,21 @@ class BlogController extends AbstractController
         return $response;
     }
 
+
+    /**
+     * @Route("/api/page/about-us", name="api_page_about_us")
+     *
+     * @param PostRepository $postRepository
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function aboutUs(PostRepository $postRepository)
+    {
+        $post = $postRepository->findOneBy(['slug' => 'about-us']);
+        $article = new Article($post);
+        $response = $this->json($this->toJsonSerializable($article));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }
 }
