@@ -109,11 +109,13 @@ class Article
         $this->titleSeo = $post->getTitleSeo();
         $this->meta = $post->getMeta();
         $this->keyword = $post->getKeyword();
-        $this->publishedAt = $post->getPublishedAt()->format('Y-m-d h:s:i');
+        $this->publishedAt = $post->getPublishedAt() ? $post->getPublishedAt()->format('Y-m-d h:s:i') : null;
         $this->slug = $post->getSlug();
 
-        $this->category = new CategoryItem($post->getCategory()->getName());
-        $this->category->setSlug($post->getCategory()->getCategorySlug());
+        $this->category = $post->getCategory() ? new CategoryItem($post->getCategory()->getName()) : null;
+        if($post->getCategory()){
+            $this->category->setSlug($post->getCategory()->getCategorySlug());
+        }
 
         foreach ($post->getTags() as $tag) {
             $tagItem = new Tag();
@@ -188,7 +190,7 @@ class Article
     /**
      * @return string
      */
-    public function getThumbUrl(): string
+    public function getThumbUrl(): ?string
     {
         return $this->thumbUrl;
     }
@@ -197,7 +199,7 @@ class Article
      * @param string $thumbUrl
      * @return Article
      */
-    public function setThumbUrl(string $thumbUrl): Article
+    public function setThumbUrl(?string $thumbUrl): Article
     {
         $this->thumbUrl = $thumbUrl;
         return $this;
@@ -351,7 +353,7 @@ class Article
     /**
      * @return string
      */
-    public function getPublishedAt(): string
+    public function getPublishedAt(): ?string
     {
         return $this->publishedAt;
     }
@@ -369,7 +371,7 @@ class Article
     /**
      * @return CategoryItem
      */
-    public function getCategory(): CategoryItem
+    public function getCategory(): ?CategoryItem
     {
         return $this->category;
     }
