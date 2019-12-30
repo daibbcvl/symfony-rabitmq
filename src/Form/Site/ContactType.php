@@ -16,6 +16,7 @@ class ContactType extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults([
+            'csrf_protection' => false
         ]);
     }
 

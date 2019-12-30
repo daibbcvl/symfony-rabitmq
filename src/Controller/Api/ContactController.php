@@ -7,6 +7,7 @@ use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
+use App\Exception\FormException;
 use App\Form\Site\CommentType;
 use App\Form\Site\ContactType;
 use App\Model\Article;
@@ -26,36 +27,41 @@ class ContactController extends AbstractController
 {
 
     /**
-     * @Route("/contact", name="contact")
+     * @Route("/api/contact", name="api_contact", methods={"GET", "POST"})
      *
      * @param Request                $request
-     * @param Post                   $post
      * @param EntityManagerInterface $manager
      * @param CommentRepository      $commentRepository
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function contact(Request $request, Post $post, EntityManagerInterface $manager, CommentRepository $commentRepository)
+    public function contact(Request $request, EntityManagerInterface $manager, CommentRepository $commentRepository)
     {
-        $response = new JsonResponse();
+        $json = $this->getJson($request);
         $form = $this->createForm(ContactType::class);
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $data = $form->getData();
+        $form->submit($json);
+        if (!$form->isValid()) {
 
-            $response->setData([
-                'success' => true
-            ]);
+
+        } else {
+            dd($form->getData());
         }
-        else{
-            $response->setData([
-                'error' => 400,
-                'message' => $this->toJsonSerializable($form->getErrors()
-            ]);
+        return new JsonResponse();
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return mixed
+     *
+     * @throws HttpException
+     */
+    private function getJson(Request $request)
+    {
+        $data = json_decode($request->getContent(), true);
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            throw new HttpException(400, 'Invalid json');
         }
-
-        return $response;
-
-
+        return $data;
     }
 }
