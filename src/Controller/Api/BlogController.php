@@ -2,22 +2,12 @@
 
 namespace App\Controller\Api;
 
-use App\Entity\Category;
-use App\Entity\Comment;
 use App\Entity\Post;
-use App\Entity\Tag;
-use App\Entity\User;
 use App\Event\PostEvent;
-use App\Form\Site\CommentType;
 use App\Model\Article;
 use App\Repository\CategoryRepository;
-use App\Repository\CityRepository;
-use App\Repository\CommentRepository;
 use App\Repository\PostRepository;
 use App\Repository\TagRepository;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
-//use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 
@@ -136,6 +126,34 @@ class BlogController extends AbstractController
         return $response;
     }
 
+
+    /**
+     * @Route("/api/post/article/{slug}", name="api_article_details")
+     *
+     * @param Post    $post
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function detailBySlug(Post $post, Request $request)
+    {
+        $ip = getenv('HTTP_CLIENT_IP') ?:
+            getenv('HTTP_X_FORWARDED_FOR') ?:
+                getenv('HTTP_X_FORWARDED') ?:
+                    getenv('HTTP_FORWARDED_FOR') ?:
+                        getenv('HTTP_FORWARDED') ?:
+                            getenv('REMOTE_ADDR');
+        $event = new PostEvent($post, $ip);
+        $this->eventDispatcher->dispatch(PostEvent::VIEW, $event);
+
+        $article = new Article($post);
+        $response = $this->json($this->toJsonSerializable($article));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }
+
     /**
      * @Route("/api/post/related-aticle/{id}", name="api_related_article")
      *
@@ -177,14 +195,15 @@ class BlogController extends AbstractController
 
 
     /**
-     * @Route("/api/page/about-us", name="api_page_about_us")
+     * @Route("/api/page/{slug}", name="api_page_about_us")
      *
+     * @param string         $slug
      * @param PostRepository $postRepository
      * @return \Symfony\Component\HttpFoundation\JsonResponse
      */
-    public function aboutUs(PostRepository $postRepository)
+    public function aboutUs(string $slug, PostRepository $postRepository)
     {
-        $post = $postRepository->findOneBy(['slug' => 'about-us']);
+        $post = $postRepository->findOneBy(['slug' => $slug]);
         $article = new Article($post);
         $response = $this->json($this->toJsonSerializable($article));
         $response->headers->set('Content-Type', 'application/json');

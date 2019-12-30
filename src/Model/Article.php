@@ -124,10 +124,12 @@ class Article
         }
     }
 
-    public function minimizeAttributes()
+    public function minimizeAttributes($keep = [])
     {
         $this->content = null;
-        $this->summary = null;
+        if(!isset($keep['summary'])){
+            $this->summary = null;
+        }
         $this->meta = null;
         $this->keyword = null;
         $this->titleSeo = null;

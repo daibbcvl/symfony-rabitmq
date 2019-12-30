@@ -43,7 +43,7 @@ class TagController extends AbstractController
         $items = [];
         foreach ($pager->getIterator() as $page) {
             $article = new Article($page);
-            $article->minimizeAttributes();
+            $article->minimizeAttributes(['summary' => true]);
             $items[] = $article;
         }
 
