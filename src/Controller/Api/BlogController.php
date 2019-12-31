@@ -37,7 +37,9 @@ class BlogController extends AbstractController
      */
     public function featured(PostRepository $postRepository)
     {
-        $response = $this->json($this->toJsonSerializable($postRepository->getFeaturedArticle()));
+        $post = $postRepository->findOneBy(['featuredArticle' => true]);
+        $article = new Article($post);
+        $response = $this->json($this->toJsonSerializable($article));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
@@ -53,7 +55,14 @@ class BlogController extends AbstractController
      */
     public function popular(PostRepository $postRepository)
     {
-        $response = $this->json($this->toJsonSerializable($postRepository->getPopularArticles()));
+        $results = [];
+        $posts = $postRepository->findBy(['type' => 'post', 'popularArticle' => true], ['publishedAt' => 'DESC'], 10);
+        foreach ($posts as $post) {
+            $article = new Article($post);
+            $article->minimizeAttributes(['summary' => true]);
+            $results[] = $article;
+        }
+        $response = $this->json($this->toJsonSerializable($results));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
