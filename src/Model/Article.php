@@ -130,7 +130,10 @@ class Article
         if(!isset($keep['summary'])){
             $this->summary = null;
         }
-        $this->meta = null;
+        if(!isset($keep['meta'])){
+            $this->meta = null;
+        }
+
         $this->keyword = null;
         $this->titleSeo = null;
     }

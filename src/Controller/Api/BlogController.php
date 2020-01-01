@@ -98,7 +98,7 @@ class BlogController extends AbstractController
         $posts = $postRepository->findBy(['type' => 'post'], ['publishedAt' => 'DESC'], 5);
         foreach ($posts as $post) {
             $article = new Article($post);
-            $article->minimizeAttributes();
+            $article->minimizeAttributes(['meta' => true]);
             $results[] = $article;
         }
         $response = $this->json($this->toJsonSerializable($results));
