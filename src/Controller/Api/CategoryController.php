@@ -128,7 +128,7 @@ class CategoryController extends AbstractController
      */
     public function category(Category $category, PostRepository $postRepository, Request $request)
     {
-        $result = $this->getArea($category->getCategorySlug(), $request, $postRepository);
+        $result = $this->getArea($category, $request, $postRepository);
         $response = $this->json($this->toJsonSerializable($result));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
@@ -136,12 +136,19 @@ class CategoryController extends AbstractController
         return $response;
     }
 
-    private function getArea(string $slug, Request $request, PostRepository $postRepository)
+    /**
+     * @param Category       $category
+     * @param Request        $request
+     * @param PostRepository $postRepository
+     * @return array
+     */
+    private function getArea(Category $category, Request $request, PostRepository $postRepository)
     {
         $page = $request->get('page', 1);
         $size = $request->get('size', 3);
         $sort = $request->get('sort', []);
-        $pager = $postRepository->search(['categorySlug' => $slug], $sort)->setMaxPerPage($size)->setCurrentPage($page);
+        $pager = $postRepository->search(['categorySlug' => $category->getCategorySlug()], $sort)->setMaxPerPage($size)->setCurrentPage($page);
+
         $items = [];
         foreach ($pager->getIterator() as $page) {
             $article = new Article($page);
@@ -159,6 +166,7 @@ class CategoryController extends AbstractController
         $result['currentPageOffsetStart'] = $pager->getCurrentPageOffsetStart();
         $result['currentPageOffsetEnd'] = $pager->getCurrentPageOffsetEnd();
         $result['items'] = $items;
+        $result['name'] = $category->getName();
 
         return $result;
     }
