@@ -36,11 +36,9 @@ class ContactController extends AbstractController
      * @param EntityManagerInterface $manager
      * @param CommentRepository      $commentRepository
      *
-     * @param MailerInterface        $mailer
      * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function contact(Request $request, EntityManagerInterface $manager, CommentRepository $commentRepository, MailerInterface $mailer)
+    public function contact(Request $request, EntityManagerInterface $manager, CommentRepository $commentRepository)
     {
         $json = $this->getJson($request);
         $form = $this->createForm(ContactType::class);
@@ -58,7 +56,7 @@ class ContactController extends AbstractController
                 ->html('<p>See Twig integration for better HTML integration!</p>');
 
             /** @var Symfony\Component\Mailer\SentMessage $sentEmail */
-            $sentEmail = $mailer->send($email);
+            //$sentEmail = $mailer->send($email);
 
             return new JsonResponse(
                 ['message' => 'Email was sent'],
