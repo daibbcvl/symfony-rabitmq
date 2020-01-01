@@ -58,7 +58,11 @@ class TagRepository extends ServiceEntityRepository
      */
     public function search(array $criteria, array $sort): Pagerfanta
     {
-        $queryBuilder = $this->createQueryBuilder('p');
+        $queryBuilder = $this->createQueryBuilder('t');
+        if(isset($criteria['name'])){
+            $queryBuilder->where('t.name LIKE :name')->setParameter('name', '%'.$criteria['name'].'%');
+        }
+
         $adapter = new DoctrineORMAdapter($queryBuilder);
 
         return new Pagerfanta($adapter);

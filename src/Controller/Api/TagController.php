@@ -22,6 +22,34 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TagController extends AbstractController
 {
+
+    /**
+     * @Route("/api/tag/search", name="api_tag_search")
+     *
+     * @param Request       $request
+     * @param TagRepository $repository
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function search( Request $request, TagRepository $repository)
+    {
+
+        $criteria['name'] = $request->get('name');
+        //dd($criteria);
+
+        $page = $request->get('page', 1);
+        $size = $request->get('size', 20);
+        $sort = $request->get('sort', ['name' => 'asc']);
+        $pager = $repository->search($criteria, $sort)->setMaxPerPage($size)->setCurrentPage($page);
+
+        //dd($pager);
+        $response = $this->json($this->toJsonSerializable($pager));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+
+    }
+
     /**
      * @Route("/api/tag/{tagSlug}", name="api_tag_slug")
      *
@@ -64,4 +92,7 @@ class TagController extends AbstractController
 
         return $response;
     }
+
+
+
 }

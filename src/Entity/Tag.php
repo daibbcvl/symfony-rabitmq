@@ -73,6 +73,7 @@ class Tag implements SoftDeletableInterface, TimestampableInterface, \JsonSerial
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'slug' => $this->tagSlug
         ];
     }
 }
