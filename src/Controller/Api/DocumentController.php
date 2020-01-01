@@ -4,6 +4,7 @@ namespace App\Controller\Api;
 
 use App\Entity\Category;
 use App\Entity\Comment;
+use App\Entity\Document;
 use App\Entity\Post;
 use App\Entity\Tag;
 use App\Entity\User;
@@ -39,4 +40,23 @@ class DocumentController extends AbstractController
 
         return $response;
     }
+
+    /**
+     * @Route("/api/document/{slug}", name="api_document_home_page")
+     *
+     * @param Document           $document
+     * @param DocumentRepository $documentRepository
+     * @param Request            $request
+     * @return \Symfony\Component\HttpFoundation\JsonResponse
+     */
+    public function details(Document $document,  DocumentRepository $documentRepository, Request $request)
+    {
+        $response = $this->json($this->toJsonSerializable($document));
+        $response->headers->set('Content-Type', 'application/json');
+        $response->headers->set('Access-Control-Allow-Origin', '*');
+
+        return $response;
+    }
+
+
 }

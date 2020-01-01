@@ -32,6 +32,11 @@ class Document
     private $url;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
+    /**
      * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $coverImage;
@@ -103,6 +108,24 @@ class Document
     {
         $this->showHomePage = $showHomePage;
 
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @param mixed $slug
+     * @return Document
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
         return $this;
     }
 }

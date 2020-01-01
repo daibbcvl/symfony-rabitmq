@@ -47,6 +47,9 @@ class DocumentType extends AbstractType
                 'data' => null,
                 'required' => false,
             ])
+            ->add('slug', TextType::class, [
+                'constraints' => new NotBlank(),
+            ])
             ->add('showHomePage', CheckboxType::class, [
                 'required' => false,
             ])
