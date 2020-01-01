@@ -21,6 +21,9 @@ use App\Repository\TagRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ContactController extends AbstractController
@@ -33,20 +36,44 @@ class ContactController extends AbstractController
      * @param EntityManagerInterface $manager
      * @param CommentRepository      $commentRepository
      *
+     * @param MailerInterface        $mailer
      * @return \Symfony\Component\HttpFoundation\Response
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function contact(Request $request, EntityManagerInterface $manager, CommentRepository $commentRepository)
+    public function contact(Request $request, EntityManagerInterface $manager, CommentRepository $commentRepository, MailerInterface $mailer)
     {
         $json = $this->getJson($request);
         $form = $this->createForm(ContactType::class);
         $form->submit($json);
-        if (!$form->isValid()) {
+        if ($form->isValid()) {
+            $email = (new Email())
+                ->from('test@example.com')
+                ->to('daibbcvl@yahoo.com')
+                //->cc('cc@example.com')
+                //->bcc('bcc@example.com')
+                //->replyTo('fabien@example.com')
+                //->priority(Email::PRIORITY_HIGH)
+                ->subject('Time for Symfony Mailer!')
+                ->text('Sending emails is fun again!')
+                ->html('<p>See Twig integration for better HTML integration!</p>');
 
+            /** @var Symfony\Component\Mailer\SentMessage $sentEmail */
+            $sentEmail = $mailer->send($email);
+
+            return new JsonResponse(
+                ['message' => 'Email was sent'],
+                Response::HTTP_OK
+            );
 
         } else {
-            dd($form->getData());
+            return new JsonResponse(
+                ['errors' => $this->getErrorsFromForm($form)],
+                Response::HTTP_BAD_REQUEST
+            );
+
+
         }
-        return new JsonResponse();
+
     }
 
     /**

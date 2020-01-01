@@ -4,10 +4,12 @@ namespace App\Form\Site;
 
 use App\Entity\Comment;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 class ContactType extends AbstractType
@@ -29,8 +31,11 @@ class ContactType extends AbstractType
             ->add('name', TextType::class, [
                 'constraints' => new NotBlank(),
             ])
-            ->add('email', TextType::class, [
-                'constraints' => new NotBlank(),
+            ->add('email', EmailType::class, [
+                'constraints' => [
+                    new Email(),
+                    new NotBlank(),
+                ],
             ])
             ->add('message', TextType::class, [
                 'constraints' => new NotBlank(),

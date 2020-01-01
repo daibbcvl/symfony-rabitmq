@@ -176,7 +176,15 @@ class BlogController extends AbstractController
     public function related(Post $post, PostRepository $postRepository, Request $request)
     {
         $limit = $request->get('limit', 10);
-        $response = $this->json($this->toJsonSerializable($postRepository->getRelatedArticles($post, $limit)));
+        $relatedPosts = $postRepository->getRelatedArticles($post, $limit);
+
+        $results = [];
+        foreach ($relatedPosts as $rp) {
+            $article = new Article($rp);
+            $article->minimizeAttributes(['summary' => true]);
+            $results[] = $article;
+        }
+        $response = $this->json($this->toJsonSerializable($results));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
@@ -195,7 +203,15 @@ class BlogController extends AbstractController
     public function articleSameCategory(Post $post, PostRepository $postRepository, Request $request)
     {
         $limit = $request->get('limit', 10);
-        $response = $this->json($this->toJsonSerializable($postRepository->getArticlesInSameCategory($post, $limit)));
+        $relatedPosts = $postRepository->getArticlesInSameCategory($post, $limit);
+
+        $results = [];
+        foreach ($relatedPosts as $rp) {
+            $article = new Article($rp);
+            $article->minimizeAttributes(['summary' => true]);
+            $results[] = $article;
+        }
+        $response = $this->json($this->toJsonSerializable($results));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
