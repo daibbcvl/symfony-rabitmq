@@ -93,7 +93,7 @@ class CategoryItem
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getDescription(): ?string
     {
         return $this->description;
     }
@@ -102,7 +102,7 @@ class CategoryItem
      * @param string $description
      * @return CategoryItem
      */
-    public function setDescription(string $description): CategoryItem
+    public function setDescription(?string $description): CategoryItem
     {
         $this->description = $description;
         return $this;
