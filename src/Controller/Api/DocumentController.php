@@ -42,7 +42,7 @@ class DocumentController extends AbstractController
     }
 
     /**
-     * @Route("/api/document/{slug}", name="api_document_home_page")
+     * @Route("/api/document/{slug}", name="api_document_details")
      *
      * @param Document           $document
      * @param DocumentRepository $documentRepository
