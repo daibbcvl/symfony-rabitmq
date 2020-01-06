@@ -35,22 +35,34 @@ class ContactController extends AbstractController
             $email->addContent("text/html", $this->renderView('front/contact.html.twig', $form->getData()));
             $sendgrid = new \SendGrid('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');
             try {
-                $response = $sendgrid->send($email);
-                return new JsonResponse(
+                $mailResponse = $sendgrid->send($email);
+                $response =  new JsonResponse(
                     ['message' => 'Email was sent'],
                     Response::HTTP_OK
                 );
+                $response->headers->set('Content-Type', 'application/json');
+                $response->headers->set('Access-Control-Allow-Origin', '*');
+
+                return $response;
             } catch (\Exception $e) {
-                return new JsonResponse(
+                $response =  new JsonResponse(
                     ['errors' => $e->getMessage()],
                     Response::HTTP_INTERNAL_SERVER_ERROR
                 );
+                $response->headers->set('Content-Type', 'application/json');
+                $response->headers->set('Access-Control-Allow-Origin', '*');
+
+                return $response;
             }
         } else {
-            return new JsonResponse(
+            $response =  new JsonResponse(
                 ['errors' => $this->getErrorsFromForm($form)],
                 Response::HTTP_BAD_REQUEST
             );
+            $response->headers->set('Content-Type', 'application/json');
+            $response->headers->set('Access-Control-Allow-Origin', '*');
+
+            return $response;
         }
 
     }

@@ -115,6 +115,7 @@ class Article
         $this->category = $post->getCategory() ? new CategoryItem($post->getCategory()->getName()) : null;
         if($post->getCategory()){
             $this->category->setSlug($post->getCategory()->getCategorySlug());
+            $this->category->setDescription($post->getCategory()->getDescription());
         }
 
         foreach ($post->getTags() as $tag) {

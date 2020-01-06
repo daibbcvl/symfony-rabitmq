@@ -16,6 +16,11 @@ class CategoryItem
     /** @var string */
     private $name;
 
+    /**
+     * @var string
+     */
+    private $description;
+
     /** @var string */
     private $slug;
 
@@ -85,5 +90,22 @@ class CategoryItem
         $this->name = $name;
     }
 
+    /**
+     * @return string
+     */
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param string $description
+     * @return CategoryItem
+     */
+    public function setDescription(string $description): CategoryItem
+    {
+        $this->description = $description;
+        return $this;
+    }
 
 }

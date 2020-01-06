@@ -165,8 +165,10 @@ class CategoryController extends AbstractController
         $result['nextPage'] = $pager->hasNextPage() ? $pager->getNextPage() : null;
         $result['currentPageOffsetStart'] = $pager->getCurrentPageOffsetStart();
         $result['currentPageOffsetEnd'] = $pager->getCurrentPageOffsetEnd();
-        $result['items'] = $items;
         $result['name'] = $category->getName();
+        $result['description'] = $category->getDescription();
+        $result['slug'] = $category->getCategorySlug();
+        $result['items'] = $items;
 
         return $result;
     }
