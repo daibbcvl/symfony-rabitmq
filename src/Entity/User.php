@@ -70,6 +70,11 @@ class User implements UserInterface
     private $lastName;
 
     /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private $stripeCustomerId;
+
+    /**
      * @return int
      */
     public function getId(): ?int
@@ -293,5 +298,17 @@ class User implements UserInterface
     public function getEnabled(): ?bool
     {
         return $this->enabled;
+    }
+
+    public function getStripeCustomerId(): ?string
+    {
+        return $this->stripeCustomerId;
+    }
+
+    public function setStripeCustomerId(?string $stripeCustomerId): self
+    {
+        $this->stripeCustomerId = $stripeCustomerId;
+
+        return $this;
     }
 }
