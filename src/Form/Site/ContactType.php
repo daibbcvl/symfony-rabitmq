@@ -31,6 +31,9 @@ class ContactType extends AbstractType
             ->add('name', TextType::class, [
                 'constraints' => new NotBlank(),
             ])
+            ->add('phone', TextType::class, [
+                'constraints' => new NotBlank(),
+            ])
             ->add('email', EmailType::class, [
                 'constraints' => [
                     new Email(),
