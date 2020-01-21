@@ -32,16 +32,12 @@ class TagController extends AbstractController
      */
     public function search( Request $request, TagRepository $repository)
     {
-
         $criteria['name'] = $request->get('name');
-        //dd($criteria);
 
         $page = $request->get('page', 1);
         $size = $request->get('size', 20);
         $sort = $request->get('sort', ['name' => 'asc']);
         $pager = $repository->search($criteria, $sort)->setMaxPerPage($size)->setCurrentPage($page);
-
-        //dd($pager);
         $response = $this->json($this->toJsonSerializable($pager));
         $response->headers->set('Content-Type', 'application/json');
         $response->headers->set('Access-Control-Allow-Origin', '*');
@@ -84,6 +80,7 @@ class TagController extends AbstractController
         $result['nextPage'] = $pager->hasNextPage() ? $pager->getNextPage() : null;
         $result['currentPageOffsetStart'] = $pager->getCurrentPageOffsetStart();
         $result['currentPageOffsetEnd'] = $pager->getCurrentPageOffsetEnd();
+        $result['name'] = $tag->getName();
         $result['items'] = $items;
 
         $response = $this->json($this->toJsonSerializable($result));
