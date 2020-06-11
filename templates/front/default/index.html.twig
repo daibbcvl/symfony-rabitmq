@@ -19,7 +19,7 @@
 
     {% for post in posts %}
         <div class="intro-box">
-            <div class="box-left"><img src="{{ asset('uploads/thumbs/'~post.thumbUrl)|imagine_filter('thumb_s') }}"></div>
+            <div class="box-left"></div>
             <div class="box-right">
                 <h3><a href="{{ path('blog_details', {slug:post.slug}) }}">{{ post.title }}</a></h3>
                 <p>{{ post.summary }}</p>
